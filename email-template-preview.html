@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Daily News / AI 日报 2026-04-14</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f5f5f5;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: #ffffff;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        /* 语言切换 */
+        .lang-switch {
+            background: #2c3e50;
+            padding: 12px 24px;
+            text-align: right;
+        }
+
+        .lang-btn {
+            color: #fff;
+            text-decoration: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 14px;
+            transition: background 0.3s;
+        }
+
+        .lang-btn:hover {
+            background: #34495e;
+        }
+
+        .lang-btn.active {
+            background: #3498db;
+        }
+
+        /* 内容区域 */
+        .content {
+            padding: 32px 24px;
+        }
+
+        /* 头部 */
+        .header {
+            text-align: center;
+            margin-bottom: 32px;
+            padding-bottom: 24px;
+            border-bottom: 2px solid #3498db;
+        }
+
+        .header h1 {
+            font-size: 28px;
+            color: #2c3e50;
+            margin-bottom: 8px;
+        }
+
+        .header .date {
+            color: #7f8c8d;
+            font-size: 14px;
+        }
+
+        /* 语言版本 */
+        .lang-section {
+            display: block;
+        }
+
+        .lang-section:target {
+            display: block;
+        }
+
+        /* 中文版 */
+        .cn-content {
+            display: block;
+        }
+
+        /* 英文版 */
+        .en-content {
+            display: none;
+        }
+
+        .lang-section:target ~ .en-content {
+            display: block;
+        }
+
+        .lang-section:target ~ .cn-content {
+            display: none;
+        }
+
+        /* 版本标题 */
+        .version-title {
+            font-size: 18px;
+            color: #2c3e50;
+            margin-bottom: 16px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .version-title.en {
+            display: none;
+        }
+
+        .lang-section:target ~ .en-content .version-title.en {
+            display: block;
+        }
+
+        .lang-section:target ~ .en-content .version-title.cn {
+            display: none;
+        }
+
+        .lang-section:target ~ .cn-content .version-title.en {
+            display: none;
+        }
+
+        .lang-section:target ~ .cn-content .version-title.cn {
+            display: block;
+        }
+
+        /* 链接卡片 */
+        .link-section {
+            margin: 24px 0;
+        }
+
+        .link-section h3 {
+            font-size: 16px;
+            color: #2c3e50;
+            margin-bottom: 12px;
+        }
+
+        .link-card {
+            display: block;
+            padding: 16px;
+            background: #f8f9fa;
+            border-left: 4px solid #3498db;
+            margin-bottom: 12px;
+            text-decoration: none;
+            color: inherit;
+            border-radius: 0 8px 8px 0;
+            transition: all 0.3s;
+        }
+
+        .link-card:hover {
+            background: #e8f4fc;
+            transform: translateX(4px);
+        }
+
+        .link-card .icon {
+            font-size: 20px;
+            margin-right: 12px;
+        }
+
+        .link-card .title {
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 4px;
+        }
+
+        .link-card .desc {
+            font-size: 13px;
+            color: #7f8c8d;
+        }
+
+        .link-card .url {
+            font-size: 12px;
+            color: #3498db;
+            margin-top: 6px;
+            word-break: break-all;
+        }
+
+        /* 文件类型标签 */
+        .tag {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+            margin-left: 8px;
+        }
+
+        .tag-md { background: #e8f4f9; color: #3498db; }
+        .tag-html { background: #fef3e8; color: #e67e22; }
+        .tag-pdf { background: #fdeaea; color: #e74c3c; }
+
+        /* 底部 */
+        .footer {
+            margin-top: 32px;
+            padding-top: 24px;
+            border-top: 1px solid #eee;
+            text-align: center;
+            color: #95a5a6;
+            font-size: 12px;
+        }
+
+        /* 移动端适配 */
+        @media (max-width: 480px) {
+            .content {
+                padding: 20px 16px;
+            }
+
+            .header h1 {
+                font-size: 22px;
+            }
+
+            .link-card {
+                padding: 12px;
+            }
+        }
+
+        /* 打印样式 */
+        @media print {
+            body {
+                background: #fff;
+            }
+
+            .container {
+                box-shadow: none;
+            }
+
+            .lang-switch {
+                display: none;
+            }
+
+            .cn-content {
+                display: block !important;
+            }
+
+            .en-content {
+                display: none !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 语言切换栏 -->
+        <div class="lang-switch">
+            <a href="#cn" class="lang-btn active" onclick="switchLang('cn')">中文</a>
+            <span style="color: #7f8c8d; margin: 0 8px;">|</span>
+            <a href="#en" class="lang-btn" onclick="switchLang('en')">English</a>
+        </div>
+
+        <!-- 中文版 -->
+        <div class="content">
+            <div class="cn-content">
+                <div class="header">
+                    <h1>📰 AI 日报</h1>
+                    <p class="date">2026-04-14 · 每日 AI + 航运 AI 动态精选</p>
+                </div>
+
+                <div class="link-section">
+                    <h3>📎 在线查看 & 下载</h3>
+
+                    <a href="https://github.com/rickyqinqi/ai-news-daily/blob/main/2026-04-14-ai-news.html" class="link-card" target="_blank">
+                        <div class="title">🌐 网页版 <span class="tag tag-html">推荐</span></div>
+                        <div class="desc">响应式设计，支持深色/浅色模式切换</div>
+                        <div class="url">https://github.com/rickyqinqi/ai-news-daily/blob/main/2026-04-14-ai-news.html</div>
+                    </a>
+
+                    <a href="https://github.com/rickyqinqi/ai-news-daily/blob/main/2026-04-14-ai-news.pdf" class="link-card" target="_blank">
+                        <div class="title">📄 PDF 下载</div>
+                        <div class="desc">适合离线阅读和打印</div>
+                        <div class="url">https://github.com/rickyqinqi/ai-news-daily/blob/main/2026-04-14-ai-news.pdf</div>
+                    </a>
+
+                    <a href="https://github.com/rickyqinqi/ai-news-daily/blob/main/2026-04-14-ai-news.md" class="link-card" target="_blank">
+                        <div class="title">📝 Markdown 源文件</div>
+                        <div class="desc">原始格式，方便复制和编辑</div>
+                        <div class="url">https://github.com/rickyqinqi/ai-news-daily/blob/main/2026-04-14-ai-news.md</div>
+                    </a>
+                </div>
+
+                <div class="footer">
+                    <p>🤖 由 WorkBuddy AI 助手自动生成</p>
+                    <p style="margin-top: 8px;">
+                        <a href="https://github.com/rickyqinqi/ai-news-daily" style="color: #3498db;">GitHub 仓库</a> ·
+                        <a href="https://github.com/rickyqinqi/ai-news-daily/raw/main/2026-04-14-ai-news.html" style="color: #3498db;">直接打开网页</a> ·
+                        <a href="https://github.com/rickyqinqi/ai-news-daily/raw/main/2026-04-14-ai-news.pdf" style="color: #3498db;">直接下载 PDF</a>
+                    </p>
+                </div>
+            </div>
+
+            <!-- 英文版 -->
+            <div class="en-content">
+                <div class="header">
+                    <h1>📰 AI Daily News</h1>
+                    <p class="date">2026-04-14 · Daily AI + Shipping AI Highlights</p>
+                </div>
+
+                <div class="link-section">
+                    <h3>📎 View Online & Download</h3>
+
+                    <a href="https://github.com/rickyqinqi/ai-news-daily/blob/main/2026-04-14-ai-news.html" class="link-card" target="_blank">
+                        <div class="title">🌐 Web Version <span class="tag tag-html">Recommended</span></div>
+                        <div class="desc">Responsive design with dark/light mode toggle</div>
+                        <div class="url">https://github.com/rickyqinqi/ai-news-daily/blob/main/2026-04-14-ai-news.html</div>
+                    </a>
+
+                    <a href="https://github.com/rickyqinqi/ai-news-daily/blob/main/2026-04-14-ai-news.pdf" class="link-card" target="_blank">
+                        <div class="title">📄 PDF Download</div>
+                        <div class="desc">Perfect for offline reading and printing</div>
+                        <div class="url">https://github.com/rickyqinqi/ai-news-daily/blob/main/2026-04-14-ai-news.pdf</div>
+                    </a>
+
+                    <a href="https://github.com/rickyqinqi/ai-news-daily/blob/main/2026-04-14-ai-news.md" class="link-card" target="_blank">
+                        <div class="title">📝 Markdown Source</div>
+                        <div class="desc">Original format, easy to copy and edit</div>
+                        <div class="url">https://github.com/rickyqinqi/ai-news-daily/blob/main/2026-04-14-ai-news.md</div>
+                    </a>
+                </div>
+
+                <div class="footer">
+                    <p>🤖 Auto-generated by WorkBuddy AI Assistant</p>
+                    <p style="margin-top: 8px;">
+                        <a href="https://github.com/rickyqinqi/ai-news-daily" style="color: #3498db;">GitHub Repo</a> ·
+                        <a href="https://github.com/rickyqinqi/ai-news-daily/raw/main/2026-04-14-ai-news.html" style="color: #3498db;">Open Web Page</a> ·
+                        <a href="https://github.com/rickyqinqi/ai-news-daily/raw/main/2026-04-14-ai-news.pdf" style="color: #3498db;">Download PDF</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 语言切换脚本 -->
+    <script>
+        function switchLang(lang) {
+            event.preventDefault();
+            var cnContent = document.querySelector('.cn-content');
+            var enContent = document.querySelector('.en-content');
+            var cnBtn = document.querySelector('.lang-btn[href="#cn"]');
+            var enBtn = document.querySelector('.lang-btn[href="#en"]');
+
+            if (lang === 'cn') {
+                cnContent.style.display = 'block';
+                enContent.style.display = 'none';
+                cnBtn.classList.add('active');
+                enBtn.classList.remove('active');
+            } else {
+                cnContent.style.display = 'none';
+                enContent.style.display = 'block';
+                cnBtn.classList.remove('active');
+                enBtn.classList.add('active');
+            }
+        }
+
+        // 根据 URL hash 初始化语言
+        if (window.location.hash === '#en') {
+            switchLang('en');
+        }
+    </script>
+</body>
+</html>
