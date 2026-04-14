@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI 日报 | 2026-04-14</title>
+    <style>
+        :root {
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8fafc;
+            --bg-card: #ffffff;
+            --text-primary: #1e293b;
+            --text-secondary: #64748b;
+            --accent: #3b82f6;
+            --accent-light: #dbeafe;
+            --border: #e2e8f0;
+            --code-bg: #f1f5f9;
+            --tag-ai: #8b5cf6;
+            --tag-shipping: #0891b2;
+            --tag-coding: #10b981;
+            --tag-robot: #f59e0b;
+            --tag-market: #ef4444;
+        }
+
+        [data-theme="dark"] {
+            --bg-primary: #0f172a;
+            --bg-secondary: #1e293b;
+            --bg-card: #1e293b;
+            --text-primary: #f1f5f9;
+            --text-secondary: #94a3b8;
+            --accent: #60a5fa;
+            --accent-light: #1e3a5f;
+            --border: #334155;
+            --code-bg: #334155;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.7;
+            transition: background 0.3s, color 0.3s;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+        }
+
+        header {
+            text-align: center;
+            padding: 2rem 0 3rem;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 2rem;
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .date {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+
+        .theme-toggle {
+            position: fixed;
+            top: 1.5rem;
+            right: 1.5rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 50%;
+            width: 44px;
+            height: 44px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            transition: all 0.2s;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1);
+        }
+
+        .section {
+            margin-bottom: 2.5rem;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1.25rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 2px solid var(--border);
+        }
+
+        .section-icon {
+            font-size: 1.5rem;
+        }
+
+        .section-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+        }
+
+        .section-count {
+            margin-left: auto;
+            background: var(--accent);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .news-item {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.25rem;
+            margin-bottom: 1rem;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .news-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+
+        [data-theme="dark"] .news-item:hover {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+
+        .news-title {
+            font-size: 1.05rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.5rem;
+        }
+
+        .news-title strong {
+            color: var(--accent);
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 0.15rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            flex-shrink: 0;
+        }
+
+        .tag-ai { background: var(--tag-ai); color: white; }
+        .tag-coding { background: var(--tag-coding); color: white; }
+        .tag-robot { background: var(--tag-robot); color: white; }
+        .tag-market { background: var(--tag-market); color: white; }
+        .tag-shipping { background: var(--tag-shipping); color: white; }
+
+        .news-content {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .news-content ul {
+            list-style: none;
+            margin: 0.5rem 0;
+        }
+
+        .news-content li {
+            padding: 0.25rem 0;
+            padding-left: 1rem;
+            position: relative;
+        }
+
+        .news-content li::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+        }
+
+        .news-source {
+            margin-top: 0.75rem;
+            font-size: 0.85rem;
+        }
+
+        .news-source a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        .news-source a:hover {
+            text-decoration: underline;
+        }
+
+        .summary-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1.5rem;
+            background: var(--bg-card);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+        }
+
+        .summary-table th,
+        .summary-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .summary-table th {
+            background: var(--bg-secondary);
+            font-weight: 600;
+        }
+
+        .summary-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 2rem;
+            border-top: 1px solid var(--border);
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 640px) {
+            .container {
+                padding: 1rem;
+            }
+
+            h1 {
+                font-size: 1.6rem;
+            }
+
+            .news-item {
+                padding: 1rem;
+            }
+
+            .theme-toggle {
+                top: 1rem;
+                right: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <button class="theme-toggle" onclick="toggleTheme()" title="切换主题">🌙</button>
+
+    <div class="container">
+        <header>
+            <h1>🤖 AI 日报</h1>
+            <p class="date">📅 2026 年 4 月 14 日</p>
+        </header>
+
+        <section class="section">
+            <div class="section-header">
+                <span class="section-icon">🧠</span>
+                <h2 class="section-title">AI 综合动态</h2>
+                <span class="section-count">10 条</span>
+            </div>
+
+            <div class="news-item">
+                <div class="news-title"><span class="tag tag-ai">大模型</span><strong>1. GPT-6 今日正式发布，AGI 最后一公里开启</strong></div>
+                <div class="news-content">
+                    <ul>
+                        <li>OpenAI 今日发布 GPT-6，内部代号"Spud"，定位为"AGI 的最后一公里"</li>
+                        <li>核心规格：全新 Symphony 架构实现原生多模态统一处理，5-6 万 Token 上下文，200 万 Token 窗口</li>
+                        <li>性能提升 40%，被视为 2026 年最重要的 AI 发布事件</li>
+                    </ul>
+                </div>
+                <div class="news-source">来源：<a href="https://zhuanlan.zhihu.com/p/2024970852341426129" target="_blank">知乎</a></div>
+            </div>
+
+            <div class="news-item">
+                <div class="news-title"><span class="tag tag-ai">大模型</span><strong>2. GPT-6 彻底曝光：200 万 Token + 性能暴涨 40%</strong></div>
+                <div class="news-content">
+                    <ul>
+                        <li>多条技术路线同时推进：冲刺 AGI、商业化爆发、监管收紧、学术博弈</li>
+                        <li>2026 年 4 月第一周，AI 行业全面开战</li>
+                    </ul>
+                </div>
+                <div class="news-source">来源：<a href="https://zhuanlan.zhihu.com/p/2024970852341426129" target="_blank">知乎</a></div>
+            </div>
+
+            <div class="news-item">
+                <div class="news-title"><span class="tag tag-coding">Coding</span><strong>3. Claude Code 2.1.92 发布，定义 Agentic Coding 新范式</strong></div>
+                <div class="news-content">
+                    <ul>
+                        <li>Anthropic 推出 Claude Code 2.1.92（2026-04-04 发布）</li>
+                        <li>定位为"agentic coding tool"，可阅读代码库、编辑文件、运行命令</li>
+                        <li>SWE-bench 得分达 80.8%，领跑编程能力榜单</li>
+                    </ul>
+                </div>
+                <div class="news-source">来源：<a href="https://zhuanlan.zhihu.com/p/2024912623934665348" target="_blank">知乎</a></div>
+            </div>
+
+            <div class="news-item">
+                <div class="news-title"><span class="tag tag-coding">Coding</span><strong>4. Cursor Composer 2 发布，AI 编程工具进入多 Agent 协作时代</strong></div>
+                <div class="news-content">
+                    <ul>
+                        <li>Cursor 发布 Composer 2，强化多 Agent 协作能力</li>
+                        <li>2026 年 AI 编程助手市场形成三足鼎立：Cursor、GitHub Copilot、Claude Code</li>
+                        <li>用户体验和多 Agent 协作成为新竞争焦点</li>
+                    </ul>
+                </div>
+                <div class="news-source">来源：<a href="https://aicoding.csdn.net/69d85d2a0a2f6a37c59e30c3.html" target="_blank">CSDN</a></div>
+            </div>
+
+            <div class="news-item">
+                <div class="news-title"><span class="tag tag-coding">Coding</span><strong>5. 2026 年 AI 编程工具终极横评：Agent Mode 全面普及</strong></div>
+                <div class="news-content">
+                    <ul>
+                        <li>AI 编程工具已从"代码补全"进化到"全流程自主工程化"</li>
+                        <li>Cursor 3 在用户体验和多 Agent 协作方面表现突出</li>
+                        <li>Windsurf 的 Agent 面板成为新亮点</li>
+                    </ul>
+                </div>
+                <div class="news-source">来源：<a href="https://blog.deali.cn/p/2026-ai-coding-ide-review" target="_blank">deali.cn</a></div>
+            </div>
+
+            <div class="news-item">
+                <div class="news-title"><span class="tag tag-robot">具身智能</span><strong>6. 2026 中国具身智能大会（CEAI 2026）在合肥举办</strong></div>
+                <div class="news-content">
+                    <ul>
+                        <li>大会以"智驱万物，具汇江淮"为主题，1500 余名院士专家参会</li>
+                        <li>4 月 10 日至 12 日在安徽合肥召开</li>
+                        <li>安徽省提出到 2027 年具身智能全产业链规模突破千亿元</li>
+                    </ul>
+                </div>
+                <div class="news-source">来源：<a href="https://paper.sciencenet.cn/htmlnews/2026/4/562962.shtm" target="_blank">科学网</a></div>
+            </div>
+
+            <div class="news-item">
+                <div class="news-title"><span class="tag tag-robot">具身智能</span><strong>7. 人形机器人量产元年：2026 年五大具身智能企业竞争加剧</strong></div>
+                <div class="news-content">
+                    <ul>
+                        <li>人形机器人赛道从"拼动作炫酷"转向"拼解决实际问题"</li>
+                        <li>评估维度：技术路线、商业化落地、硬件量产能力、资本认可度</li>
+                        <li>政策东风+产业加速双轮驱动</li>
+                    </ul>
+                </div>
+                <div class="news-source">来源：<a href="https://www.ithome.com/0/935/626.htm" target="_blank">IT之家</a></div>
+            </div>
+
+            <div class="news-item">
+                <div class="news-title"><span class="tag tag-robot">具身智能</span><strong>8. 具身智能融资热潮：2026 年 3 月融资数量金额创历史新高</strong></div>
+                <div class="news-content">
+                    <ul>
+                        <li>2026 年 3 月国内具身智能机器人赛道迎来融资热潮</li>
+                        <li>大额融资密集、头部效应凸显、全产业链覆盖</li>
+                        <li>软硬件迭代加速，人形机器人蓄力规模突破</li>
+                    </ul>
+                </div>
+                <div class="news-source">来源：<a href="https://zhuanlan.zhihu.com/p/2024882511902187624" target="_blank">知乎</a></div>
+            </div>
+
+            <div class="news-item">
+                <div class="news-title"><span class="tag tag-market">行业</span><strong>9. 中国 AI 监管框架加速完善：十部门联合伦理审查办法落地</strong></div>
+                <div class="news-content">
+                    <ul>
+                        <li>继 GPT-6 发布倒计时后，中国 AI 监管框架加速完善</li>
+                        <li>十部门联合发布的伦理审查办法正式落地</li>
+                        <li>全球 AI 治理进入新阶段</li>
+                    </ul>
+                </div>
+                <div class="news-source">来源：<a href="https://duoke360.com/post/46149" target="_blank">多课网</a></div>
+            </div>
+
+            <div class="news-item">
+                <div class="news-title"><span class="tag tag-ai">开源</span><strong>10. NousResearch 发布 Hermes Agent：与用户共同成长的智能体</strong></div>
+                <div class="news-content">
+                    <ul>
+                        <li>开源项目 NousResearch 发布 Hermes Agent</li>
+                        <li>旨在构建与用户共同成长的智能体系统</li>
+                        <li>代表开源 AI Agent 领域的新探索</li>
+                    </ul>
+                </div>
+                <div class="news-source">来源：<a href="https://aitoolly.com/zh/ai-news/2026-04-14" target="_blank">AIToolly</a></div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="section-header">
+                <span class="section-icon">🚢</span>
+                <h2 class="section-title">航运 AI 动态</h2>
+                <span class="section-count">5 条</span>
+            </div>
+
+            <div class="news-item">
+                <div class="news-title"><span class="tag tag-shipping">航运</span><strong>1. 马士基与赫伯罗特 Gemini 联盟航线调整，过境红海</strong></div>
+                <div class="news-content">
+                    <ul>
+                        <li>马士基与赫伯罗特决定调整 Gemini 联盟共享服务航线</li>
+                        <li>部分航线改经红海和苏伊士运河</li>
+                        <li>体现地缘政治对航运网络的持续影响</li>
+                    </ul>
+                </div>
+                <div class="news-source">来源：<a href="https://www.hapag-lloyd.com/en/company/press/releases/2026/02/hapag-lloyd-maersk-suez.html" target="_blank">Hapag-Lloyd</a></div>
+            </div>
+
+            <div class="news-item">
+                <div class="news-title"><span class="tag tag-shipping">航运</span><strong>2. Alphaliner 报告：美对华航运费用或致班轮公司损失 32 亿美元</strong></div>
+                <div class="news-content">
+                    <ul>
+                        <li>Alphaliner 测算，USTR 费用可能导致班轮公司 2026 年损失 32 亿美元</li>
+                        <li>赫伯罗特面临约 1.05 亿美元费用</li>
+                        <li>马士基面临约 1750 万美元费用</li>
+                    </ul>
+                </div>
+                <div class="news-source">来源：<a href="https://gcaptain.com/tag/alphaliner/" target="_blank">gCaptain</a></div>
+            </div>
+
+            <div class="news-item">
+                <div class="news-title"><span class="tag tag-shipping">航运</span><strong>3. MSC 运力持续扩张，2026 年将大幅领先竞争对手</strong></div>
+                <div class="news-content">
+                    <ul>
+                        <li>根据 Sea-Intelligence 预测，到 2026 年 4 月 MSC 将大幅扩大对第二大承运人的领先优势</li>
+                        <li>地中海航运运力持续增长，市场格局持续演变</li>
+                    </ul>
+                </div>
+                <div class="news-source">来源：<a href="https://maritime-hub.com/msc-to-equal-maersk-and-hapag-lloyds-gemini-fleet/" target="_blank">Maritime Hub</a></div>
+            </div>
+
+            <div class="news-item">
+                <div class="news-title"><span class="tag tag-shipping">数据</span><strong>4. Linerlytica：全球港口拥堵指数更新（2026-04-04）</strong></div>
+                <div class="news-content">
+                    <ul>
+                        <li>Linerlytica 发布截至 2026 年 4 月 4 日的全球集装箱船港口拥堵数据</li>
+                        <li>提供 Top 30 热点港口拥堵情况</li>
+                        <li>全球前 30 大热点港口拥堵状况持续受到关注</li>
+                    </ul>
+                </div>
+                <div class="news-source">来源：<a href="https://www.linerlytica.com/" target="_blank">Linerlytica</a></div>
+            </div>
+
+            <div class="news-item">
+                <div class="news-title"><span class="tag tag-shipping">航运</span><strong>5. 战争驱动拥堵蔓延：集装箱网络受影响</strong></div>
+                <div class="news-content">
+                    <ul>
+                        <li>霍尔木兹海峡危机导致的拥堵开始向集装箱网络蔓延</li>
+                        <li>中东地区局势持续影响航运可靠性</li>
+                        <li>Xeneta 数据显示 2 月全球船期准班率仅 27%</li>
+                    </ul>
+                </div>
+                <div class="news-source">来源：<a href="https://www.shipuniverse.com/news/war-driven-congestion-starts-infecting-container-networks/" target="_blank">ShipUniverse</a></div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="section-header">
+                <span class="section-icon">📋</span>
+                <h2 class="section-title">要点总结</h2>
+            </div>
+
+            <table class="summary-table">
+                <thead>
+                    <tr>
+                        <th>类别</th>
+                        <th>数量</th>
+                        <th>重点事件</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>AI 大模型</td>
+                        <td>2</td>
+                        <td>GPT-6 正式发布</td>
+                    </tr>
+                    <tr>
+                        <td>AI Coding</td>
+                        <td>3</td>
+                        <td>Claude Code 2.1.92、Cursor Composer 2</td>
+                    </tr>
+                    <tr>
+                        <td>具身智能</td>
+                        <td>3</td>
+                        <td>CEAI 2026、人形机器人量产元年</td>
+                    </tr>
+                    <tr>
+                        <td>行业观察</td>
+                        <td>2</td>
+                        <td>AI 监管落地、NousResearch Hermes</td>
+                    </tr>
+                    <tr>
+                        <td>航运动态</td>
+                        <td>5</td>
+                        <td>Gemini 联盟、USTR 费用、港口拥堵</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <footer>
+            <p>📅 生成时间：2026-04-14 14:12</p>
+            <p>🔗 数据来源：Alphaliner、Linerlytica、知乎、CSDN、IT之家等</p>
+        </footer>
+    </div>
+
+    <script>
+        function toggleTheme() {
+            const body = document.body;
+            const button = document.querySelector('.theme-toggle');
+            
+            if (body.getAttribute('data-theme') === 'dark') {
+                body.removeAttribute('data-theme');
+                button.textContent = '🌙';
+                localStorage.setItem('theme', 'light');
+            } else {
+                body.setAttribute('data-theme', 'dark');
+                button.textContent = '☀️';
+                localStorage.setItem('theme', 'dark');
+            }
+        }
+
+        // Restore theme preference
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'dark') {
+            document.body.setAttribute('data-theme', 'dark');
+            document.querySelector('.theme-toggle').textContent = '☀️';
+        }
+    </script>
+</body>
+</html>
