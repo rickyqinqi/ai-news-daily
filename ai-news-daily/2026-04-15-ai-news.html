@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI 日报 | 2026-04-15</title>
+  <style>
+    :root {
+      --bg: #f5f7fa;
+      --card: #ffffff;
+      --text: #1a1a2e;
+      --sub: #555;
+      --border: #e2e8f0;
+      --accent: #4f46e5;
+      --accent2: #0ea5e9;
+      --tag-bg: #ede9fe;
+      --tag-c: #4f46e5;
+      --ship-bg: #ecfdf5;
+      --ship-c: #059669;
+      --table-head: #f1f5f9;
+      --shadow: 0 2px 12px rgba(0,0,0,0.07);
+    }
+    [data-theme="dark"] {
+      --bg: #0f172a;
+      --card: #1e293b;
+      --text: #e2e8f0;
+      --sub: #94a3b8;
+      --border: #334155;
+      --accent: #818cf8;
+      --accent2: #38bdf8;
+      --tag-bg: #312e81;
+      --tag-c: #a5b4fc;
+      --ship-bg: #064e3b;
+      --ship-c: #34d399;
+      --table-head: #1e293b;
+      --shadow: 0 2px 12px rgba(0,0,0,0.3);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: "PingFang SC", "Microsoft YaHei", "Noto Sans CJK SC", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.75;
+      transition: background 0.3s, color 0.3s;
+    }
+    /* ── Header ── */
+    header {
+      background: linear-gradient(135deg, #4f46e5 0%, #0ea5e9 100%);
+      color: #fff;
+      padding: 2.5rem 1.5rem 2rem;
+      text-align: center;
+      position: relative;
+    }
+    header h1 { font-size: clamp(1.6rem, 4vw, 2.4rem); font-weight: 700; letter-spacing: 0.02em; }
+    header .sub { opacity: 0.85; margin-top: 0.4rem; font-size: 0.95rem; }
+    header .badge {
+      display: inline-block; margin-top: 0.8rem;
+      background: rgba(255,255,255,0.2); padding: 0.2rem 0.8rem;
+      border-radius: 999px; font-size: 0.82rem;
+    }
+    /* Theme toggle */
+    #theme-btn {
+      position: absolute; top: 1.2rem; right: 1.2rem;
+      background: rgba(255,255,255,0.2); border: none; cursor: pointer;
+      color: #fff; padding: 0.4rem 0.8rem; border-radius: 999px;
+      font-size: 0.85rem; transition: background 0.2s;
+    }
+    #theme-btn:hover { background: rgba(255,255,255,0.35); }
+    /* ── Layout ── */
+    .container { max-width: 880px; margin: 0 auto; padding: 1.5rem 1rem 3rem; }
+    /* ── Section ── */
+    .section-header {
+      display: flex; align-items: center; gap: 0.6rem;
+      margin: 2rem 0 1rem;
+      padding-bottom: 0.6rem;
+      border-bottom: 2px solid var(--accent);
+    }
+    .section-header .icon { font-size: 1.4rem; }
+    .section-header h2 { font-size: 1.2rem; font-weight: 700; color: var(--accent); }
+    .section-header.ship h2 { color: var(--ship-c); }
+    .section-header.ship { border-color: var(--ship-c); }
+    /* ── Card ── */
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.2rem 1.4rem;
+      margin-bottom: 1rem;
+      box-shadow: var(--shadow);
+      transition: transform 0.18s, box-shadow 0.18s;
+    }
+    .card:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.1); }
+    .card-head {
+      display: flex; align-items: flex-start; gap: 0.8rem;
+      margin-bottom: 0.6rem;
+    }
+    .card-num {
+      min-width: 28px; height: 28px;
+      background: var(--accent); color: #fff;
+      border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      font-size: 0.78rem; font-weight: 700; flex-shrink: 0; margin-top: 2px;
+    }
+    .card-num.ship { background: var(--ship-c); }
+    .card h3 { font-size: 1rem; font-weight: 700; line-height: 1.4; color: var(--text); }
+    .card p { font-size: 0.92rem; color: var(--sub); margin-top: 0.5rem; }
+    .card .source {
+      margin-top: 0.8rem; font-size: 0.78rem; color: var(--accent2);
+      display: flex; align-items: center; gap: 0.3rem;
+    }
+    .tag {
+      display: inline-block; padding: 0.1rem 0.55rem;
+      background: var(--tag-bg); color: var(--tag-c);
+      border-radius: 999px; font-size: 0.72rem; font-weight: 600;
+      margin-left: auto; white-space: nowrap;
+    }
+    .tag.ship { background: var(--ship-bg); color: var(--ship-c); }
+    /* ── Events table ── */
+    .events-table {
+      width: 100%; border-collapse: collapse;
+      background: var(--card); border-radius: 10px;
+      overflow: hidden; box-shadow: var(--shadow);
+    }
+    .events-table th {
+      background: var(--table-head); padding: 0.7rem 1rem;
+      font-size: 0.85rem; text-align: left; color: var(--sub);
+      border-bottom: 1px solid var(--border);
+    }
+    .events-table td {
+      padding: 0.7rem 1rem; font-size: 0.88rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .events-table tr:last-child td { border-bottom: none; }
+    .events-table tr:hover td { background: var(--tag-bg); }
+    /* ── Footer ── */
+    footer {
+      text-align: center; padding: 1.5rem;
+      font-size: 0.8rem; color: var(--sub);
+      border-top: 1px solid var(--border);
+    }
+    @media (max-width: 600px) {
+      .card { padding: 1rem; }
+      .card-head { flex-wrap: wrap; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <button id="theme-btn" onclick="toggleTheme()">🌙 深色</button>
+  <h1>📰 AI 日报</h1>
+  <div class="sub">2026 年 4 月 15 日（周三）· AI 综合动态 + 航运 AI 前沿</div>
+  <div class="badge">🔥 GPT-6 正式发布 · Claude Mythos 震动金融圈 · DeepSeek V4 倒计时</div>
+</header>
+
+<div class="container">
+
+  <!-- ══ AI 综合动态 ══ -->
+  <div class="section-header">
+    <span class="icon">🤖</span>
+    <h2>AI 综合动态（10 条）</h2>
+  </div>
+
+  <!-- Card 1 -->
+  <div class="card">
+    <div class="card-head">
+      <div class="card-num">1</div>
+      <h3>🔥 GPT-6 正式发布：性能暴涨 40%，200 万 Token 上下文</h3>
+      <span class="tag">大模型</span>
+    </div>
+    <p>OpenAI 于 2026 年 4 月 14 日全球同步发布代号"Spud（土豆）"的 GPT-6。该模型性能较 GPT-5.4 提升 40%，上下文窗口扩展至 200 万 Token，采用 Symphony 全模态架构，支持文本、图像、音频、视频全模态输入输出。这是 OpenAI 迄今最重大的模型发布。</p>
+    <div class="source">📌 来源：OpenAI 官方 · 凤凰网 · 知乎</div>
+  </div>
+
+  <!-- Card 2 -->
+  <div class="card">
+    <div class="card-head">
+      <div class="card-num">2</div>
+      <h3>⚡ Anthropic 推出 Claude Mythos：零日漏洞挖掘能力震动金融圈</h3>
+      <span class="tag">安全/监管</span>
+    </div>
+    <p>Anthropic 于 4 月 7 日发布 Claude Mythos Preview，漏洞发现准确率高达 97.6%，具备自主发现并利用零日漏洞能力，在 SWE-bench 评测中约 85%，与 GPT-6 持平。采取"有限开放"策略，仅向 40 余家机构开放，完全不对公众提供 API。美股网络安全板块单日蒸发超 1000 亿美元，英国 FCA 和美联储相继紧急介入评估。</p>
+    <div class="source">📌 来源：Anthropic 官方 · 多课网 · 华尔街日报</div>
+  </div>
+
+  <!-- Card 3 -->
+  <div class="card">
+    <div class="card-head">
+      <div class="card-num">3</div>
+      <h3>💰 Anthropic 以 4 亿美元收购 Coefficient Bio，首次高调布局生命科学</h3>
+      <span class="tag">收购</span>
+    </div>
+    <p>Anthropic 宣布以约 4 亿美元收购生物技术 AI 初创公司 Coefficient Bio，核心技术为 AI + 药物发现与干湿实验融合。这是 Anthropic 首次公开高调收购，正式进军生命科学领域，与 DeepMind（AlphaFold）、英矽智能等竞争。</p>
+    <div class="source">📌 来源：Anthropic 官宣 · AI 内参</div>
+  </div>
+
+  <!-- Card 4 -->
+  <div class="card">
+    <div class="card-head">
+      <div class="card-num">4</div>
+      <h3>🇨🇳 DeepSeek V4 月底倒计时：完全脱离英伟达，推理速度提升 35 倍</h3>
+      <span class="tag">国产 AI</span>
+    </div>
+    <p>DeepSeek V4 预计 4 月下旬发布，基于华为昇腾 950PR 芯片，参数量万亿级（MoE 稀疏激活），支持百万级 Token 上下文。在昇腾 950PR 上实测推理速度比 V3（英伟达版）提升 35 倍，能效提升约 3 倍，显存占用降低 40%。验证中国 AI 在芯片封锁下的自主可控能力。</p>
+    <div class="source">📌 来源：知情人士 · 多课网</div>
+  </div>
+
+  <!-- Card 5 -->
+  <div class="card">
+    <div class="card-head">
+      <div class="card-num">5</div>
+      <h3>🏆 GLM-5.1 登顶 SWE-Bench Pro：开源模型正式超越商业旗舰</h3>
+      <span class="tag">开源模型</span>
+    </div>
+    <p>清华智谱 GLM-5.1 在 SWE-Bench Pro 编程评测中取得第一名，超越 Claude Opus 4.6 和 GPT-5.4，且完全开源。4 月开源模型全景图涵盖 Gemma 4、Qwen 3.6 Plus、Llama 4、Mistral Small 4、gpt-oss 等，开源生态与商业模型差距正实质性缩小。</p>
+    <div class="source">📌 来源：GoCodeLab · Digital Applied</div>
+  </div>
+
+  <!-- Card 6 -->
+  <div class="card">
+    <div class="card-head">
+      <div class="card-num">6</div>
+      <h3>🤖 具身智能大会合肥落幕：中国锁定全球第一梯队，宇树科技冲刺 IPO</h3>
+      <span class="tag">具身智能</span>
+    </div>
+    <p>2026 中国具身智能大会（CEAI 2026）于 4 月 10-12 日在安徽合肥举行，1500 余名院士专家参会。赛迪研究院报告：中国位列全球具身智能第一梯队，已纳入"十五五"战略规划，安徽省目标 2027 年全产业链规模破 1000 亿元。宇树科技同期冲刺科创板 IPO，拟募资 42 亿元。</p>
+    <div class="source">📌 来源：中国人工智能学会 · 多课网</div>
+  </div>
+
+  <!-- Card 7 -->
+  <div class="card">
+    <div class="card-head">
+      <div class="card-num">7</div>
+      <h3>📜 AI 监管双响炮：十部门 + 五部门同日发文，7 月 15 日起施行</h3>
+      <span class="tag">政策法规</span>
+    </div>
+    <p>4 月 6 日，工信部等十部门发布《人工智能科技伦理审查办法》，要求面向公众的 AI 产品须通过内部伦理审查委员会方可上线。4 月 10 日，国家网信办等五部门发布《AI 拟人化互动服务管理办法》，禁止向未成年人提供 AI 情感陪伴服务，7 月 15 日起正式施行。</p>
+    <div class="source">📌 来源：国家工信部 · 国家网信办 · 多课网</div>
+  </div>
+
+  <!-- Card 8 -->
+  <div class="card">
+    <div class="card-head">
+      <div class="card-num">8</div>
+      <h3>🌐 Chrome "AI Skills" 上线 + Meta 眼镜展现多模态价值</h3>
+      <span class="tag">AI 应用</span>
+    </div>
+    <p>谷歌 Chrome 推出"AI Skills"功能，将复杂提示词封装为一键工具，支持网页分析、自动化测试等操作。Meta Ray-Ban 智能眼镜凭"Look and Ask"将多模态大模型融入日常交互，已成为最具实用价值的消费级 AI 硬件之一。两者均展现 AI 能力向终端产品下沉的趋势。</p>
+    <div class="source">📌 来源：AI 内参 · Neican.ai</div>
+  </div>
+
+  <!-- Card 9 -->
+  <div class="card">
+    <div class="card-head">
+      <div class="card-num">9</div>
+      <h3>🛠️ 本周开源亮点：语音克隆、可进化 Agent、AI 安全工具密集发布</h3>
+      <span class="tag">开源工具</span>
+    </div>
+    <p>本周开源亮点：OpenBMB 的 VoxCPM2（无分词器 TTS + 逼真语音克隆）；NousResearch 的 Hermes Agent（可进化式 AI 交互）；AMD 的 GAIA SDK（支持本地 Ryzen AI 构建 Agent）；复旦大学的 XSafeClaw（可视化监控 + 风险拦截）；Archon（全球首个 AI 生成代码测试框架生成器）。</p>
+    <div class="source">📌 来源：GitHub / HuggingFace · 多课网</div>
+  </div>
+
+  <!-- Card 10 -->
+  <div class="card">
+    <div class="card-head">
+      <div class="card-num">10</div>
+      <h3>⚠️ xAI 深陷排污诉讼，Sam Altman 豪宅遭袭：算力扩张的社会代价</h3>
+      <span class="tag">社会影响</span>
+    </div>
+    <p>马斯克旗下 xAI 公司因孟菲斯数据中心非法排放污染物被 NAACP 正式起诉，暴露 AI 算力狂热背后的环境正义问题。同期，Sam Altman 豪宅遭燃烧瓶袭击，结合《纽约客》对其信誉质疑报道，反映 AI 加速带来的社会焦虑与财富鸿沟正激化社会矛盾。</p>
+    <div class="source">📌 来源：AI 内参 · Neican.ai</div>
+  </div>
+
+  <!-- ══ 航运 AI ══ -->
+  <div class="section-header ship">
+    <span class="icon">🚢</span>
+    <h2>航运 AI 动态（5 条）</h2>
+  </div>
+
+  <!-- Ship Card 1 -->
+  <div class="card">
+    <div class="card-head">
+      <div class="card-num ship">1</div>
+      <h3>🌊 劳氏船级社报告：海洋 AI 市场年复合增长率达 23%，活跃企业同比增长 52%</h3>
+      <span class="tag ship">市场研究</span>
+    </div>
+    <p>劳氏船级社委托 Thetius 的研究显示：2024 年全球海洋 AI 市场规模为 41.3 亿美元，年复合增长率 23%，活跃 AI 企业 420 家（同比增长 52%）。主要应用在航行优化、预测性维护、排放监测三大领域。马士基年处理 25 亿数据点优化航线；NYK 与 LR 合作部署机器学习诊断系统。当前数字化成熟度指数均值 1.73/4 分，提升空间巨大。</p>
+    <div class="source">📌 来源：Lloyd's Register Horizons, April 2026</div>
+  </div>
+
+  <!-- Ship Card 2 -->
+  <div class="card">
+    <div class="card-head">
+      <div class="card-num ship">2</div>
+      <h3>🏗️ 智能港口 2026：青岛效率领全球，鹿特丹数字孪生每船减碳 28 吨</h3>
+      <span class="tag ship">智能港口</span>
+    </div>
+    <p>全球智能港口行业预计从 2025 年 50 亿美元增长至 2034 年近 400 亿美元。标杆：青岛港效率比全球平均高 50%，每小时处理 36-52 个集装箱；鹿特丹港数字孪生每艘船节省 4 小时调度、减碳 28 吨；上海洋山港 60 台起重机远程精准控制。港口自动化可削减劳动力成本 25-55%，集装箱处理能力提升 10-35%。</p>
+    <div class="source">📌 来源：Niral Networks, Smart Ports 2026</div>
+  </div>
+
+  <!-- Ship Card 3 -->
+  <div class="card">
+    <div class="card-head">
+      <div class="card-num ship">3</div>
+      <h3>🚛 AI 重构中国物流：无人配送车辆 2026 年预计突破 10 万辆</h3>
+      <span class="tag ship">物流自动化</span>
+    </div>
+    <p>AI 在中国物流和供应链领域渗透率已超过 37%。中国东部主要港口无人驾驶卡车已常态化运营，数字货运平台将订单处理从"分钟级"压缩至"秒级"。无人驾驶配送车辆 2025 年销量约 3.26 万辆，2026 年预计突破 10 万辆。政府推动 AI、物联网、5G、区块链融合加速智慧港口建设。</p>
+    <div class="source">📌 来源：China Minutes, April 11, 2026</div>
+  </div>
+
+  <!-- Ship Card 4 -->
+  <div class="card">
+    <div class="card-head">
+      <div class="card-num ship">4</div>
+      <h3>🤖 AI 货船常态化：2026 年自主船舶商业化落地成新标准</h3>
+      <span class="tag ship">自主船舶</span>
+    </div>
+    <p>2026 年 AI 控制的智能船舶正逐步走向商业化。AI 系统负责实时航线调整、天气规避、燃油优化及 24/7 安全监控。集成 AI 的船队燃油消耗降低 14%，靠泊时间从 30 小时缩短至 18 小时（提升 25%）。特斯拉 FSD 系统获荷兰欧盟首批商用许可，相关技术路线为船舶自主领域提供参考。</p>
+    <div class="source">📌 来源：AtoShipping · HotBot, Jan 2026</div>
+  </div>
+
+  <!-- Ship Card 5 -->
+  <div class="card">
+    <div class="card-head">
+      <div class="card-num ship">5</div>
+      <h3>📊 AI 航运管理系统三大趋势：预测分析、实时决策、绿色合规</h3>
+      <span class="tag ship">行业趋势</span>
+    </div>
+    <p>2026 年 AI 航运管理系统三大趋势：① 预测性分析——基于机器学习预判需求波动与港口拥堵；② 实时决策——秒级处理海量传感器数据动态优化调度；③ 绿色合规——AI 辅助监控排放，协助满足 IMO 2030 减排目标。主要航运公司将 AI 集成到 TMS 和 ERP 系统，实现端到端数字化运营。</p>
+    <div class="source">📌 来源：MetaOption Blog, March 2026</div>
+  </div>
+
+  <!-- ══ 近期关注 ══ -->
+  <div class="section-header">
+    <span class="icon">📅</span>
+    <h2>近期重点关注事件</h2>
+  </div>
+
+  <table class="events-table">
+    <thead>
+      <tr>
+        <th>时间</th>
+        <th>事件</th>
+        <th>重要度</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>4 月下旬</td>
+        <td><strong>DeepSeek V4 发布</strong>（全国产芯片旗舰大模型）</td>
+        <td>⭐⭐⭐⭐⭐</td>
+      </tr>
+      <tr>
+        <td>4 月 28 日</td>
+        <td>全球首届具身智能创新大会（硅谷）</td>
+        <td>⭐⭐⭐⭐</td>
+      </tr>
+      <tr>
+        <td>近期</td>
+        <td>Claude Mythos vs GPT-6 深度横评</td>
+        <td>⭐⭐⭐⭐</td>
+      </tr>
+      <tr>
+        <td>7 月 15 日</td>
+        <td>AI 拟人化互动服务管理办法正式施行</td>
+        <td>⭐⭐⭐</td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>
+
+<footer>
+  生成时间：2026-04-15 12:00 &nbsp;·&nbsp; 数据来源：多课网、AI内参、劳氏船级社、Niral Networks、China Minutes 等
+</footer>
+
+<script>
+  function toggleTheme() {
+    const root = document.documentElement;
+    const btn = document.getElementById('theme-btn');
+    if (root.getAttribute('data-theme') === 'dark') {
+      root.removeAttribute('data-theme');
+      btn.textContent = '🌙 深色';
+    } else {
+      root.setAttribute('data-theme', 'dark');
+      btn.textContent = '☀️ 浅色';
+    }
+  }
+  // Auto detect system preference
+  if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    document.documentElement.setAttribute('data-theme', 'dark');
+    document.getElementById('theme-btn').textContent = '☀️ 浅色';
+  }
+</script>
+</body>
+</html>
