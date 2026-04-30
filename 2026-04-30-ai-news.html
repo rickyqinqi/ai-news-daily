@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI 每周动态 | 2026年4月30日</title>
+    <style>
+        :root {
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8f9fa;
+            --bg-card: #ffffff;
+            --text-primary: #1a1a2e;
+            --text-secondary: #555555;
+            --text-muted: #888888;
+            --accent: #2563eb;
+            --accent-hover: #1d4ed8;
+            --accent-bg: #eff6ff;
+            --border: #e5e7eb;
+            --shadow: 0 2px 8px rgba(0,0,0,0.08);
+            --tag-bg: #f3f4f6;
+            --tag-text: #374151;
+            --shipping-bg: #fffbeb;
+            --shipping-border: #fcd34d;
+            --shipping-accent: #d97706;
+        }
+
+        [data-theme="dark"] {
+            --bg-primary: #0d1117;
+            --bg-secondary: #161b22;
+            --bg-card: #161b22;
+            --text-primary: #e6edf3;
+            --text-secondary: #8b949e;
+            --text-muted: #6e7681;
+            --accent: #58a6ff;
+            --accent-hover: #79b8ff;
+            --accent-bg: #1f3a5f;
+            --border: #30363d;
+            --shadow: 0 2px 8px rgba(0,0,0,0.3);
+            --tag-bg: #21262d;
+            --tag-text: #c9d1d9;
+            --shipping-bg: #1c1400;
+            --shipping-border: #d97706;
+            --shipping-accent: #fbbf24;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.8;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .container {
+            max-width: 860px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 48px;
+            padding-bottom: 32px;
+            border-bottom: 2px solid var(--border);
+        }
+
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            border: 1px solid var(--border);
+            background: var(--bg-card);
+            color: var(--text-primary);
+            cursor: pointer;
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--shadow);
+            transition: all 0.2s;
+            z-index: 100;
+        }
+
+        .theme-toggle:hover {
+            background: var(--bg-secondary);
+            transform: scale(1.05);
+        }
+
+        .header-meta {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-bottom: 16px;
+            letter-spacing: 0.5px;
+        }
+
+        .header h1 {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 12px;
+        }
+
+        .header .subtitle {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--accent);
+            margin: 40px 0 20px 0;
+            padding-bottom: 8px;
+            border-bottom: 2px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .news-item {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 16px;
+            box-shadow: var(--shadow);
+            transition: all 0.2s;
+        }
+
+        .news-item:hover {
+            border-color: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        .news-item.shipping {
+            border-left: 4px solid var(--shipping-accent);
+            background: var(--shipping-bg);
+        }
+
+        .news-item.shipping .item-title {
+            color: var(--shipping-accent);
+        }
+
+        .item-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 24px;
+            height: 24px;
+            background: var(--accent-bg);
+            color: var(--accent);
+            border-radius: 50%;
+            font-size: 12px;
+            font-weight: 700;
+            margin-right: 8px;
+            flex-shrink: 0;
+        }
+
+        .shipping .item-number {
+            background: var(--shipping-bg);
+            color: var(--shipping-accent);
+            border: 1px solid var(--shipping-border);
+        }
+
+        .item-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 10px;
+            display: inline;
+        }
+
+        .item-content {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-bottom: 12px;
+        }
+
+        .item-content strong {
+            color: var(--text-primary);
+        }
+
+        .item-source {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .item-source a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        .item-source a:hover {
+            text-decoration: underline;
+        }
+
+        .keyword-cloud {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px 24px;
+            margin: 32px 0;
+            box-shadow: var(--shadow);
+        }
+
+        .keyword-cloud h3 {
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .keyword-cloud pre {
+            font-family: monospace;
+            font-size: 13px;
+            color: var(--accent);
+            white-space: pre-wrap;
+            word-break: break-all;
+            background: none;
+            border: none;
+            padding: 0;
+        }
+
+        .links-section {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px;
+            margin: 32px 0;
+            box-shadow: var(--shadow);
+        }
+
+        .links-section h3 {
+            font-size: 15px;
+            color: var(--text-primary);
+            margin-bottom: 16px;
+        }
+
+        .link-item {
+            display: flex;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border);
+            font-size: 14px;
+        }
+
+        .link-item:last-child {
+            border-bottom: none;
+        }
+
+        .link-label {
+            width: 90px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            flex-shrink: 0;
+        }
+
+        .link-label.pdf {
+            color: #dc2626;
+        }
+
+        .link-label.md {
+            color: var(--text-muted);
+        }
+
+        .link-value {
+            color: var(--accent);
+            word-break: break-all;
+        }
+
+        .link-value a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        .link-value a:hover {
+            text-decoration: underline;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 48px;
+            padding-top: 24px;
+            border-top: 1px solid var(--border);
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px 16px;
+            }
+
+            .header h1 {
+                font-size: 22px;
+            }
+
+            .news-item {
+                padding: 16px;
+            }
+
+            .theme-toggle {
+                top: 12px;
+                right: 12px;
+                width: 38px;
+                height: 38px;
+                font-size: 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <button class="theme-toggle" onclick="toggleTheme()" title="切换主题" id="themeBtn">🌙</button>
+
+    <div class="container">
+        <header class="header">
+            <p class="header-meta">采集时间：2026年4月30日 · 星期三</p>
+            <h1>🤖 AI 每周动态</h1>
+            <p class="subtitle">本期涵盖 AI 综合动态（10条）与航运 AI 专题（5条）</p>
+        </header>
+
+        <h2 class="section-title">📰 AI 综合动态</h2>
+
+        <div class="news-item">
+            <span class="item-number">1</span>
+            <span class="item-title">谷歌豪掷400亿美元入股 Anthropic，AI 格局生变</span>
+            <p class="item-content">谷歌宣布向 Anthropic 最高投入 <strong>400亿美元</strong>，100亿美元立即到账，按其3800亿美元估值入股，余下300亿将分阶段注入。此举意味着 Anthropic 成为全球估值最高的 AI 初创公司，谷歌同时确保 Anthropic 使用其 TPU 而非英伟达 GPU。此举被业界视为谷歌"以资本换算力"、在 AI 军备竞赛中合纵连横的标志性操作。</p>
+            <p class="item-source">来源：<a href="https://www.36kr.com/p/3784243425565953" target="_blank">36氪</a></p>
+        </div>
+
+        <div class="news-item">
+            <span class="item-number">2</span>
+            <span class="item-title">Anthropic 发布 Claude Mythos 5：10万亿参数巨型模型</span>
+            <p class="item-content">Anthropic 发布迄今规模最大的密集型模型 Claude Mythos 5，拥有 <strong>10万亿参数</strong>，上下文窗口达 <strong>150万 Token</strong>，专注于网络安全防御与高级学术推理，能以机器速度识别并修补漏洞，代表当前稠密缩放技术的天花板。白宫正推进让 Mythos 以特定版本进入主要联邦机构，前提是先搭建网络安全防护措施。</p>
+            <p class="item-source">来源：<a href="https://www.nbd.com.cn/articles/2026-04-17/4343496.html" target="_blank">华尔街见闻/36氪</a></p>
+        </div>
+
+        <div class="news-item">
+            <span class="item-number">3</span>
+            <span class="item-title">OpenAI Codex 整合至 GPT-5.5，编程能力全面升级</span>
+            <p class="item-content">OpenAI 宣布终止独立编程模型 Codex 产品线，其核心能力将全面融入 GPT-5.5 主模型。GPT-5.3 成为 Codex 最后一个独立版本，GPT-5.4 为当前 API 平台最新旗舰。此举反映从"专用插件式"向"内生全能式"的技术演进，编程能力正成为主模型的基础属性。</p>
+            <p class="item-source">来源：<a href="https://www.sohu.com/a/1015293303_121885030" target="_blank">搜狐科技</a></p>
+        </div>
+
+        <div class="news-item">
+            <span class="item-number">4</span>
+            <span class="item-title">布林亲自督战：谷歌组建精英 Gemini 团队专攻 AI 编程</span>
+            <p class="item-content">谷歌 DeepMind 为在 AI 编程赛道追赶 Anthropic，组建精英团队专攻 Gemini 编程能力提升。该团队由 DeepMind 工程师 Sebastian Borgeaud 领导，核心任务是从零编写代码并优化开发流程。此举被视为对 Anthropic Claude Code 在编程领域领先地位的直接回应。</p>
+            <p class="item-source">来源：<a href="https://www.ithome.com/0/941/551.htm" target="_blank">IT之家</a></p>
+        </div>
+
+        <div class="news-item">
+            <span class="item-number">5</span>
+            <span class="item-title">福布斯发布 2026 年 AI 50 榜单：20家新公司上榜</span>
+            <p class="item-content">福布斯发布第八届 AI 50 强榜单，OpenAI、Anthropic 两家 AI 巨头累计融资 <strong>2426亿美元</strong>（约合1.66万亿元人民币），约占今年上榜企业总融资额的绝大部分。本届共有 <strong>20家新上榜公司</strong>，涵盖 AI 基础设施、应用层和行业垂直解决方案。</p>
+            <p class="item-source">来源：<a href="https://tech.ifeng.com/c/8sVapYDNtVG" target="_blank">凤凰科技/IT之家</a></p>
+        </div>
+
+        <div class="news-item">
+            <span class="item-number">6</span>
+            <span class="item-title">开源模型军备竞赛：DeepSeek V4 / Qwen 3 / Llama 4 / Mistral Small 4</span>
+            <p class="item-content"><strong>DeepSeek-V3.2</strong> 获评"最佳综合表现"，<strong>Llama 4 Scout</strong> 以长上下文见长，<strong>Qwen 3</strong> 在多语言任务上领先，<strong>Mistral Large 2</strong> 适合欧洲本地化部署，<strong>Gemma 4</strong> 和 <strong>Qwen 3.6 Plus</strong> 也同期发布。开源模型正以更低成本（约为 GPT-4 的10%）逼近闭源模型性能。</p>
+            <p class="item-source">来源：<a href="https://www.miniloop.ai/blog/best-open-source-llms-2026" target="_blank">miniloop.ai</a></p>
+        </div>
+
+        <div class="news-item">
+            <span class="item-number">7</span>
+            <span class="item-title">AI Agent 基础设施密集突破：Claude Code / OpenClaw / Visa 支付协议</span>
+            <p class="item-content"><strong>Claude Code</strong> 五周内推出超30项更新；<strong>OpenClaw</strong> 发布"Dreaming"版本强化内存与安全；<strong>Anthropic</strong> 推出托管代理云服务降低企业部署门槛；<strong>Visa</strong> 发布4种专为自主 AI 代理设计的支付协议。Google Agent-to-Agent 协议满一周年，GitHub 仓库星标超1万，150+组织参与。</p>
+            <p class="item-source">来源：<a href="https://af.net/realtime/ai-agent-news-april-2026-claude-code-openclaw-and-the-agent-infrastructure-race/" target="_blank">af.net</a></p>
+        </div>
+
+        <div class="news-item">
+            <span class="item-number">8</span>
+            <span class="item-title">Transformer 金融预测"崩溃"：越大未必越好</span>
+            <p class="item-content">Andreoletti 在 arXiv（2604.00064）发表数学证明：在金融时序预测中，<strong>增加模型复杂度反而导致更高误差</strong>。简单线性模型在金融收益预测上持续优于 PatchTST 等先进 Transformer 架构，对 AI 领域"越大越好"的缩放信仰提出根本性挑战。</p>
+            <p class="item-source">来源：<a href="https://www.devflokers.com/blog/new-ai-papers-arxiv-last-24-hours-april-2026" target="_blank">Dev Flokers</a></p>
+        </div>
+
+        <div class="news-item">
+            <span class="item-number">9</span>
+            <span class="item-title">神经符号机器人系统能效提升100倍，塔夫茨大学新突破</span>
+            <p class="item-content">塔夫茨大学将符号推理与统计学习融合，构建神经符号 VLA 系统。汉诺塔任务成功率从34%提升至 <strong>95%</strong>，新任务泛化成功率从0%提升至 <strong>78%</strong>，训练能耗降至传统系统的 <strong>1%</strong>，运行能耗降至 <strong>5%</strong>，为具身智能和工业机器人开辟高能效路径。</p>
+            <p class="item-source">来源：<a href="https://www.devflokers.com/blog/new-ai-papers-arxiv-last-24-hours-april-2026" target="_blank">Dev Flokers</a></p>
+        </div>
+
+        <div class="news-item">
+            <span class="item-number">10</span>
+            <span class="item-title">"氛围编程"成为主流：92%开发者每日使用 AI 编程工具</span>
+            <p class="item-content">92% 的美国开发者每日使用 AI 编程工具，AI 生成代码占全球代码库约 <strong>41%</strong>，开发效率提升 <strong>81%</strong>。但负面效应同步显现：AI 代码信任度从77%降至60%，高级开发者每周需花费 <strong>10-15小时</strong> 维护和调试 AI 生成代码，技术债务问题浮出水面。</p>
+            <p class="item-source">来源：<a href="https://www.devflokers.com/blog/new-ai-papers-arxiv-last-24-hours-april-2026" target="_blank">Dev Flokers</a></p>
+        </div>
+
+        <h2 class="section-title">🚢 航运 AI 专题</h2>
+
+        <div class="news-item shipping">
+            <span class="item-number">1</span>
+            <span class="item-title">马士基开设全自动物流中心 World Gateway II（新加坡，2亿美元投资）</span>
+            <p class="item-content">马士基在新加坡开设 <strong>World Gateway II</strong>，投资超2亿新加坡元，面积110万平方英尺，配置多穿梭系统（Multi-Shuttle）、ASRS 自动存取系统、自主箱体处理机器人（ACR）和自主移动机器人（AMR）。开业时已达约70%入驻率，预计创造约 <strong>500个数字化岗位</strong>。这是全球最大航运整合商首次大规模落地物理自动化，直接影响港口货物流转与船期规划。</p>
+            <p class="item-source">来源：<a href="https://aiatsea.com/news/2026-04-05-weekly-digest" target="_blank">AI at Sea</a></p>
+        </div>
+
+        <div class="news-item shipping">
+            <span class="item-number">2</span>
+            <span class="item-title">DeepSea HyperPilot 获 DNV 型式认证：商业推进自动化进入成果发布阶段</span>
+            <p class="item-content">希腊 DeepSea Technologies 的 <strong>HyperPilot</strong> 成为全球首款获 DNV 型式认证的自主速度控制器。一家欧洲船队运营商在约 <strong>120艘船</strong> 上部署 Pythia，燃油效率提升 <strong>7%</strong>。纳博特斯克 Telegraph Agent 硬件已安装于全球约一半船队，大幅降低集成成本，直接影响 CII 评级与 EU ETS 合规成本。</p>
+            <p class="item-source">来源：<a href="https://aiatsea.com/news/2026-04-05-weekly-digest" target="_blank">AI at Sea</a></p>
+        </div>
+
+        <div class="news-item shipping">
+            <span class="item-number">3</span>
+            <span class="item-title">霍尔木兹海峡危机：AI 海域感知工具展现情报优势</span>
+            <p class="item-content">2026年2月28日冲突爆发后，AI 公司 Windward 追踪数据显示：海峡过境量较正常水平下降 <strong>93%</strong>，约400艘船在海峡外集结待命，GPS 干扰影响超 <strong>1650艘</strong> 船只。上海至海湾运费一周内飙升 <strong>72%</strong>，萨拉拉港成为替代枢纽。AI 海域感知工具在此次危机中提供了传统 AIS 无法实现的实时情报优势。</p>
+            <p class="item-source">来源：<a href="https://aiatsea.com/news/2026-04-05-weekly-digest" target="_blank">AI at Sea</a></p>
+        </div>
+
+        <div class="news-item shipping">
+            <span class="item-number">4</span>
+            <span class="item-title">国常会推动海洋数字化智能化，《智能航运2030行动计划》发布</span>
+            <p class="item-content">国务院常务会议指出，要强化海洋战略科技力量，推动海洋领域数字化智能化转型升级。<strong>《智能航运2030行动计划》</strong>同步公布，确立以船舶自主化为重点，以基础设施数字化为支撑，推进智能航运全面发展。中国船燃2026全球合作伙伴大会在宁波举行，近千名合作伙伴共探绿色智能航运新生态。</p>
+            <p class="item-source">来源：<a href="https://www.qstheory.cn/20260423/7491f4eca5084087b52e93f66082eeee/c.html" target="_blank">求是网</a></p>
+        </div>
+
+        <div class="news-item shipping">
+            <span class="item-number">5</span>
+            <span class="item-title">2026年4月海运运价：恢复与不确定性并存</span>
+            <p class="item-content">2026年4月全球海运市场处于"恢复与不确定性并存"阶段。战争风险附加费、集装箱滞留、关税波动和 AI 驱动的航线编排正在重塑全球航运运营方式。Posidonia 2026调查显示：航运业 AI 采用呈现三级分化——积极采用者、选择性整合者、谨慎观望者，讨论焦点已从"AI 是否属于航运"转向"如何、在哪里、以多快速度部署"。</p>
+            <p class="item-source">来源：<a href="https://brf-logistics.com/ocean-freight-rate-trends-april-2026/" target="_blank">BRF Logistics</a></p>
+        </div>
+
+        <div class="keyword-cloud">
+            <h3>📊 本周关键词</h3>
+            <pre>Claude Mythos     Codex整合      Gemini团队      DeepSeek V4
+Qwen 3 / Llama 4 / Mistral Small 4
+Agent基础设施    神经符号        氛围编程        马士基WGI
+HyperPilot      霍尔木兹        智能航运2030</pre>
+        </div>
+
+        <div class="links-section">
+            <h3>🔗 相关链接</h3>
+            <div class="link-item">
+                <span class="link-label">HTML</span>
+                <span class="link-value"><a href="https://rickyqinqi.github.io/ai-news-daily/2026-04-30-ai-news.html" target="_blank">https://rickyqinqi.github.io/ai-news-daily/2026-04-30-ai-news.html</a></span>
+            </div>
+            <div class="link-item">
+                <span class="link-label pdf">PDF</span>
+                <span class="link-value"><a href="https://rickyqinqi.github.io/ai-news-daily/2026-04-30-ai-news.pdf" target="_blank">https://rickyqinqi.github.io/ai-news-daily/2026-04-30-ai-news.pdf</a></span>
+            </div>
+            <div class="link-item">
+                <span class="link-label md">Markdown</span>
+                <span class="link-value"><a href="https://github.com/rickyqinqi/ai-news-daily/blob/main/2026-04-30-ai-news.md" target="_blank">https://github.com/rickyqinqi/ai-news-daily/blob/main/2026-04-30-ai-news.md</a></span>
+            </div>
+        </div>
+
+        <footer class="footer">
+            <p>📅 由 WorkBuddy AI 自动生成 | 如需调整内容或格式，请回复本邮件</p>
+        </footer>
+    </div>
+
+    <script>
+        function toggleTheme() {
+            const body = document.body;
+            const btn = document.getElementById('themeBtn');
+            const current = body.getAttribute('data-theme');
+            if (current === 'dark') {
+                body.removeAttribute('data-theme');
+                btn.textContent = '🌙';
+            } else {
+                body.setAttribute('data-theme', 'dark');
+                btn.textContent = '☀️';
+            }
+        }
+
+        // 读取保存的主题偏好
+        const saved = localStorage.getItem('theme');
+        if (saved === 'dark') {
+            document.body.setAttribute('data-theme', 'dark');
+            document.getElementById('themeBtn').textContent = '☀️';
+        }
+    </script>
+</body>
+</html>
