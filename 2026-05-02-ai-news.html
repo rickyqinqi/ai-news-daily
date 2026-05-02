@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI 日报 | 2026-05-02</title>
+  <style>
+    :root {
+      --bg-primary: #ffffff;
+      --bg-secondary: #f8fafc;
+      --bg-card: #ffffff;
+      --text-primary: #1e293b;
+      --text-secondary: #64748b;
+      --text-muted: #94a3b8;
+      --accent: #2563eb;
+      --accent-light: #dbeafe;
+      --border: #e2e8f0;
+      --tag-bg: #f1f5f9;
+      --tag-text: #475569;
+      --shadow: 0 1px 3px rgba(0,0,0,0.08);
+      --shadow-lg: 0 4px 12px rgba(0,0,0,0.1);
+      --ai-tag-bg: #ede9fe;
+      --ai-tag-text: #6d28d9;
+      --ship-tag-bg: #d1fae5;
+      --ship-tag-text: #065f46;
+    }
+    [data-theme="dark"] {
+      --bg-primary: #0f172a;
+      --bg-secondary: #1e293b;
+      --bg-card: #1e293b;
+      --text-primary: #f1f5f9;
+      --text-secondary: #94a3b8;
+      --text-muted: #64748b;
+      --accent: #60a5fa;
+      --accent-light: #1e3a5f;
+      --border: #334155;
+      --tag-bg: #334155;
+      --tag-text: #cbd5e1;
+      --shadow: 0 1px 3px rgba(0,0,0,0.3);
+      --shadow-lg: 0 4px 12px rgba(0,0,0,0.4);
+      --ai-tag-bg: #4c1d95;
+      --ai-tag-text: #c4b5fd;
+      --ship-tag-bg: #064e3b;
+      --ship-tag-text: #6ee7b7;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+      background: var(--bg-secondary);
+      color: var(--text-primary);
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+    .theme-toggle {
+      position: fixed;
+      top: 16px;
+      right: 16px;
+      z-index: 1000;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 6px 14px;
+      cursor: pointer;
+      font-size: 13px;
+      color: var(--text-secondary);
+      box-shadow: var(--shadow);
+      transition: all 0.2s;
+    }
+    .theme-toggle:hover { background: var(--accent-light); color: var(--accent); }
+    .container { max-width: 900px; margin: 0 auto; padding: 32px 16px 60px; }
+    .header {
+      background: var(--bg-card);
+      border-radius: 16px;
+      padding: 40px 36px;
+      margin-bottom: 24px;
+      box-shadow: var(--shadow-lg);
+      border: 1px solid var(--border);
+      position: relative;
+      overflow: hidden;
+    }
+    .header::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #2563eb, #7c3aed, #06b6d4);
+    }
+    .header .date-label {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 10px;
+    }
+    .header h1 {
+      font-size: 32px;
+      font-weight: 800;
+      color: var(--text-primary);
+      margin-bottom: 8px;
+      letter-spacing: -0.5px;
+    }
+    .header .subtitle {
+      font-size: 15px;
+      color: var(--text-secondary);
+    }
+    .header .meta {
+      margin-top: 16px;
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .header .meta span {
+      font-size: 12px;
+      color: var(--text-muted);
+      background: var(--tag-bg);
+      padding: 3px 10px;
+      border-radius: 20px;
+    }
+    .summary-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    .summary-card {
+      background: var(--bg-card);
+      border-radius: 12px;
+      padding: 20px;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+    }
+    .summary-card h3 {
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .summary-card.ai h3 { color: var(--ai-tag-text); }
+    .summary-card.ship h3 { color: var(--ship-tag-text); }
+    .summary-card ul { list-style: none; }
+    .summary-card ul li {
+      font-size: 13px;
+      color: var(--text-secondary);
+      padding: 4px 0;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: flex-start;
+      gap: 6px;
+    }
+    .summary-card ul li:last-child { border-bottom: none; }
+    .summary-card ul li::before { content: '•'; color: var(--accent); font-weight: bold; flex-shrink: 0; }
+    .section-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin: 28px 0 14px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid var(--accent);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .section-badge {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 4px;
+      letter-spacing: 0.5px;
+    }
+    .section-badge.ai { background: var(--ai-tag-bg); color: var(--ai-tag-text); }
+    .section-badge.ship { background: var(--ship-tag-bg); color: var(--ship-tag-text); }
+    .news-item {
+      background: var(--bg-card);
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 14px;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .news-item:hover { transform: translateY(-1px); box-shadow: var(--shadow-lg); }
+    .news-item .item-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .news-item .item-num {
+      width: 28px; height: 28px;
+      background: var(--accent);
+      color: white;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 12px;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .news-item .item-title {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text-primary);
+      flex: 1;
+      padding-left: 10px;
+      line-height: 1.4;
+    }
+    .news-item .item-meta {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 12px;
+      flex-wrap: wrap;
+    }
+    .news-item .item-meta .source {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+    .news-item .item-meta .date {
+      font-size: 12px;
+      color: var(--text-muted);
+      background: var(--tag-bg);
+      padding: 2px 8px;
+      border-radius: 10px;
+    }
+    .news-item .bilingual {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    .news-item .lang-zh, .news-item .lang-en {
+      padding: 14px 16px;
+      font-size: 14px;
+      line-height: 1.7;
+    }
+    .news-item .lang-zh {
+      background: var(--bg-secondary);
+      color: var(--text-primary);
+      border-right: 1px solid var(--border);
+    }
+    .news-item .lang-en {
+      background: var(--bg-card);
+      color: var(--text-secondary);
+      font-style: italic;
+    }
+    .lang-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+    }
+    .lang-zh .lang-label { color: var(--accent); }
+    .lang-en .lang-label { color: var(--ai-tag-text); }
+    .footer {
+      text-align: center;
+      padding: 32px 0;
+      color: var(--text-muted);
+      font-size: 13px;
+    }
+    .footer a { color: var(--accent); text-decoration: none; }
+    .footer a:hover { text-decoration: underline; }
+    .links-bar {
+      background: var(--bg-card);
+      border-radius: 12px;
+      padding: 20px 24px;
+      margin-bottom: 24px;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .links-bar a {
+      font-size: 13px;
+      color: var(--accent);
+      text-decoration: none;
+      padding: 6px 14px;
+      border: 1px solid var(--accent);
+      border-radius: 8px;
+      transition: all 0.2s;
+    }
+    .links-bar a:hover { background: var(--accent-light); }
+    .week-badge {
+      display: inline-block;
+      background: linear-gradient(135deg, #2563eb, #7c3aed);
+      color: white;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 20px;
+      margin-left: 8px;
+    }
+    @media (max-width: 640px) {
+      .summary-grid { grid-template-columns: 1fr; }
+      .news-item .bilingual { grid-template-columns: 1fr; }
+      .news-item .lang-zh { border-right: none; border-bottom: 1px solid var(--border); }
+      .header h1 { font-size: 24px; }
+      .header { padding: 28px 20px; }
+    }
+  </style>
+</head>
+<body>
+  <button class="theme-toggle" onclick="toggleTheme()" id="themeBtn">🌙 深色</button>
+  <div class="container">
+    <!-- Header -->
+    <div class="header">
+      <div class="date-label">DAILY AI NEWSLETTER</div>
+      <h1>AI 日报 <span class="week-badge">第18周</span></h1>
+      <div class="subtitle">2026年5月2日 · 周六 · AI + 航运 AI 每周动态</div>
+      <div class="meta">
+        <span>📅 2026-04-22 ~ 2026-05-02</span>
+        <span>🤖 AI 综合 + 🚢 航运 AI</span>
+        <span>📝 中英双语</span>
+      </div>
+    </div>
+
+    <!-- Quick Links -->
+    <div class="links-bar">
+      <a href="https://rickyqinqi.github.io/ai-news-daily/2026-05-02-ai-news.html" target="_blank">🌐 在线阅读（HTML）</a>
+      <a href="https://github.com/rickyqinqi/ai-news-daily/raw/main/2026-05-02-ai-news.pdf" target="_blank">📄 PDF 下载</a>
+      <a href="https://github.com/rickyqinqi/ai-news-daily/blob/main/2026-05-02-ai-news.md" target="_blank">📝 Markdown 源码</a>
+      <a href="https://github.com/rickyqinqi/ai-news-daily" target="_blank">🐙 GitHub 仓库</a>
+    </div>
+
+    <!-- Summary Cards -->
+    <div class="summary-grid">
+      <div class="summary-card ai">
+        <h3>🤖 AI 综合（10条）</h3>
+        <ul>
+          <li>GPT-5.5 / DeepSeek V4 / Llama 4 密集发布</li>
+          <li>Google 400亿投资 Anthropic</li>
+          <li>Github企业智能体平台竞争加剧</li>
+          <li>中国阻止 Meta 收购 Manus AI</li>
+          <li>OpenAI 审判正式开始</li>
+        </ul>
+      </div>
+      <div class="summary-card ship">
+        <h3>🚢 航运 AI（5条）</h3>
+        <ul>
+          <li>《智能航运2030行动计划》正式发布</li>
+          <li>全国首款港口AI芯片落地</li>
+          <li>国内首台智慧驾驶舱发布</li>
+          <li>青岛港、泰州港数智化成果落地</li>
+          <li>自动驾驶船舶市场预计达82亿美元</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- AI Section -->
+    <div class="section-title">
+      <span class="section-badge ai">PART I</span>
+      AI 综合动态 · AI News Roundup
+    </div>
+
+    <div class="news-item">
+      <div class="item-header">
+        <div style="display:flex;align-items:center;">
+          <div class="item-num">1</div>
+          <div class="item-title">OpenAI 发布 GPT-5.5（代号 "Spud"）</div>
+        </div>
+      </div>
+      <div class="item-meta">
+        <span class="source">The AI Track / OpenAI</span>
+        <span class="date">2026-04-23</span>
+      </div>
+      <div class="bilingual">
+        <div class="lang-zh">
+          <div class="lang-label">🇨🇳 中文</div>
+          OpenAI 正式发布 GPT-5.5，面向 ChatGPT 和 Codex 付费用户。新版本在上下文处理、代码生成、计算机使用、研究工作流、网络安全及 Token 效率方面均有显著改进。这是 OpenAI 迈向"AI 超级应用（Super App）"战略的重要一步。
+        </div>
+        <div class="lang-en">
+          <div class="lang-label">🇺🇸 English</div>
+          OpenAI releases GPT-5.5 ("Spud") for ChatGPT and Codex paid users. Improvements in context processing, code generation, computer use, research workflows, cybersecurity, and token efficiency mark a key step toward OpenAI's "AI Super App" strategy.
+        </div>
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="item-header">
+        <div style="display:flex;align-items:center;">
+          <div class="item-num">2</div>
+          <div class="item-title">DeepSeek V4 发布（100万 Token 上下文）</div>
+        </div>
+      </div>
+      <div class="item-meta">
+        <span class="source">IT之家 / DeepSeek</span>
+        <span class="date">2026-04-24</span>
+      </div>
+      <div class="bilingual">
+        <div class="lang-zh">
+          <div class="lang-label">🇨🇳 中文</div>
+          DeepSeek 发布 V4 版本，提供 V4-Pro 和 V4-Flash 两个版本。支持 100万 Token 上下文窗口，开放权重，在编码和推理方面声称有显著提升。这是开源大模型上下文窗口的重要里程碑。
+        </div>
+        <div class="lang-en">
+          <div class="lang-label">🇺🇸 English</div>
+          DeepSeek releases V4 with V4-Pro and V4-Flash variants. Features include a 1M token context window, open weights, and claimed improvements in coding and reasoning — a major milestone for open-source model context.
+        </div>
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="item-header">
+        <div style="display:flex;align-items:center;">
+          <div class="item-num">3</div>
+          <div class="item-title">Meta 发布 Llama 4（MoE架构，1000万上下文）</div>
+        </div>
+      </div>
+      <div class="item-meta">
+        <span class="source">中关村在线 / Meta</span>
+        <span class="date">2026-04-06</span>
+      </div>
+      <div class="bilingual">
+        <div class="lang-zh">
+          <div class="lang-label">🇨🇳 中文</div>
+          Meta 发布 Llama 4 系列，首次采用混合专家（MoE）架构。Scout 版本拥有 170亿活跃参数、1090亿总参数，支持 1000万上下文，可处理超过 20 小时视频，在单张 H100 GPU 上即可运行，性能超越 Gemma 3 等竞品。
+        </div>
+        <div class="lang-en">
+          <div class="lang-label">🇺🇸 English</div>
+          Meta releases Llama 4 with first-ever MoE architecture. Scout variant: 17B active params, 1.09T total, 10M context, processes 20+ hours of video, runs on single H100 — outperforms Gemma 3 and competitors.
+        </div>
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="item-header">
+        <div style="display:flex;align-items:center;">
+          <div class="item-num">4</div>
+          <div class="item-title">OpenAI 推出 ChatGPT 工作区智能体</div>
+        </div>
+      </div>
+      <div class="item-meta">
+        <span class="source">The AI Track</span>
+        <span class="date">2026-04-22</span>
+      </div>
+      <div class="bilingual">
+        <div class="lang-zh">
+          <div class="lang-label">🇨🇳 中文</div>
+          OpenAI 面向 Business、Enterprise、Edu 和 Teachers 计划用户推出工作区智能体（Workspace Agents）。专为团队重复性工作流设计，将逐步取代 Custom GPTs，标志着 AI 助手从个人工具向企业协作平台的演进。
+        </div>
+        <div class="lang-en">
+          <div class="lang-label">🇺🇸 English</div>
+          OpenAI launches Workspace Agents for Business/Enterprise/Edu users, designed for team workflows and set to replace Custom GPTs — a shift from personal AI assistant to enterprise collaboration platform.
+        </div>
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="item-header">
+        <div style="display:flex;align-items:center;">
+          <div class="item-num">5</div>
+          <div class="item-title">Google 发布 Gemini 企业智能体平台 + 新 TPU</div>
+        </div>
+      </div>
+      <div class="item-meta">
+        <span class="source">The AI Track / Google Cloud Next</span>
+        <span class="date">2026-04-22</span>
+      </div>
+      <div class="bilingual">
+        <div class="lang-zh">
+          <div class="lang-label">🇨🇳 中文</div>
+          在 Google Cloud Next 2026 大会上，Google 发布 Gemini 企业智能体平台，将 Vertex AI 升级为统一的企业 AI 智能体构建、治理、安全与优化平台，同时发布新一代 TPU 芯片，加速企业级 AI 部署。
+        </div>
+        <div class="lang-en">
+          <div class="lang-label">🇺🇸 English</div>
+          At Google Cloud Next 2026, Gemini Enterprise Agent Platform is unveiled — upgrading Vertex AI into a unified enterprise agentic platform with built-in governance and security, alongside next-gen TPU silicon for accelerated AI deployment.
+        </div>
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="item-header">
+        <div style="display:flex;align-items:center;">
+          <div class="item-num">6</div>
+          <div class="item-title">Anthropic 发布 Claude Connectors</div>
+        </div>
+      </div>
+      <div class="item-meta">
+        <span class="source">The AI Track</span>
+        <span class="date">2026-04-28</span>
+      </div>
+      <div class="bilingual">
+        <div class="lang-zh">
+          <div class="lang-label">🇨🇳 中文</div>
+          Anthropic 扩展 Claude 生态，发布 Claude Connectors，集成 Adobe、Blender、Autodesk Fusion 等平台。Claude 现在可原生支持设计、音乐、视频、3D建模、实时视觉及创意教育等多元工作流。
+        </div>
+        <div class="lang-en">
+          <div class="lang-label">🇺🇸 English</div>
+          Anthropic releases Claude Connectors integrating Adobe, Blender, and Autodesk Fusion — extending Claude into creative workflows including design, 3D modeling, video, real-time visuals, and creative education.
+        </div>
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="item-header">
+        <div style="display:flex;align-items:center;">
+          <div class="item-num">7</div>
+          <div class="item-title">Google 计划向 Anthropic 投资 400亿美元</div>
+        </div>
+      </div>
+      <div class="item-meta">
+        <span class="source">36氪 / The AI Track</span>
+        <span class="date">2026-04-25</span>
+      </div>
+      <div class="bilingual">
+        <div class="lang-zh">
+          <div class="lang-label">🇨🇳 中文</div>
+          谷歌宣布将向 Anthropic 投入最高 400亿美元（现金 + 算力支持），按 Anthropic 3800亿美元最新估值入股。此举标志着 AI 基础设施军备竞赛升级，Claude 年化收入已突破 300亿元。
+        </div>
+        <div class="lang-en">
+          <div class="lang-label">🇺🇸 English</div>
+          Google announces up to $40B investment in Anthropic (cash + compute) at a $380B valuation. The move escalates AI infrastructure competition as Anthropic's annualized revenue exceeds $30B.
+        </div>
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="item-header">
+        <div style="display:flex;align-items:center;">
+          <div class="item-num">8</div>
+          <div class="item-title">微软与 OpenAI 终止独家云合作协议</div>
+        </div>
+      </div>
+      <div class="item-meta">
+        <span class="source">The AI Track</span>
+        <span class="date">2026-04-27</span>
+      </div>
+      <div class="bilingual">
+        <div class="lang-zh">
+          <div class="lang-label">🇨🇳 中文</div>
+          微软与 OpenAI 重构合作关系，终止云独家条款。Azure 仍保留为 OpenAI 的主要云合作伙伴，但移除与 AGI 挂钩的协议条款，标志着双方关系从深度绑定走向更加独立的合作模式。
+        </div>
+        <div class="lang-en">
+          <div class="lang-label">🇺🇸 English</div>
+          Microsoft and OpenAI restructure their partnership, ending exclusive cloud clauses. Azure remains the primary cloud partner but AGI-linked provisions are removed — signaling a more independent relationship between the two.
+        </div>
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="item-header">
+        <div style="display:flex;align-items:center;">
+          <div class="item-num">9</div>
+          <div class="item-title">中国阻止 Meta 收购 AI 初创公司 Manus（超20亿美元）</div>
+        </div>
+      </div>
+      <div class="item-meta">
+        <span class="source">The AI Track</span>
+        <span class="date">2026-04-27</span>
+      </div>
+      <div class="bilingual">
+        <div class="lang-zh">
+          <div class="lang-label">🇨🇳 中文</div>
+          中国监管机构叫停 Meta 收购 AI 智能体初创公司 Manus（作价超20亿美元）。此次收购被阻止标志着美国对中国关联科技公司的投资审查趋严，也影响了 Meta 在自主 AI 智能体领域的布局。
+        </div>
+        <div class="lang-en">
+          <div class="lang-label">🇺🇸 English</div>
+          China blocks Meta's $2B+ acquisition of autonomous AI agent startup Manus. The deal termination signals tightening scrutiny on US-China tech investments and impacts Meta's autonomous AI agent strategy.
+        </div>
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="item-header">
+        <div style="display:flex;align-items:center;">
+          <div class="item-num">10</div>
+          <div class="item-title">Elon Musk 出庭作证，OpenAI 审判正式开始</div>
+        </div>
+      </div>
+      <div class="item-meta">
+        <span class="source">The AI Track</span>
+        <span class="date">2026-04-28</span>
+      </div>
+      <div class="bilingual">
+        <div class="lang-zh">
+          <div class="lang-label">🇨🇳 中文</div>
+          Elon Musk 在奥克兰出庭作证，OpenAI 审判正式开庭。被告包括 Sam Altman、Greg Brockman、OpenAI 及微软。剩余两项核心指控为违反慈善信托和不当得利，案件结果将深刻影响 AI 行业的公司治理结构。
+        </div>
+        <div class="lang-en">
+          <div class="lang-label">🇺🇸 English</div>
+          Elon Musk testifies as OpenAI trial begins in Oakland. Defendants: Sam Altman, Greg Brockman, OpenAI, and Microsoft. Remaining charges: breach of charitable trust and unjust enrichment. The outcome could reshape AI governance structures industry-wide.
+        </div>
+      </div>
+    </div>
+
+    <!-- Shipping AI Section -->
+    <div class="section-title">
+      <span class="section-badge ship">PART II</span>
+      航运 AI 动态 · Shipping AI News
+    </div>
+
+    <div class="news-item">
+      <div class="item-header">
+        <div style="display:flex;align-items:center;">
+          <div class="item-num">1</div>
+          <div class="item-title">四部委联合发布《智能航运2030行动计划》</div>
+        </div>
+      </div>
+      <div class="item-meta">
+        <span class="source">交通运输部 / 新浪财经</span>
+        <span class="date">2026-03-30</span>
+      </div>
+      <div class="bilingual">
+        <div class="lang-zh">
+          <div class="lang-label">🇨🇳 中文</div>
+          交通运输部、工信部、国资委、市场监管总局联合发布《智能航运2030行动计划》，部署智能航运共性技术、智能船舶技术与装备、港口航道智能技术装备、智能化航保技术装备等核心研发方向，标志着中国智能航运进入系统化推进阶段。
+        </div>
+        <div class="lang-en">
+          <div class="lang-label">🇺🇸 English</div>
+          China's four ministries jointly release the Smart Shipping 2030 Action Plan — deploying R&D in shared smart shipping tech, autonomous vessels, port/waterway intelligence, and navigation support systems. A systematic national push for smart shipping begins.
+        </div>
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="item-header">
+        <div style="display:flex;align-items:center;">
+          <div class="item-num">2</div>
+          <div class="item-title">全国首款港口AI芯片"山港智芯·星屿SA5200"发布</div>
+        </div>
+      </div>
+      <div class="item-meta">
+        <span class="source">中国水运网 / 新浪财经</span>
+        <span class="date">2026-03-30</span>
+      </div>
+      <div class="bilingual">
+        <div class="lang-zh">
+          <div class="lang-label">🇨🇳 中文</div>
+          山东港口发布全国首款港口专用 AI 芯片"山港智芯·星屿SA5200"。该芯片针对复杂港口场景深度优化，为自动化装卸、智能调度等核心港口作业提供强大边缘算力支撑。
+        </div>
+        <div class="lang-en">
+          <div class="lang-label">🇺🇸 English</div>
+          Shandong Port launches China's first port-specific AI chip "ShanGang Zhixin · Xingyu SA5200" — deeply optimized for complex port environments, providing powerful edge computing for automated loading/unloading and intelligent scheduling.
+        </div>
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="item-header">
+        <div style="display:flex;align-items:center;">
+          <div class="item-num">3</div>
+          <div class="item-title">国内首台智慧驾驶舱发布并装船应用</div>
+        </div>
+      </div>
+      <div class="item-meta">
+        <span class="source">中国水运网</span>
+        <span class="date">2026年4月</span>
+      </div>
+      <div class="bilingual">
+        <div class="lang-zh">
+          <div class="lang-label">🇨🇳 中文</div>
+          中国船舶集团712研究所发布国内首台智慧驾驶舱，已安装于3000吨级LNG动力多用途运输船。集成360°辅助靠离泊系统、前向态势感知、语音大模型及高级数据分析功能，同时保留传统航海、雷达、通信等完整功能。
+        </div>
+        <div class="lang-en">
+          <div class="lang-label">🇺🇸 English</div>
+          CSSC's 712th Research Institute releases China's first smart ship cockpit — installed on a 3000-ton LNG multi-purpose vessel. Features 360° berthing assistance, forward situational awareness, voice AI, and advanced analytics while retaining traditional navigation functions.
+        </div>
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="item-header">
+        <div style="display:flex;align-items:center;">
+          <div class="item-num">4</div>
+          <div class="item-title">水运数智化加速升级：青岛港、泰州港等落地多项成果</div>
+        </div>
+      </div>
+      <div class="item-meta">
+        <span class="source">中国水运网 / 新浪财经</span>
+        <span class="date">2026-04-29</span>
+      </div>
+      <div class="bilingual">
+        <div class="lang-zh">
+          <div class="lang-label">🇨🇳 中文</div>
+          2026年一季度，港口与水运数智化取得多项突破：青岛港"主航道智慧大脑"平台上线；泰州港航实现航闸一体化智能管控（江苏首例）；山东港口日照港自动导引车（AGV）单车作业效率同比提升25%；长江镇江航道数字孪生系统稳定保障12.5米深水航道。
+        </div>
+        <div class="lang-en">
+          <div class="lang-label">🇺🇸 English</div>
+          Q1 2026: Qingdao Port's Smart Brain platform online; Taizhou's integrated lock management (Jiangsu's first); Rizhao Port AGV efficiency up 25% YoY; Yangtze Zhenjiang digital twin protecting 12.5m deep-water channel. Water transport digitalization accelerating across China.
+        </div>
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="item-header">
+        <div style="display:flex;align-items:center;">
+          <div class="item-num">5</div>
+          <div class="item-title">自动驾驶船舶行业到2030年预计达82亿美元</div>
+        </div>
+      </div>
+      <div class="item-meta">
+        <span class="source">Nitisara / Industry Research</span>
+        <span class="date">2026-05-02</span>
+      </div>
+      <div class="bilingual">
+        <div class="lang-zh">
+          <div class="lang-label">🇨🇳 中文</div>
+          全球自动驾驶船舶市场预计到2030年达到82亿美元，年复合增长率9-10%。Yara Birkeland、Mayflower Autonomous Ship 等项目持续推进。AI导航辅助可减少30-50%海上险情，每艘船每年节省燃油8-12万美元。
+        </div>
+        <div class="lang-en">
+          <div class="lang-label">🇺🇸 English</div>
+          Global autonomous ships market projected to reach $8.2B by 2030 (9-10% CAGR). Yara Birkeland and Mayflower Autonomous Ship continue advancing. AI navigation support reduces close-proximity incidents by 30-50% and saves $80-120K annual fuel per vessel.
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+      <p>本报告由 AI 自动生成 | Generated by AI</p>
+      <p style="margin-top:6px;">
+        <a href="https://github.com/rickyqinqi/ai-news-daily">🐙 GitHub</a> ·
+        <a href="https://rickyqinqi.github.io/ai-news-daily">🌐 GitHub Pages</a>
+      </p>
+    </div>
+  </div>
+  <script>
+    function toggleTheme() {
+      const body = document.body;
+      const btn = document.getElementById('themeBtn');
+      const isDark = body.getAttribute('data-theme') === 'dark';
+      if (isDark) {
+        body.removeAttribute('data-theme');
+        btn.textContent = '🌙 深色';
+      } else {
+        body.setAttribute('data-theme', 'dark');
+        btn.textContent = '☀️ 浅色';
+      }
+    }
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      document.body.setAttribute('data-theme', 'dark');
+      document.getElementById('themeBtn').textContent = '☀️ 浅色';
+    }
+  </script>
+</body>
+</html>
