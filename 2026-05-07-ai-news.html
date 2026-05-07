@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI 日报 - 2026-05-07</title>
+    <style>
+        :root {
+            --bg-color: #ffffff;
+            --text-color: #333333;
+            --heading-color: #1a1a1a;
+            --link-color: #0066cc;
+            --border-color: #e0e0e0;
+            --card-bg: #f9f9f9;
+            --code-bg: #f5f5f5;
+            --shadow: 0 2px 8px rgba(0,0,0,0.1);
+            --accent: #0066cc;
+            --tag-bg: #e8f0fe;
+            --tag-color: #0066cc;
+        }
+
+        [data-theme="dark"] {
+            --bg-color: #1a1a1a;
+            --text-color: #e0e0e0;
+            --heading-color: #ffffff;
+            --link-color: #66b3ff;
+            --border-color: #404040;
+            --card-bg: #2a2a2a;
+            --code-bg: #333333;
+            --shadow: 0 2px 8px rgba(0,0,0,0.3);
+            --accent: #66b3ff;
+            --tag-bg: #1a3a5c;
+            --tag-color: #66b3ff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            transition: background-color 0.3s, color 0.3s;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            padding: 40px 20px;
+            border-bottom: 2px solid var(--border-color);
+            margin-bottom: 40px;
+        }
+
+        h1 {
+            color: var(--heading-color);
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: var(--text-color);
+            font-size: 1.2em;
+            opacity: 0.8;
+        }
+
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            color: var(--text-color);
+            z-index: 1000;
+            transition: all 0.3s;
+        }
+
+        .theme-toggle:hover {
+            box-shadow: var(--shadow);
+        }
+
+        .section {
+            margin-bottom: 50px;
+        }
+
+        h2 {
+            color: var(--heading-color);
+            font-size: 2em;
+            margin-bottom: 30px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid var(--accent);
+        }
+
+        .news-item {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: var(--shadow);
+            transition: transform 0.2s;
+        }
+
+        .news-item:hover {
+            transform: translateY(-2px);
+        }
+
+        .news-item h3 {
+            color: var(--heading-color);
+            font-size: 1.5em;
+            margin-bottom: 10px;
+        }
+
+        .news-item .meta {
+            color: var(--text-color);
+            opacity: 0.7;
+            font-size: 0.9em;
+            margin-bottom: 15px;
+        }
+
+        .news-item p {
+            margin-bottom: 15px;
+            line-height: 1.8;
+        }
+
+        .news-item ul, .news-item ol {
+            margin-left: 25px;
+            margin-bottom: 15px;
+        }
+
+        .news-item li {
+            margin-bottom: 8px;
+            line-height: 1.6;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            background: var(--bg-color);
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border: 1px solid var(--border-color);
+        }
+
+        th {
+            background: var(--card-bg);
+            font-weight: bold;
+            color: var(--heading-color);
+        }
+
+        td {
+            color: var(--text-color);
+        }
+
+        a {
+            color: var(--link-color);
+            text-decoration: none;
+            transition: opacity 0.2s;
+        }
+
+        a:hover {
+            opacity: 0.8;
+            text-decoration: underline;
+        }
+
+        code {
+            background: var(--code-bg);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: "Courier New", Courier, monospace;
+            font-size: 0.9em;
+        }
+
+        blockquote {
+            border-left: 4px solid var(--accent);
+            padding-left: 20px;
+            margin: 15px 0;
+            color: var(--text-color);
+            opacity: 0.9;
+            font-style: italic;
+        }
+
+        .tag {
+            display: inline-block;
+            background: var(--tag-bg);
+            color: var(--tag-color);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            margin-right: 8px;
+            margin-bottom: 8px;
+        }
+
+        .trend-box {
+            background: var(--card-bg);
+            border-left: 4px solid var(--accent);
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+
+        .trend-box h3 {
+            color: var(--heading-color);
+            margin-bottom: 15px;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 40px 20px;
+            border-top: 2px solid var(--border-color);
+            margin-top: 50px;
+            color: var(--text-color);
+            opacity: 0.8;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+
+            h1 {
+                font-size: 1.8em;
+            }
+
+            h2 {
+                font-size: 1.5em;
+            }
+
+            .news-item {
+                padding: 15px;
+            }
+
+            .theme-toggle {
+                top: 10px;
+                right: 10px;
+                padding: 8px 15px;
+                font-size: 12px;
+            }
+
+            table {
+                font-size: 0.9em;
+            }
+
+            th, td {
+                padding: 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <button class="theme-toggle" onclick="toggleTheme()">🌓 切换主题</button>
+
+    <div class="header">
+        <h1>📰 AI 日报</h1>
+        <p class="subtitle">2026-05-07 | 每周三更新</p>
+    </div>
+
+    <div class="section">
+        <h2>📰 AI 综合动态</h2>
+
+        <div class="news-item">
+            <h3>1. OpenAI GPT-5.5 "Spud" 正式发布</h3>
+            <p class="meta">发布日期: 2026年4月23日</p>
+            <p>OpenAI 发布了 GPT-5.5，这是自 GPT-4.5 以来首个完全重新训练的基模型（非后训练迭代）。</p>
+            <h4>核心亮点</h4>
+            <ul>
+                <li><strong>Terminal-Bench 2.0</strong>: 82.7%（行业第一）</li>
+                <li><strong>Token 效率</strong>: 相比 GPT-5.4 减少 40% 输出 token</li>
+                <li><strong>上下文窗口</strong>: 100万 token（API）/ 40万（Codex）</li>
+                <li><strong>多模态架构</strong>: 原生统一处理文本、图像、音频、视频</li>
+            </ul>
+            <h4>基准测试对比</h4>
+            <table>
+                <tr>
+                    <th>基准测试</th>
+                    <th>GPT-5.5</th>
+                    <th>Claude Opus 4.7</th>
+                    <th>Gemini 3.1 Pro</th>
+                </tr>
+                <tr>
+                    <td>Terminal-Bench 2.0</td>
+                    <td><strong>82.7%</strong></td>
+                    <td>69.4%</td>
+                    <td>68.5%</td>
+                </tr>
+                <tr>
+                    <td>SWE-bench Pro</td>
+                    <td>58.6%</td>
+                    <td><strong>64.3%</strong></td>
+                    <td>54.2%</td>
+                </tr>
+                <tr>
+                    <td>OSWorld-Verified</td>
+                    <td><strong>78.7%</strong></td>
+                    <td>78.0%</td>
+                    <td>—</td>
+                </tr>
+                <tr>
+                    <td>MRCR v2（长上下文）</td>
+                    <td><strong>74.0%</strong></td>
+                    <td>—</td>
+                    <td>—</td>
+                </tr>
+            </table>
+            <h4>定价</h4>
+            <ul>
+                <li>标准版: $5（输入）/ $30（输出）每百万 token</li>
+                <li>Pro 版: $30（输入）/ $180（输出）每百万 token</li>
+                <li>批处理/弹性模式: 5折优惠</li>
+            </ul>
+            <blockquote>⚠️ <strong>注意事项</strong>: OpenAI 自报幻觉率降低 60%，但第三方独立验证仍在进行中。法律、医疗、金融等高精度场景建议充分测试后再部署。</blockquote>
+            <p><a href="https://mindwiredai.com/2026/04/24/gpt-5-5-is-here-benchmarks-pricing-and-who-should-actually-upgrade-april-2026/" target="_blank">MindWired AI</a> | <a href="https://appwrite.io/blog/post/gpt-5-5-launch" target="_blank">Appwrite Blog</a></p>
+        </div>
+
+        <div class="news-item">
+            <h3>2. Google DeepMind Gemini 3.1 Ultra 发布</h3>
+            <p class="meta">发布日期: 2026年5月</p>
+            <p>Google DeepMind 发布了 Gemini 3.1 Ultra，主打超长上下文窗口。</p>
+            <h4>核心亮点</h4>
+            <ul>
+                <li><strong>200万 token 上下文窗口</strong>（当前最长）</li>
+                <li><strong>原生多模态</strong>: 无需转录即可处理文本、图像、音频、视频</li>
+                <li><strong>沙盒代码执行工具</strong>: 可在对话中直接编写和运行代码</li>
+                <li><strong>Gemini 3.1 Flash-Lite</strong>: $0.25/百万输入 token（经济型）</li>
+            </ul>
+            <p><a href="https://aitoolsrecap.com/Blog/ai-news-may-2026" target="_blank">AIToolsRecap</a></p>
+        </div>
+
+        <div class="news-item">
+            <h3>3. Anthropic 与华尔街成立 15 亿美元合资企业</h3>
+            <p class="meta">发布日期: 2026年5月4-5日</p>
+            <p>Anthropic 宣布与黑石集团（Blackstone）、Hellman & Friedman、高盛（Goldman Sachs）等机构合作，成立专注于为中型企业提供 AI 服务的合资企业。</p>
+            <h4>核心信息</h4>
+            <ul>
+                <li><strong>投资规模</strong>: 约 15 亿美元</li>
+                <li><strong>合作方</strong>: 黑石集团、Hellman & Friedman、高盛、General Atlantic、Leonard Green、Apollo Global Management、GIC、Sequoia Capital</li>
+                <li><strong>目标客户</strong>: 社区银行、中型制造商、区域医疗系统</li>
+                <li><strong>服务模式</strong>: Applied AI 工程师驻场，与客户工程团队共同构建定制解决方案</li>
+            </ul>
+            <p><a href="https://www.anthropic.com/news/enterprise-ai-services-company" target="_blank">Anthropic 官方</a> | <a href="https://news.qq.com/rain/a/20260504A046LO00" target="_blank">腾讯新闻</a></p>
+        </div>
+
+        <div class="news-item">
+            <h3>4. OpenAI 同期宣布 40 亿美元企业 AI 服务融资</h3>
+            <p class="meta">发布日期: 2026年5月4-5日</p>
+            <p>就在 Anthropic 宣布合资企业的几分钟后，OpenAI 也宣布了类似举措。</p>
+            <h4>核心信息</h4>
+            <ul>
+                <li><strong>融资规模</strong>: 超 40 亿美元</li>
+                <li><strong>投资方</strong>: TPG、Brookfield Asset Management、Advent、贝恩资本（Bain Capital）</li>
+                <li><strong>用途</strong>: 成立专注于帮助企业利用 OpenAI 软件的公司</li>
+                <li><strong>服务模式</strong>: 类似 Palantir 的驻场服务，将工程师派到企业内部部署 AI</li>
+            </ul>
+            <blockquote><strong>背景</strong>: OpenAI 2026 年未能实现多个月度销售目标，企业端市场被 Anthropic 反超。</blockquote>
+            <p><a href="https://finance.sina.com.cn/stock/usstock/c/2026-05-05/doc-inhwuhis7571096.shtml" target="_blank">新浪财经</a> | <a href="https://news.qq.com/rain/a/20260505A06ARJ00" target="_blank">腾讯新闻</a></p>
+        </div>
+
+        <div class="news-item">
+            <h3>5. Microsoft Agent 365 正式发布</h3>
+            <p class="meta">发布日期: 2026年5月2日</p>
+            <p>Microsoft Agent 365 正式商用（GA），将身份、安全、治理工具扩展到 AI 代理。</p>
+            <h4>核心功能</h4>
+            <ul>
+                <li>企业级 AI 代理身份管理</li>
+                <li>安全策略执行</li>
+                <li>治理工具集成</li>
+                <li>适用于企业部署场景</li>
+            </ul>
+            <p><a href="https://aitoolsrecap.com/Blog/ai-news-may-2026" target="_blank">AIToolsRecap</a></p>
+        </div>
+
+        <div class="news-item">
+            <h3>6. 开源大模型激战：Llama 4、Mistral 128B、DeepSeek V4、GLM-4.7</h3>
+            <p class="meta">时间: 2026年4-5月</p>
+            <p>30 天内 5 款前沿级开放权重 LLM 发布，开源模型性能逼近商业模型。</p>
+            <h4>主要模型对比</h4>
+            <table>
+                <tr>
+                    <th>模型</th>
+                    <th>上下文窗口</th>
+                    <th>定价（输入/百万 token）</th>
+                    <th>亮点</th>
+                </tr>
+                <tr>
+                    <td><strong>Mistral 128B</strong></td>
+                    <td>—</td>
+                    <td>—</td>
+                    <td>5月3日发布，旗舰级开源模型</td>
+                </tr>
+                <tr>
+                    <td><strong>DeepSeek V4</strong></td>
+                    <td>100万</td>
+                    <td>$0.27</td>
+                    <td>代码能力强</td>
+                </tr>
+                <tr>
+                    <td><strong>GLM-4.7</strong></td>
+                    <td>—</td>
+                    <td>$0.11</td>
+                    <td>华为昇腾训练，幻觉率 1.2%</td>
+                </tr>
+                <tr>
+                    <td><strong>Llama 4</strong></td>
+                    <td>1000万</td>
+                    <td>—</td>
+                    <td>Meta 开源，超大上下文</td>
+                </tr>
+                <tr>
+                    <td><strong>Qwen 3.5</strong></td>
+                    <td>—</td>
+                    <td>—</td>
+                    <td>与 Fireworks AI 合作降低推理成本</td>
+                </tr>
+            </table>
+            <p><a href="https://codersera.com/blog/best-open-source-llm-2026-llama-4-qwen-3-5-deepseek-v4-gemma-4-mistral/" target="_blank">Codersera</a> | <a href="https://aitoolsrecap.com/Blog/ai-news-may-2026" target="_blank">AIToolsRecap</a></p>
+        </div>
+
+        <div class="news-item">
+            <h3>7. IBM Think 2026：企业 AI 运营模型蓝图</h3>
+            <p class="meta">发布日期: 2026年5月5日</p>
+            <p>IBM 在年度 Think 大会上宣布了最全面的企业 AI 和混合云管理扩展。</p>
+            <h4>核心内容</h4>
+            <ul>
+                <li>企业 AI 运营模型蓝图</li>
+                <li>混合云管理工具更新</li>
+                <li>AI 治理框架</li>
+                <li>企业级 AI 部署最佳实践</li>
+            </ul>
+            <p><a href="https://newsroom.ibm.com/2026-05-05-think-2026-ibm-delivers-the-blueprint-for-the-ai-operating-model-as-the-ai-divide-widens" target="_blank">IBM Newsroom</a></p>
+        </div>
+
+        <div class="news-item">
+            <h3>8. Salesforce：2026 年 AI Agent 八大演进趋势</h3>
+            <p class="meta">发布日期: 2026年5月1日</p>
+            <p>Salesforce 发布报告，总结 2026 年前 5 个月企业 AI 代理的演进趋势。</p>
+            <h4>八大趋势</h4>
+            <ol>
+                <li><strong>确定性防护栏（Deterministic Guardrails）</strong>: 使用 if/then 工作流保证关键步骤按顺序执行</li>
+                <li><strong>上下文工程（Context Engineering）</strong>: 设计代理周围的信息架构，优化回答条件</li>
+                <li><strong>开放标准互联（MCP）</strong>: Model Context Protocol 标准化代理间通信，已有 10,000+ 公共 MCP 服务器部署</li>
+                <li><strong>Headless CRM</strong>: Agentforce 通过 API 和 CLI 暴露完整平台，代理无需打开浏览器即可操作</li>
+                <li><strong>重建以降低延迟</strong>: Agentforce 运行时重构，延迟降低 70%</li>
+                <li><strong>代理擎（Agent Harnesses）</strong>: 数据访问、权限、系统范围和显式约束决定代理成功</li>
+                <li><strong>可观测性堆栈</strong>: Agentforce Observability 提供会话级对话追踪，检测语义故障</li>
+                <li><strong>团队协作</strong>: Agent Development Lifecycle (ADLC) 定义从规划到迭代的完整生命周期，新职位如 Agent Supervisor、AI Ops Manager 出现</li>
+            </ol>
+            <p><a href="https://www.salesforce.com/blog/ai-agent-trends-2026/" target="_blank">Salesforce Blog</a></p>
+        </div>
+
+        <div class="news-item">
+            <h3>9. 《时代》周刊 2026 全球十大最具影响力 AI 公司</h3>
+            <p class="meta">发布日期: 2026年4月27日</p>
+            <p>《时代》杂志公布 2026 全球十大最具影响力 AI 公司。</p>
+            <h4>上榜公司</h4>
+            <ol>
+                <li>字节跳动（ByteDance）</li>
+                <li>亚马逊（Amazon）</li>
+                <li>智谱（Zhipu）</li>
+                <li>OpenAI</li>
+                <li>谷歌 Alphabet（Google Alphabet）</li>
+                <li>Meta</li>
+                <li>Anthropic</li>
+                <li>阿里巴巴集团（Alibaba Group）</li>
+                <li>Mistral</li>
+                <li>Hugging Face</li>
+            </ol>
+            <p><a href="https://news.qq.com/rain/a/20260428A052SL00" target="_blank">腾讯新闻</a></p>
+        </div>
+
+        <div class="news-item">
+            <h3>10. xAI Grok 降价 + AI 代理框架大比武</h3>
+            <p class="meta">时间: 2026年4月</p>
+            <h4>xAI Grok 更新</h4>
+            <ul>
+                <li>代理工具调用价格降低 50%</li>
+                <li>百万上下文窗口</li>
+                <li>Grok 4.3 发布</li>
+            </ul>
+            <h4>AI 代理框架对比（2026）</h4>
+            <ul>
+                <li><strong>LangChain</strong>: 成熟，生态丰富，但复杂度高</li>
+                <li><strong>AutoGPT</strong>: 自主性强，适合研究</li>
+                <li><strong>CrewAI</strong>: 多代理协作，生产就绪</li>
+                <li><strong>Claude Computer Use</strong>: Anthropic 官方计算机使用能力</li>
+            </ul>
+            <blockquote><strong>趋势</strong>: 2026 年企业 AI 代理看起来与 2025 年截然不同，代理技术正成为核心企业 IT 基础设施。</blockquote>
+            <p><a href="https://claude5.com/news/autonomous-ai-agents-framework-face-off-2026" target="_blank">Claude5</a> | <a href="https://aitoolsrecap.com/Blog/ai-news-may-2026" target="_blank">AIToolsRecap</a></p>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>🚢 航运 AI 动态</h2>
+
+        <div class="news-item">
+            <h3>1. 三星重工 + Orca AI 签署 MOU，开发自主船舶技术</h3>
+            <p class="meta">发布日期: 2026年4月29日</p>
+            <p>三星重工（Samsung Heavy Industries, SHI）与 Orca AI 签署谅解备忘录（MOU），共同开发和部署自主船舶技术。</p>
+            <h4>合作内容</h4>
+            <ul>
+                <li>将 SHI 的 <strong>SVISION 泊位辅助系统</strong>集成到 Orca AI 平台</li>
+                <li>将 SHI 的<strong>自主速度控制解决方案</strong>集成到 Orca AI 平台</li>
+                <li>在配备三星自主船舶（SAS）解决方案的新造船上进行部署</li>
+            </ul>
+            <blockquote><strong>意义</strong>: 自主船舶技术从概念验证走向商业部署的关键一步。</blockquote>
+            <p><a href="https://smartmaritimenetwork.com/2026/04/29/samsung-heavy-industries-partners-with-orca-ai-on-autonomous-vessel-tech/" target="_blank">Smart Maritime Network</a> | <a href="https://www.marinelink.com/news/orca-ai-samsung-heavy-industries-join-538587" target="_blank">Maritime Link</a></p>
+        </div>
+
+        <div class="news-item">
+            <h3>2. 智能港口 2026 指南：AI 驱动港口运营</h3>
+            <p class="meta">发布日期: 2026年1月21日（持续更新）</p>
+            <p>Ship Universe 发布 2026 智能港口指南，详解 AI 驱动的港口运营。</p>
+            <h4>核心概念</h4>
+            <ul>
+                <li><strong>智能港口定义</strong>: 使用传感器、共享运营数据、机器学习来规划和运行日常运营的港口</li>
+                <li><strong>实时数据共享</strong>: 码头、船舶交通、卡车闸口、服务提供商之间共享实时数据</li>
+                <li><strong>预测性运营</strong>: 预测拥堵、排序靠泊、优化资源分配</li>
+            </ul>
+            <h4>技术要素</h4>
+            <ul>
+                <li>IoT 传感器网络</li>
+                <li>AI/ML 数据分析</li>
+                <li>数字孪生技术</li>
+                <li>自动化闸口系统</li>
+            </ul>
+            <p><a href="https://www.shipuniverse.com/tech/smart-ports-2026-guide/" target="_blank">Ship Universe</a></p>
+        </div>
+
+        <div class="news-item">
+            <h3>3. 香港 2026 物流枢纽：2 亿美元智能港口升级</h3>
+            <p class="meta">发布日期: 2026年</p>
+            <p>香港通过 2 亿美元港口社区系统和单一电子锁货运计划扩展，加速"智慧城市"地位。</p>
+            <h4>核心项目</h4>
+            <ul>
+                <li><strong>港口社区系统（Port Community System）</strong>: 2 亿美元投资</li>
+                <li><strong>单一电子锁货运计划</strong>: 扩展到广西</li>
+                <li><strong>AI 采用</strong>: 加速物流数字化和 AI 应用</li>
+            </ul>
+            <blockquote><strong>意义</strong>: 香港旨在保持国际航运中心地位，通过数字化和 AI 提升竞争力。</blockquote>
+            <p><a href="https://www.athenasia.com/post/hong-kong-s-2026-logistics-pivot-200m-smart-port-upgrade-ai-adoption" target="_blank">Athe Asia</a></p>
+        </div>
+
+        <div class="news-item">
+            <h3>4. 数字孪生港口 2026：智能港口技术与自动化</h3>
+            <p class="meta">发布日期: 2026年1月2日</p>
+            <p>The InTech Group 发布数字孪生港口技术报告。</p>
+            <h4>核心技术</h4>
+            <ul>
+                <li><strong>IoT 传感器</strong>: 实时数据采集</li>
+                <li><strong>AI 分析</strong>: 预测性决策</li>
+                <li><strong>数字孪生</strong>: 虚拟港口映射</li>
+                <li><strong>自动化系统</strong>: 闸口、堆场、泊位自动化</li>
+            </ul>
+            <h4>效益</h4>
+            <ul>
+                <li>提高效率</li>
+                <li>增强安全性</li>
+                <li>预测性维护</li>
+                <li>减少拥堵</li>
+            </ul>
+            <p><a href="https://theintechgroup.com/blog/digital-twin-ports-smart-port-technology-automation/" target="_blank">The InTech Group</a></p>
+        </div>
+
+        <div class="news-item">
+            <h3>5. IMO 海事数字化战略：全球智能航运推进</h3>
+            <p class="meta">发布日期: 2025年3月（持续推进中）</p>
+            <p>国际海事组织（IMO）正在制定全球海事数字化战略。</p>
+            <h4>战略目标</h4>
+            <ul>
+                <li>实现顺畅、无缝、智能的航运</li>
+                <li>推动海事数字化</li>
+                <li>建立全球标准和框架</li>
+            </ul>
+            <h4>关键领域</h4>
+            <ul>
+                <li>自主船舶（MASS）法规</li>
+                <li>数字化港口</li>
+                <li>智能航运技术</li>
+                <li>数据标准和互操作性</li>
+            </ul>
+            <blockquote><strong>意义</strong>: 全球协调的监管框架是智能航运大规模部署的前提。</blockquote>
+            <p><a href="https://www.imo.org/en/mediacentre/pressbriefings/pages/imo-global-strategy-maritime-digitalization.aspx" target="_blank">IMO</a></p>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>📊 趋势分析</h2>
+
+        <div class="trend-box">
+            <h3>AI 领域</h3>
+            <ol>
+                <li><strong>代理化 AI 成为标配</strong>: 从功能到期望，AI 代理能力已成为基准</li>
+                <li><strong>推理成本崩溃</strong>: 预算模型以极低价格提供超大上下文</li>
+                <li><strong>企业级部署加速</strong>: OpenAI 和 Anthropic 同时宣布与华尔街合资，AI 服务化趋势明显</li>
+                <li><strong>开源模型逼近商业模型</strong>: Mistral 128B、DeepSeek V4 等在多个基准上媲美 GPT-5.5 和 Claude</li>
+                <li><strong>上下文工程崛起</strong>: 提示工程已是基本功，上下文工程成为新前沿</li>
+            </ol>
+        </div>
+
+        <div class="trend-box">
+            <h3>航运 AI 领域</h3>
+            <ol>
+                <li><strong>自主船舶技术商业化</strong>: 三星重工 + Orca AI 合作表示技术从验证走向部署</li>
+                <li><strong>智能港口成为全球趋势</strong>: 香港、新加坡、上海等港口加速数字化</li>
+                <li><strong>数字孪生成为核心</strong>: IoT + AI + 数字孪生组合成为智能港口标准配置</li>
+                <li><strong>IMO 全球协调</strong>: 国际监管框架逐步完善，为大规模部署铺路</li>
+                <li><strong>AI 落地从港口到船舶</strong>: 从港口自动化扩展到船舶自主化</li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>🔗 相关链接</h2>
+        <ul>
+            <li><a href="https://openai.com/index/gpt-5-5/" target="_blank">OpenAI GPT-5.5 官方公告</a></li>
+            <li><a href="https://www.anthropic.com/news/enterprise-ai-services-company" target="_blank">Anthropic 企业 AI 服务公司公告</a></li>
+            <li><a href="https://www.salesforce.com/blog/ai-agent-trends-2026/" target="_blank">Salesforce AI Agent 趋势报告</a></li>
+            <li><a href="https://newsroom.ibm.com/2026-05-05-think-2026-ibm-delivers-the-blueprint-for-the-ai-operating-model-as-the-ai-divide-widens" target="_blank">IBM Think 2026</a></li>
+            <li><a href="https://www.shipuniverse.com/tech/smart-ports-2026-guide/" target="_blank">智能港口 2026 指南</a></li>
+        </ul>
+    </div>
+
+    <div class="footer">
+        <p><strong>生成时间</strong>: 2026-05-07 09:50 GMT+8</p>
+        <p><strong>下期预告</strong>: 2026-05-14（每周三更新）</p>
+        <p>由 WorkBuddy AI 自动生成</p>
+    </div>
+
+    <script>
+        function toggleTheme() {
+            const body = document.body;
+            const currentTheme = body.getAttribute('data-theme');
+            if (currentTheme === 'dark') {
+                body.removeAttribute('data-theme');
+                localStorage.setItem('theme', 'light');
+            } else {
+                body.setAttribute('data-theme', 'dark');
+                localStorage.setItem('theme', 'dark');
+            }
+        }
+
+        // Check for saved theme preference
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark') {
+                document.body.setAttribute('data-theme', 'dark');
+            }
+        });
+    </script>
+</body>
+</html>
