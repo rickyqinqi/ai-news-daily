@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI 日报 - 2026-05-13</title>
+    <style>
+        :root {
+            --bg-color: #ffffff;
+            --text-color: #333333;
+            --heading-color: #1a1a1a;
+            --link-color: #0066cc;
+            --border-color: #e0e0e0;
+            --card-bg: #f9f9f9;
+            --code-bg: #f5f5f5;
+            --shadow: 0 2px 8px rgba(0,0,0,0.1);
+            --accent: #0066cc;
+            --tag-bg: #e8f0fe;
+            --tag-color: #0066cc;
+            --gradient-start: #ff6b35;
+            --gradient-end: #ff2d2d;
+        }
+
+        [data-theme="dark"] {
+            --bg-color: #1a1a1a;
+            --text-color: #e0e0e0;
+            --heading-color: #ffffff;
+            --link-color: #66b3ff;
+            --border-color: #404040;
+            --card-bg: #2a2a2a;
+            --code-bg: #333333;
+            --shadow: 0 2px 8px rgba(0,0,0,0.3);
+            --accent: #66b3ff;
+            --tag-bg: #1a3a5c;
+            --tag-color: #66b3ff;
+            --gradient-start: #ff8c5a;
+            --gradient-end: #ff5555;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            transition: background-color 0.3s, color 0.3s;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            padding: 40px 20px;
+            border-bottom: 2px solid var(--border-color);
+            margin-bottom: 40px;
+            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+            border-radius: 16px;
+            color: #ffffff;
+        }
+
+        .header h1 {
+            color: #ffffff;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .header .subtitle {
+            color: rgba(255,255,255,0.9);
+            font-size: 1.2em;
+        }
+
+        h1 {
+            color: var(--heading-color);
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            color: var(--text-color);
+            z-index: 1000;
+            transition: all 0.3s;
+        }
+
+        .theme-toggle:hover {
+            box-shadow: var(--shadow);
+        }
+
+        .section {
+            margin-bottom: 50px;
+        }
+
+        h2 {
+            color: var(--heading-color);
+            font-size: 2em;
+            margin-bottom: 30px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid var(--accent);
+        }
+
+        .news-item {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: var(--shadow);
+            transition: transform 0.2s;
+        }
+
+        .news-item:hover {
+            transform: translateY(-2px);
+        }
+
+        .news-item h3 {
+            color: var(--heading-color);
+            font-size: 1.5em;
+            margin-bottom: 10px;
+        }
+
+        .news-item .meta {
+            color: var(--text-color);
+            opacity: 0.7;
+            font-size: 0.9em;
+            margin-bottom: 15px;
+        }
+
+        .news-item p {
+            margin-bottom: 15px;
+            line-height: 1.8;
+        }
+
+        .news-item ul, .news-item ol {
+            margin-left: 25px;
+            margin-bottom: 15px;
+        }
+
+        .news-item li {
+            margin-bottom: 8px;
+            line-height: 1.6;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            background: var(--bg-color);
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border: 1px solid var(--border-color);
+        }
+
+        th {
+            background: var(--card-bg);
+            font-weight: bold;
+            color: var(--heading-color);
+        }
+
+        td {
+            color: var(--text-color);
+        }
+
+        a {
+            color: var(--link-color);
+            text-decoration: none;
+            transition: opacity 0.2s;
+        }
+
+        a:hover {
+            opacity: 0.8;
+            text-decoration: underline;
+        }
+
+        code {
+            background: var(--code-bg);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: "Courier New", Courier, monospace;
+            font-size: 0.9em;
+        }
+
+        blockquote {
+            border-left: 4px solid var(--accent);
+            padding-left: 20px;
+            margin: 15px 0;
+            color: var(--text-color);
+            opacity: 0.9;
+            font-style: italic;
+        }
+
+        .tag {
+            display: inline-block;
+            background: var(--tag-bg);
+            color: var(--tag-color);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            margin-right: 8px;
+            margin-bottom: 8px;
+        }
+
+        .trend-box {
+            background: var(--card-bg);
+            border-left: 4px solid var(--accent);
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+
+        .trend-box h3 {
+            color: var(--heading-color);
+            margin-bottom: 15px;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 40px 20px;
+            border-top: 2px solid var(--border-color);
+            margin-top: 50px;
+            color: var(--text-color);
+            opacity: 0.8;
+        }
+
+        .highlight {
+            color: var(--accent);
+            font-weight: bold;
+        }
+
+        .source {
+            font-size: 0.9em;
+            opacity: 0.8;
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px dashed var(--border-color);
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+
+            h1 {
+                font-size: 1.8em;
+            }
+
+            .header h1 {
+                font-size: 1.8em;
+            }
+
+            h2 {
+                font-size: 1.5em;
+            }
+
+            .news-item {
+                padding: 15px;
+            }
+
+            .theme-toggle {
+                top: 10px;
+                right: 10px;
+                padding: 8px 15px;
+                font-size: 12px;
+            }
+
+            table {
+                font-size: 0.9em;
+            }
+
+            th, td {
+                padding: 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <button class="theme-toggle" onclick="toggleTheme()">🌓 切换主题</button>
+
+    <div class="header">
+        <h1>📰 AI 日报</h1>
+        <p class="subtitle">2026-05-13 | 每周三更新</p>
+    </div>
+
+    <div class="section">
+        <h2>📰 AI 综合动态</h2>
+
+        <div class="news-item">
+            <h3>1. Anthropic ARR 突破 440 亿美元，创科技公司增长速度新纪录</h3>
+            <p class="meta">发布日期: 2026年5月4-7日</p>
+            <p>Semi Analysis 最新报告显示，Anthropic 年化运行收入（ARR）已突破 <span class="highlight">440 亿美元</span>，12 个月新增 350 亿美元。这一增速远超传统软件巨头——AWS 达成同等收入规模耗时 13 年，Anthropic 仅用 12 个月。</p>
+            <h4>核心亮点</h4>
+            <ul>
+                <li><strong>ARR</strong>: 440 亿美元（两个月内翻倍）</li>
+                <li><strong>增长驱动力</strong>: 企业客户拓展、Claude Code 产品落地、推理毛利率提升</li>
+                <li><strong>估值讨论</strong>: 市场热议估值达 9000 亿美元，IPO 预期升温</li>
+                <li><strong>对比</strong>: AWS 达成 350 亿美元年收入耗时 13 年，Anthropic 仅 12 个月</li>
+            </ul>
+            <p class="source">来源: <a href="https://hub.baai.ac.cn/view/54453">BAAI Hub</a> | <a href="https://wallstreetcn.com/articles/3771533">华尔街见闻</a> | <a href="https://www.edgen.tech/news/post/anthropic-arr-hits-44-billion-in-challenge-to-openai-dominance">EdgeN</a></p>
+        </div>
+
+        <div class="news-item">
+            <h3>2. OpenAI 与 Anthropic 同日成立企业 AI 合资公司，竞夺 ToB 入口</h3>
+            <p class="meta">发布日期: 2026年5月4-5日</p>
+            <p>美东时间 5 月 4 日，OpenAI 与 Anthropic 以近乎同步的节奏宣布成立企业级合资公司，将 AI 工程师派驻企业内部部署定制方案，标志 AI 商业化进入新阶段。</p>
+            <h4>Anthropic 合资公司</h4>
+            <ul>
+                <li><strong>估值</strong>: 15 亿美元</li>
+                <li><strong>投资方</strong>: Blackstone（3 亿）、Hellman & Friedman（3 亿）、Goldman Sachs（3 亿），以及 Apollo、General Atlantic、Sequoia、GIC</li>
+                <li><strong>服务模式</strong>: Applied AI 工程师驻场，为社区银行、中型制造商、区域医疗系统等提供定制方案</li>
+            </ul>
+            <h4>OpenAI 合资公司（"The Development Company"）</h4>
+            <ul>
+                <li><strong>估值</strong>: 100 亿美元</li>
+                <li><strong>融资</strong>: 40 亿美元，来自 19 家投资方</li>
+                <li><strong>投资方</strong>: TPG、Brookfield、Bain Capital</li>
+                <li><strong>服务模式</strong>: 类 Palantir 驻场服务，将工程师派到企业内部部署 AI</li>
+            </ul>
+            <p class="source">来源: <a href="https://techcrunch.com/2026/05/04/anthropic-and-openai-are-both-launching-joint-ventures-for-enterprise-ai-services/">TechCrunch</a> | <a href="https://theaiinsider.tech/2026/05/05/anthropic-and-openai-launch-rival-enterprise-ai-joint-ventures-backed-by-wall-street/">The AI Insider</a></p>
+        </div>
+
+        <div class="news-item">
+            <h3>3. DeepSeek 首轮融资估值飙升至 450-500 亿美元</h3>
+            <p class="meta">发布日期: 2026年5月6-7日</p>
+            <p>中国 AI 初创公司 DeepSeek 启动首轮融资，估值从 200 亿美元飙升至 <span class="highlight">450-500 亿美元</span>，由国家大基金领投。</p>
+            <h4>核心亮点</h4>
+            <ul>
+                <li><strong>目标估值</strong>: 450-500 亿美元（从 200 亿美元三个月内翻倍）</li>
+                <li><strong>融资规模</strong>: 30-40 亿美元</li>
+                <li><strong>领投方</strong>: 中国国家集成电路产业投资基金（"大基金"）</li>
+                <li><strong>参投方</strong>: 腾讯、阿里巴巴</li>
+                <li><strong>背景</strong>: DeepSeek V4 开源模型（1M 上下文）引发全球关注，推理成本仅为 Claude Opus 4.7 的一小部分</li>
+            </ul>
+            <p class="source">来源: <a href="https://thesiliconreview.com/2026/05/deepseek-valuation-45-billion-big-fund-funding">The Silicon Review</a> | <a href="https://startupwired.com/2026/05/07/deepseek-targets-50b-valuation-in-major-ai-funding-push/">Startup Wired</a></p>
+        </div>
+
+        <div class="news-item">
+            <h3>4. SpaceX 宣布 550 亿美元 Terafab 芯片工厂计划</h3>
+            <p class="meta">发布日期: 2026年5月6日</p>
+            <p>Elon Musk 旗下 SpaceX 提交监管文件，计划在德克萨斯州奥斯汀投资 <span class="highlight">550 亿美元</span>建设半导体制造设施"Terafab"，为 AI 和机器人业务自研芯片。</p>
+            <h4>核心亮点</h4>
+            <ul>
+                <li><strong>投资规模</strong>: 首期 550 亿美元</li>
+                <li><strong>选址</strong>: 德克萨斯州奥斯汀</li>
+                <li><strong>目的</strong>: 为 SpaceX 的 AI 和机器人业务自研芯片</li>
+                <li><strong>背景</strong>: Anthropic 此前签约使用 SpaceX 的 Colossus 1 超级计算机（22 万+ NVIDIA GPU，300MW）</li>
+                <li><strong>战略意义</strong>: SpaceX 从火箭/卫星业务延伸至 AI 芯片制造，挑战 NVIDIA 垄断</li>
+            </ul>
+            <p class="source">来源: <a href="https://www.rte.ie/news/business/2026/0506/1571980-spacex-plans-55-billion-terafab-facility-in-texas/">Reuters via RTE</a> | <a href="https://www.alphaspread.com/market-news/corporate-moves/spacex-files-plan-for-55-billion-terafab-chip-factory-in-texas">AlphaSpread</a></p>
+        </div>
+
+        <div class="news-item">
+            <h3>5. Google DeepMind 英国员工 98% 投票成立工会，抗议军方 AI 合同</h3>
+            <p class="meta">发布日期: 2026年5月5日</p>
+            <p>Google DeepMind 伦敦总部员工以 <span class="highlight">98%</span> 的压倒性多数投票决定加入 CWU 和 Unite 工会，成为顶级 AI 实验室首个工会，抗议公司与五角大楼签署的机密 AI 合同。</p>
+            <h4>核心亮点</h4>
+            <ul>
+                <li><strong>投票结果</strong>: CWU 成员 98% 支持成立工会</li>
+                <li><strong>诉求</strong>: 要求 Google 终止军方 AI 使用、恢复 AI 伦理承诺</li>
+                <li><strong>导火索</strong>: Google 与五角大楼签署机密合同（"any lawful purpose"条款），以及与以色列国防军的合作</li>
+                <li><strong>历史对比</strong>: 2018 年员工运动曾成功推动 Google 放弃 Project Maven，但如今员工影响力已减弱</li>
+                <li><strong>标志性意义</strong>: 首个顶级 AI 实验室工会，AI 伦理争议升级</li>
+            </ul>
+            <p class="source">来源: <a href="https://fortune.com/2026/05/05/google-deepmind-unionize-vote-military-ai-contracts-internal-backlash-pentagon-deal-israeli-defense-forces/">Fortune</a> | <a href="https://thenextweb.com/news/deepmind-union-google-pentagon-ai-military">The Next Web</a></p>
+        </div>
+
+        <div class="news-item">
+            <h3>6. Google Android Show 发布 Googlebooks、Gemini 智能体功能与 Android 17</h3>
+            <p class="meta">发布日期: 2026年5月12日</p>
+            <p>Google 在 I/O 2026 前一周举办 Android Show，发布一系列 AI 优先产品，Gemini 智能体能力大幅升级。</p>
+            <h4>核心发布</h4>
+            <ul>
+                <li><strong>Googlebook</strong>: 全新 AI 原生笔记本，Gemini 为核心，搭载 Magic Pointer（Gemini 集成光标），合作方包括 Acer/Asus/Dell/HP/Lenovo，2026 秋季上市</li>
+                <li><strong>Gemini Intelligence</strong>: 跨应用操作、Chrome 内 Gemini（Android 端上线）、Rambler 语音输入（自动去除口头禅）</li>
+                <li><strong>Create My Widget</strong>: 自然语言描述即可生成自定义桌面小部件</li>
+                <li><strong>Android 17 安全</strong>: 默认开启防盗保护、入侵日志（Pixel 独有）</li>
+                <li><strong>Android Auto</strong>: 边到边设计适配、Gemini 上车、车载 YouTube 60fps 全高清</li>
+                <li><strong>3D Emoji</strong>: 全部 4000 个 emoji 重新设计，更真实立体</li>
+            </ul>
+            <p class="source">来源: <a href="https://techcrunch.com/2026/05/12/everything-google-announced-at-its-android-show-from-googlebooks-to-vibe-coded-widgets/">TechCrunch</a> | <a href="https://9to5google.com/2026/05/12/the-android-show-2026/">9to5Google</a></p>
+        </div>
+
+        <div class="news-item">
+            <h3>7. 微软全球 AI 扩散报告：全球工作年龄人口 AI 使用率达 17.8%</h3>
+            <p class="meta">发布日期: 2026年5月7日</p>
+            <p>微软发布 2026 年 Q1 全球 AI 扩散报告，显示 AI 采用率持续攀升，但全球分化明显。</p>
+            <h4>核心数据</h4>
+            <table>
+                <tr>
+                    <th>指标</th>
+                    <th>数据</th>
+                </tr>
+                <tr>
+                    <td>全球 AI 使用率</td>
+                    <td><span class="highlight">17.8%</span>（Q1 环比 +1.5pp）</td>
+                </tr>
+                <tr>
+                    <td>UAE 全球领先</td>
+                    <td>70.1% 采用率</td>
+                </tr>
+                <tr>
+                    <td>美国</td>
+                    <td>31.3%（稳步上升）</td>
+                </tr>
+                <tr>
+                    <td>美国软件开发者就业</td>
+                    <td>同比增 4%，创历史新高</td>
+                </tr>
+            </table>
+            <ul>
+                <li>AI 使用率高的前沿企业，每员工 AI 使用量是平均水平的 3.5 倍</li>
+                <li>隐忧：尽管就业创新高，IT 行业 4 月裁员 13,000 人，AI 连续两月成为裁员首要原因</li>
+            </ul>
+            <p class="source">来源: <a href="https://blogs.microsoft.com/on-the-issues/2026/05/07/the-state-of-global-ai-diffusion-in-2026/">Microsoft On the Issues</a> | <a href="https://www.welcome.ai/content/microsoft-report-global-ai-usage-rises-to-178-of-working-age-population-in-q1-2026">Welcome AI</a></p>
+        </div>
+
+        <div class="news-item">
+            <h3>8. IT 行业裁员潮持续：AI 连续两月成裁员首要原因</h3>
+            <p class="meta">发布日期: 2026年5月</p>
+            <p>2026 年科技行业裁员持续加剧，AI 驱动的运营自动化成为裁员核心驱动力。</p>
+            <h4>核心数据</h4>
+            <ul>
+                <li><strong>4 月 IT 裁员</strong>: 13,000 人</li>
+                <li><strong>AI 因素</strong>: 连续两月成为裁员首要原因</li>
+                <li><strong>2026 年整体</strong>: 已超 51,000 个科技岗位被削减</li>
+                <li><strong>Meta</strong>: 5 月 20 日开始裁员约 8,000 人（10% 员工）</li>
+                <li><strong>裁员企业</strong>: Oracle、Amazon、Dell、Google、Atlassian、Pinterest、Salesforce</li>
+                <li><strong>调查</strong>: 55% 的美国招聘经理预计将进一步裁员，44% 认为 AI 是主因</li>
+            </ul>
+            <p class="source">来源: <a href="https://www.informationweek.com/it-staffing-careers/2026-tech-company-layoffs">InformationWeek</a> | <a href="https://www.moneycontrol.com/news/trends/tech-industry-faces-massive-layoffs-in-2026-with-51-000-jobs-slashed-amid-ai-shift-13881985.html">Moneycontrol</a></p>
+        </div>
+
+        <div class="news-item">
+            <h3>9. AI 编程代理横评：Claude Code vs Codex CLI vs Cursor vs DeepSeek TUI</h3>
+            <p class="meta">发布日期: 2026年5月12日</p>
+            <p>多家媒体发布 AI 编程代理 2026 最新横评，对比四大主流编程 AI 代理的实际表现。</p>
+            <table>
+                <tr>
+                    <th>工具</th>
+                    <th>优势场景</th>
+                    <th>特点</th>
+                </tr>
+                <tr>
+                    <td>Claude Code</td>
+                    <td>代码质量敏感型团队</td>
+                    <td>SWE-Bench Pro 领先，代码质量最佳</td>
+                </tr>
+                <tr>
+                    <td>Codex CLI</td>
+                    <td>OpenAI 生态用户</td>
+                    <td>2026.4 全面转向云端 Agent 架构</td>
+                </tr>
+                <tr>
+                    <td>Cursor 3</td>
+                    <td>团队协作</td>
+                    <td>集成开发体验最佳</td>
+                </tr>
+                <tr>
+                    <td>DeepSeek TUI</td>
+                    <td>预算敏感</td>
+                    <td>推理成本极低</td>
+                </tr>
+            </table>
+            <p><strong>市场变化</strong>: 一年前市场还在争论"谁是 Copilot 替代"，如今已进入多工具并存时代。</p>
+            <p class="source">来源: <a href="https://ofox.ai/zh/blog/claude-code-vs-codex-cli-vs-cursor-vs-deepseek-tui-2026/">OFox</a> | <a href="https://codersera.com/blog/claude-code-vs-openai-codex-2026/">Coders Era</a></p>
+        </div>
+
+        <div class="news-item">
+            <h3>10. Google I/O 2026 预告：5 月 19 日开幕，新 Gemini 模型与 Aluminium OS 引期待</h3>
+            <p class="meta">发布日期: 2026年5月</p>
+            <p>Google I/O 2026 将于 5 月 19-20 日在山景城 Shoreline Amphitheatre 举行，预计发布一系列重磅 AI 和系统更新。</p>
+            <h4>预期发布</h4>
+            <ul>
+                <li><strong>新 Gemini 模型</strong>: 可能发布 Gemini Ultra 下一代</li>
+                <li><strong>Aluminium OS</strong>: 全新操作系统</li>
+                <li><strong>Android XR 智能眼镜</strong>: 扩展 XR 生态</li>
+                <li><strong>Gemini 智能体工具扩展</strong>: 基于已发布的 Gemini Intelligence</li>
+                <li><strong>Android 17 正式版</strong>: 预计 6 月推送</li>
+            </ul>
+            <p class="source">来源: <a href="https://www.androidauthority.com/what-to-expect-from-google-io-2026-3664979/">Android Authority</a> | <a href="https://byteiota.com/google-io-2026-android-17-gemini-agentic-ai-preview-2/">ByteIota</a></p>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>🚢 航运 AI 动态</h2>
+
+        <div class="news-item">
+            <h3>1. AI 解码 AIS 混乱数据：深度学习实现船舶路径实时预测</h3>
+            <p class="meta">发布日期: 2026年5月12日</p>
+            <p>广东海洋大学郭思远团队发表研究，探索深度学习 AI 分析 AIS（船舶自动识别系统）数据实现船舶路径实时预测，成果发表于《海洋科学与工程杂志》。</p>
+            <h4>核心亮点</h4>
+            <ul>
+                <li><strong>评估架构</strong>: CNN、LSTM、GRU、Seq2Seq、Transformer 等多种深度学习模型</li>
+                <li><strong>应用场景</strong>: 碰撞预警、燃油优化、港口调度优化、减排降耗</li>
+                <li><strong>技术挑战</strong>: AIS 数据质量问题（信号丢失、幽灵轨迹、错误输入）、实时预测难度、模型可解释性</li>
+                <li><strong>未来方向</strong>: 整合气象/交通等多源数据、开发轻量快速模型降低计算门槛，惠及中小运营商</li>
+            </ul>
+            <p class="source">来源: <a href="https://maritimetechnologyreview.com/2026/05/12/ai-decodes-ship-paths-from-ais-chaos/">Maritime Technology Review</a></p>
+        </div>
+
+        <div class="news-item">
+            <h3>2. 新加坡港自主船舶试验：200 米 LNG 动力汽车运输船完成 AI 航行测试</h3>
+            <p class="meta">发布日期: 2026年4月29日</p>
+            <p>新加坡海事及港务管理局（MPA）联合日本邮船（NYK）和 MTI，完成 200 米 LNG 动力汽车运输船 Elder Leader 的自主航行试验。</p>
+            <h4>核心亮点</h4>
+            <ul>
+                <li><strong>试验船舶</strong>: NYK Elder Leader（200 米 LNG 动力汽车运输船）</li>
+                <li><strong>测试内容</strong>: 船载自主技术与岸基设施集成、JIT 平台集成、航行数据传输至 NGVTMS</li>
+                <li><strong>远程引航</strong>: 实时船岸通信模拟远程引航</li>
+                <li><strong>安全措施</strong>: 全程保持船员监督</li>
+                <li><strong>战略意义</strong>: 为 MASS Code 提供实操数据支撑</li>
+            </ul>
+            <p class="source">来源: <a href="https://www.nextmsc.com/news/autonomous-ships-market-growth-driven-by-ai-navigation-trials">Next MSC</a></p>
+        </div>
+
+        <div class="news-item">
+            <h3>3. Orca AI 与三星重工签署战略 MOU：自主船舶技术商业化加速</h3>
+            <p class="meta">发布日期: 2026年4月29日</p>
+            <p>Orca AI 与三星重工（SHI）签署谅解备忘录，将双方自主船舶技术深度整合，推动 AI 导航系统在新造船中的嵌入。</p>
+            <h4>核心亮点</h4>
+            <ul>
+                <li><strong>技术整合</strong>: SHI 的 SVISION 靠泊辅助系统 → 集成至 Orca AI 平台</li>
+                <li><strong>双向嵌入</strong>: Orca AI 导航智能系统 → 嵌入 SHI 的三星自主船舶（SAS）新造船</li>
+                <li><strong>Orca AI 规模</strong>: 已部署 1,200 艘船舶，500+ 艘在管线中</li>
+                <li><strong>核心产品</strong>: SeaPod 瞭望助手、FleetView 船队分析平台</li>
+                <li><strong>行业趋势</strong>: 自主能力从附加系统转向新造船嵌入式基础设施</li>
+            </ul>
+            <p class="source">来源: <a href="https://www.nextmsc.com/news/autonomous-ships-market-growth-driven-by-ai-navigation-trials">Next MSC</a></p>
+        </div>
+
+        <div class="news-item">
+            <h3>4. 自主船舶市场 2030 年将达 107.4 亿美元：AI 导航驱动结构性增长</h3>
+            <p class="meta">发布日期: 2026年5月</p>
+            <p>NMSC 发布最新市场报告，自主船舶市场正从孤立试点走向规模化商业部署，AI 导航试验和船厂级集成推动结构性转变。</p>
+            <h4>核心数据</h4>
+            <table>
+                <tr>
+                    <th>指标</th>
+                    <th>数据</th>
+                </tr>
+                <tr>
+                    <td>2019 年市场规模</td>
+                    <td>65.7 亿美元</td>
+                </tr>
+                <tr>
+                    <td>2030 年预测规模</td>
+                    <td><span class="highlight">107.4 亿美元</span></td>
+                </tr>
+                <tr>
+                    <td>CAGR（2020-2030）</td>
+                    <td>4.5%</td>
+                </tr>
+            </table>
+            <h4>三大驱动</h4>
+            <ul>
+                <li><strong>监管沙盒</strong>: 主要港口创建受控测试环境</li>
+                <li><strong>船厂级 AI 集成</strong>: 自主能力从附加到嵌入</li>
+                <li><strong>运营需求</strong>: 燃油效率/安全合规/船员优化</li>
+            </ul>
+            <p class="source">来源: <a href="https://www.nextmsc.com/news/autonomous-ships-market-growth-driven-by-ai-navigation-trials">Next MSC</a></p>
+        </div>
+
+        <div class="news-item">
+            <h3>5. 中国航运业智能化转型加速：自主航行、智能港口、AI 监控全面落地</h3>
+            <p class="meta">发布日期: 2026年5月8日</p>
+            <p>中国国务院新闻办公室报道，中国航运业正加速推进智能化转型，科幻场景正成为现实——船舶自主规划航线、实时识别障碍物、全自动起重机靠泊作业。</p>
+            <h4>核心亮点</h4>
+            <ul>
+                <li><strong>自主航行</strong>: 船舶自主航线规划、实时障碍识别与避碰</li>
+                <li><strong>智能港口</strong>: 全自动起重机、无人化码头作业</li>
+                <li><strong>AI 监控系统</strong>: 船舶运行状态实时监控与预警</li>
+                <li><strong>政策支撑</strong>: 《智能航运 2030 行动计划》目标 2027 年 100+ 智能船舶，2030 年世界领先</li>
+                <li><strong>产业生态</strong>: 覆盖技术研发、基础设施、法规标准三大领域 11 项任务</li>
+            </ul>
+            <p class="source">来源: <a href="http://english.scio.gov.cn/m/chinavoices/2026-05/08/content_118482521.html">SCIO China</a> | <a href="https://www.techinasia.com/news/china-unveils-ai-shipping-plan-targets-100-smart-vessels-2027">Tech in Asia</a></p>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>本日报由 AI 自动生成，数据来源为公开新闻报道和研究报告。</p>
+        <p>📡 GitHub Pages: <a href="https://rickyqinqi.github.io/ai-news-daily">rickyqinqi.github.io/ai-news-daily</a></p>
+    </div>
+
+    <script>
+        function toggleTheme() {
+            const body = document.body;
+            const currentTheme = body.getAttribute('data-theme');
+            if (currentTheme === 'dark') {
+                body.removeAttribute('data-theme');
+                localStorage.setItem('theme', 'light');
+            } else {
+                body.setAttribute('data-theme', 'dark');
+                localStorage.setItem('theme', 'dark');
+            }
+        }
+
+        // Load saved theme
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'dark') {
+            document.body.setAttribute('data-theme', 'dark');
+        }
+    </script>
+</body>
+</html>
