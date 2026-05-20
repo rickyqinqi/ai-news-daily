@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI 日报 2026-05-20 | AI Daily News</title>
+    <style>
+        :root {
+            --primary-red: #e74c3c;
+            --primary-blue: #3498db;
+            --accent-orange: #e67e22;
+            --dark: #2c3e50;
+            --light-bg: #f8f9fa;
+            --card-bg: #ffffff;
+            --text-main: #333;
+            --text-secondary: #666;
+            --border-color: #e0e0e0;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+            background: var(--light-bg);
+            color: var(--text-main);
+            line-height: 1.7;
+        }
+
+        /* ===== HEADER ===== */
+        .header {
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 50%, #a93226 100%);
+            color: #fff;
+            padding: 40px 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.05) 0%, transparent 60%);
+            animation: pulse 8s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.1); opacity: 1; }
+        }
+
+        .header-content { position: relative; z-index: 1; max-width: 800px; margin: 0 auto; }
+
+        .header-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            padding: 6px 20px;
+            border-radius: 30px;
+            font-size: 14px;
+            margin-bottom: 16px;
+            backdrop-filter: blur(4px);
+        }
+
+        .header h1 {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            letter-spacing: -0.5px;
+        }
+
+        .header .subtitle {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+
+        .header-date {
+            font-size: 14px;
+            opacity: 0.8;
+            margin-top: 12px;
+        }
+
+        /* ===== SECTION ===== */
+        .section {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 16px;
+        }
+
+        .section-card {
+            margin: 24px 0;
+            background: var(--card-bg);
+            border-radius: 12px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+            overflow: hidden;
+        }
+
+        .section-header {
+            padding: 20px 28px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .section-header.ai-header { background: linear-gradient(90deg, #c0392b, #e74c3c); }
+        .section-header.shipping-header { background: linear-gradient(90deg, #1a5276, #2980b9); }
+
+        .section-icon { font-size: 28px; }
+        .section-title { font-size: 20px; font-weight: 700; color: #fff; }
+        .section-count {
+            margin-left: auto;
+            background: rgba(255,255,255,0.25);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 13px;
+            color: #fff;
+        }
+
+        .section-body { padding: 8px 20px 20px; }
+
+        /* ===== NEWS ITEM ===== */
+        .news-item {
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            margin: 16px 0;
+            overflow: hidden;
+            transition: box-shadow 0.2s;
+        }
+
+        .news-item:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.08); }
+
+        .news-item-header {
+            padding: 14px 18px;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            cursor: pointer;
+        }
+
+        .news-item.ai-item .news-item-header { background: #fef5f4; }
+        .news-item.shipping-item .news-item-header { background: #f4f9fd; }
+
+        .item-number {
+            min-width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 13px;
+            font-weight: 700;
+            color: #fff;
+            flex-shrink: 0;
+        }
+
+        .news-item.ai-item .item-number { background: var(--primary-red); }
+        .news-item.shipping-item .item-number { background: var(--primary-blue); }
+
+        .item-meta { flex: 1; }
+        .item-title {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 4px;
+        }
+
+        .item-date {
+            font-size: 11px;
+            color: #999;
+        }
+
+        .toggle-icon {
+            font-size: 18px;
+            color: #aaa;
+            transition: transform 0.2s;
+            flex-shrink: 0;
+        }
+
+        .news-item.open .toggle-icon { transform: rotate(180deg); }
+
+        .news-item-body {
+            display: none;
+            padding: 0 18px 16px;
+            border-top: 1px solid var(--border-color);
+            margin-top: 0;
+        }
+
+        .news-item.open .news-item-body { display: block; }
+
+        .item-highlights {
+            margin: 12px 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .item-highlights li {
+            padding: 6px 0;
+            font-size: 13px;
+            color: var(--text-secondary);
+            display: flex;
+            gap: 8px;
+        }
+
+        .item-highlights li::before {
+            content: "▸";
+            color: var(--primary-red);
+            flex-shrink: 0;
+        }
+
+        .shipping-item .item-highlights li::before { color: var(--primary-blue); }
+
+        .item-source {
+            font-size: 11px;
+            color: #999;
+            padding-top: 8px;
+            border-top: 1px dashed #eee;
+        }
+
+        .item-source a {
+            color: var(--primary-blue);
+            text-decoration: none;
+        }
+
+        .item-source a:hover { text-decoration: underline; }
+
+        /* ===== THEME TOGGLE ===== */
+        .theme-toggle {
+            position: fixed;
+            top: 16px;
+            right: 16px;
+            z-index: 100;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 8px 14px;
+            font-size: 13px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        /* ===== DARK MODE ===== */
+        body.dark-mode {
+            background: #1a1a2e;
+            color: #e0e0e0;
+        }
+
+        body.dark-mode .section-card { background: #16213e; box-shadow: 0 2px 12px rgba(0,0,0,0.3); }
+        body.dark-mode .news-item { border-color: #2a2a4a; }
+        body.dark-mode .news-item.ai-item .news-item-header { background: #2a1a1a; }
+        body.dark-mode .news-item.shipping-item .news-item-header { background: #1a1a3a; }
+        body.dark-mode .item-title { color: #e0e0e0; }
+        body.dark-mode .item-highlights li { color: #aaa; }
+        body.dark-mode .item-source { border-color: #333; color: #777; }
+        body.dark-mode .item-date { color: #777; }
+        body.dark-mode .item-source a { color: #5dade2; }
+        body.dark-mode .theme-toggle { background: #16213e; color: #e0e0e0; border-color: #2a2a4a; }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            text-align: center;
+            padding: 32px 20px;
+            color: #999;
+            font-size: 12px;
+            border-top: 1px solid var(--border-color);
+            margin-top: 32px;
+        }
+
+        .footer a { color: var(--primary-blue); text-decoration: none; }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 600px) {
+            .header h1 { font-size: 26px; }
+            .news-item-header { padding: 10px 12px; }
+            .news-item-body { padding: 0 12px 12px; }
+        }
+    </style>
+</head>
+<body>
+    <button class="theme-toggle" onclick="toggleTheme()">
+        <span id="theme-icon">🌙</span>
+        <span id="theme-label">深色模式</span>
+    </button>
+
+    <!-- HEADER -->
+    <div class="header">
+        <div class="header-content">
+            <div class="header-badge">📅 每周三更新 · Week #22</div>
+            <h1>📰 AI Daily News</h1>
+            <p class="subtitle">AI + Shipping AI 每日动态精选 | 2026-05-20</p>
+            <p class="header-date">Generated by WorkBuddy AI Assistant · 北京时间 09:50</p>
+        </div>
+    </div>
+
+    <!-- AI 综合动态 -->
+    <div class="section">
+        <div class="section-card">
+            <div class="section-header ai-header">
+                <span class="section-icon">🤖</span>
+                <span class="section-title">AI 综合动态</span>
+                <span class="section-count">Top 10</span>
+            </div>
+            <div class="section-body">
+
+                <!-- 1 -->
+                <div class="news-item ai-item" onclick="toggleItem(this)">
+                    <div class="news-item-header">
+                        <div class="item-number">1</div>
+                        <div class="item-meta">
+                            <div class="item-title">Google I/O 2026 发布 Gemini 3.5 / Omni / Spark，宣告"Agentic Gemini 时代"到来</div>
+                            <div class="item-date">📅 2026-05-19 &nbsp;|&nbsp; 🏢 Google</div>
+                        </div>
+                        <span class="toggle-icon">▼</span>
+                    </div>
+                    <div class="news-item-body">
+                        <ul class="item-highlights">
+                            <li><strong>Gemini Omni</strong>: 支持任意输入创作任意内容（视频理解→多模态编辑），世界理解能力大幅跃升</li>
+                            <li><strong>Gemini 3.5 Flash</strong>: 首个融合前沿智能与行动能力的新一代模型，专为复杂 Agent 工作流设计</li>
+                            <li><strong>Gemini Spark</strong>: AI Agent 智能助手，7×24 小时主动式帮助，每日简报功能</li>
+                            <li><strong>Google Antigravity</strong>: 全新 Agent 优先开发平台，赋能 AI 智能体执行操作</li>
+                            <li><strong>Project Genie / Stitch / Pomelli</strong>: AI Labs 实验项目（Street View 世界连接、AI 设计工具、品牌内容 AI）</li>
+                            <li><strong>Google One AI Ultra Plan</strong>: 全新 $100/月订阅套餐</li>
+                            <li><strong>Android XR 智能眼镜</strong>: 秋季发售，无需手机即可导航/发短信/拍照</li>
+                        </ul>
+                        <div class="item-source">来源: <a href="https://blog.google/innovation-and-ai/technology/developers-tools/google-io-2026-collection/" target="_blank">Google Blog</a> · <a href="https://www.cnbc.com/2026/05/19/google-ai-ultra-gemini-spark-omni.html" target="_blank">CNBC</a> · <a href="https://www.wired.com/story/everything-google-announced-at-google-io-2026/" target="_blank">WIRED</a></div>
+                    </div>
+                </div>
+
+                <!-- 2 -->
+                <div class="news-item ai-item" onclick="toggleItem(this)">
+                    <div class="news-item-header">
+                        <div class="item-number">2</div>
+                        <div class="item-meta">
+                            <div class="item-title">Anthropic 收购 Stainless，进军 API 开发工具基础设施</div>
+                            <div class="item-date">📅 2026-05-19 &nbsp;|&nbsp; 🏢 Anthropic</div>
+                        </div>
+                        <span class="toggle-icon">▼</span>
+                    </div>
+                    <div class="news-item-body">
+                        <ul class="item-highlights">
+                            <li><strong>收购金额</strong>: 超 2.8 亿欧元（约 22.18 亿元人民币）</li>
+                            <li><strong>Stainless</strong>: 2022 年成立，专注 API 开发者接口（Developer Interface），曾同时服务 Google 和 OpenAI</li>
+                            <li><strong>战略意义</strong>: Anthropic 借此补齐 AI 开发工具链基础设施，降低对第三方 SDK 依赖</li>
+                            <li><strong>竞争影响</strong>: 谷歌和 OpenAI 同时失去关键 AI SDK 工具供应商，竞争进一步白热化</li>
+                        </ul>
+                        <div class="item-source">来源: <a href="https://finance.sina.com.cn/tech/digi/2026-05-19/doc-inhyksxt2337150.shtml" target="_blank">IT之家</a></div>
+                    </div>
+                </div>
+
+                <!-- 3 -->
+                <div class="news-item ai-item" onclick="toggleItem(this)">
+                    <div class="news-item-header">
+                        <div class="item-number">3</div>
+                        <div class="item-meta">
+                            <div class="item-title">Anthropic 链上估值飙至 1.2 万亿美元，首次超越 OpenAI 成全球 AI 新王</div>
+                            <div class="item-date">📅 2026-05 &nbsp;|&nbsp; 🏢 Anthropic</div>
+                        </div>
+                        <span class="toggle-icon">▼</span>
+                    </div>
+                    <div class="news-item-body">
+                        <ul class="item-highlights">
+                            <li><strong>链上 Pre-IPO 估值</strong>: 1.2 万亿美元，正式超越 OpenAI</li>
+                            <li><strong>今夏融资计划</strong>: 最高 500 亿美元，投前估值约 9000 亿美元，逼近万亿大关</li>
+                            <li><strong>谷歌长约</strong>: 2000 亿美元长期合作协议（谷歌云+定制 AI 芯片）</li>
+                            <li><strong>算力合作</strong>: 与 SpaceX 达成 300 兆瓦算力协议</li>
+                            <li><strong>ARR 增长</strong>: Q1 年化 ARR 突破 440 亿美元</li>
+                        </ul>
+                        <div class="item-source">来源: <a href="https://www.36kr.com/p/3799097984080899" target="_blank">36氪</a> · <a href="https://tech.ifeng.com/c/8t78my0Uvcy" target="_blank">凤凰网</a></div>
+                    </div>
+                </div>
+
+                <!-- 4 -->
+                <div class="news-item ai-item" onclick="toggleItem(this)">
+                    <div class="news-item-header">
+                        <div class="item-number">4</div>
+                        <div class="item-meta">
+                            <div class="item-title">DeepSeek 首轮外部融资 500 亿元：梁文锋自投 200 亿元领投</div>
+                            <div class="item-date">📅 2026-05-10~11 &nbsp;|&nbsp; 🏢 DeepSeek</div>
+                        </div>
+                        <span class="toggle-icon">▼</span>
+                    </div>
+                    <div class="news-item-body">
+                        <ul class="item-highlights">
+                            <li><strong>融资规模</strong>: 500 亿元人民币（约 73.5 亿美元），投后估值 3500 亿元</li>
+                            <li><strong>创始人自投</strong>: 梁文锋个人出资 200 亿元领投，占整轮约 40%</li>
+                            <li><strong>估值飙升</strong>: 23 天内估值涨近 5 倍（DeepSeek V4 开源引爆全球关注）</li>
+                            <li><strong>DeepSeek V4</strong>: 4 月 24 日正式发布并开源，1M Token 上下文，LiveCodeBench 93.5%，MIT 许可证</li>
+                            <li><strong>国家队入场</strong>: 国家集成电路产业投资基金（大基金）领投</li>
+                        </ul>
+                        <div class="item-source">来源: <a href="https://news.pedaily.cn/202605/563672.shtml" target="_blank">投资界</a> · <a href="https://finance.sina.com.cn/stock/aigcy/2026-05-11/doc-inhxpatp9124228.shtml" target="_blank">新浪财经</a></div>
+                    </div>
+                </div>
+
+                <!-- 5 -->
+                <div class="news-item ai-item" onclick="toggleItem(this)">
+                    <div class="news-item-header">
+                        <div class="item-number">5</div>
+                        <div class="item-meta">
+                            <div class="item-title">月之暗面 Kimi 完成 136 亿元 D 轮融资，创中国大模型单笔最高纪录</div>
+                            <div class="item-date">📅 2026-05-07 &nbsp;|&nbsp; 🏢 月之暗面</div>
+                        </div>
+                        <span class="toggle-icon">▼</span>
+                    </div>
+                    <div class="news-item-body">
+                        <ul class="item-highlights">
+                            <li><strong>融资金额</strong>: 约 136.22 亿元人民币，创中国大模型领域单笔融资最高纪录</li>
+                            <li><strong>行业背景</strong>: 同时 DeepSeek 获大基金领投，两大事件叠加，中国 AI 一级市场进入"超级融资时代"</li>
+                        </ul>
+                        <div class="item-source">来源: <a href="https://www.eet-china.com/mp/a493204.html" target="_blank">电子技术应用</a> · <a href="https://caifuhao.eastmoney.com/news/20260509162821871924470" target="_blank">东方财富</a></div>
+                    </div>
+                </div>
+
+                <!-- 6 -->
+                <div class="news-item ai-item" onclick="toggleItem(this)">
+                    <div class="news-item-header">
+                        <div class="item-number">6</div>
+                        <div class="item-meta">
+                            <div class="item-title">OpenAI 发布 GPT-5.5 Instant / 语音三件套 / Daybreak 安全平台，GPT-5.6 曝光</div>
+                            <div class="item-date">📅 2026-05 &nbsp;|&nbsp; 🏢 OpenAI</div>
+                        </div>
+                        <span class="toggle-icon">▼</span>
+                    </div>
+                    <div class="news-item-body">
+                        <ul class="item-highlights">
+                            <li><strong>GPT-5.5 Instant</strong>（5月5日）: 成为 ChatGPT 新默认模型，编程和知识工作能力显著提升</li>
+                            <li><strong>语音三件套</strong>: GPT-Realtime-2（实时语音 Agent）、GPT-Realtime-Translate（实时翻译）、GPT-Realtime-Whisper（实时转写）</li>
+                            <li><strong>Daybreak</strong>（5月12日）: 基于 GPT-5.5 的企业网络安全平台，代码审查/漏洞验证/补丁生成</li>
+                            <li><strong>GPT-5.5-Cyber</strong>: 向欧盟开放网络安全模型访问</li>
+                            <li><strong>GPT-5.6 曝光</strong>: 距 GPT-5.5 发布仅三周，内部测试已启动，预计下月亮相</li>
+                        </ul>
+                        <div class="item-source">来源: <a href="https://techcrunch.com/2026/05/05/openai-releases-gpt-5-5-instant-a-new-default-model-for-chatgpt/" target="_blank">TechCrunch</a> · <a href="https://www.ithome.com/0/949/322.htm" target="_blank">IT之家</a></div>
+                    </div>
+                </div>
+
+                <!-- 7 -->
+                <div class="news-item ai-item" onclick="toggleItem(this)">
+                    <div class="news-item-header">
+                        <div class="item-number">7</div>
+                        <div class="item-meta">
+                            <div class="item-title">开源大模型白热化竞争：DeepSeek V4-Pro 登顶 LiveCodeBench 93.5%</div>
+                            <div class="item-date">📅 2026-05 &nbsp;|&nbsp; 🔓 Open Source</div>
+                        </div>
+                        <span class="toggle-icon">▼</span>
+                    </div>
+                    <div class="news-item-body">
+                        <ul class="item-highlights">
+                            <li><strong>DeepSeek V4-Pro</strong>: 1.6T 参数 + MIT 许可证，LiveCodeBench 93.5% 创开源新纪录</li>
+                            <li><strong>Llama 4 MoE / Qwen 3 / Mistral Large 3</strong>: 主流开源模型持续迭代，上下文能力突破</li>
+                            <li><strong>竞争格局</strong>: 闭源（OpenAI/Anthropic）vs 开源（DeepSeek/Meta/阿里/谷歌）激战，许可证策略成新焦点</li>
+                        </ul>
+                        <div class="item-source">来源: <a href="https://qubittool.com/zh/blog/llm-landscape-may-2026-deepseek-qwen-llama-comparison" target="_blank">QubitTool</a> · <a href="https://blog.xidao.online/posts/2026-open-source-llm-landscape/" target="_blank">西导网</a></div>
+                    </div>
+                </div>
+
+                <!-- 8 -->
+                <div class="news-item ai-item" onclick="toggleItem(this)">
+                    <div class="news-item-header">
+                        <div class="item-number">8</div>
+                        <div class="item-meta">
+                            <div class="item-title">AI Agent 从"聊天"转向"做事"：2026 年 5 月技术趋势深度解析</div>
+                            <div class="item-date">📅 2026-05 &nbsp;|&nbsp; 🤖 AI Agent</div>
+                        </div>
+                        <span class="toggle-icon">▼</span>
+                    </div>
+                    <div class="news-item-body">
+                        <ul class="item-highlights">
+                            <li><strong>范式收敛</strong>: 从"带工具调用的聊天机器人" → "可自主规划、执行、检查的 AI 员工"</li>
+                            <li><strong>三大趋势</strong>: Agent 自动化爆发 / 程序员能力模型改写 / 企业级 Agent 战场全面布局</li>
+                            <li><strong>关键技术里程碑</strong>: 记忆与上下文管理成熟 / 多步骤自主规划与自我纠错 / Agent 间协作协议初步形成</li>
+                        </ul>
+                        <div class="item-source">来源: <a href="https://www.datalearner.com/blog/advances-in-ai-agent-report-2026-05" target="_blank">DataLearner</a> · <a href="https://blog.csdn.net/2301_81401822/article/details/160876427" target="_blank">CSDN</a></div>
+                    </div>
+                </div>
+
+                <!-- 9 -->
+                <div class="news-item ai-item" onclick="toggleItem(this)">
+                    <div class="news-item-header">
+                        <div class="item-number">9</div>
+                        <div class="item-meta">
+                            <div class="item-title">2026 年全球 AI 融资狂飙：1-5 月规模已超 2025 年全年 1.2 倍</div>
+                            <div class="item-date">📅 2026-05 &nbsp;|&nbsp; 💰 融资</div>
+                        </div>
+                        <span class="toggle-icon">▼</span>
+                    </div>
+                    <div class="news-item-body">
+                        <ul class="item-highlights">
+                            <li><strong>全球规模</strong>: 2026 年 1-5 月全球 AI 融资超 2025 年全年 1.2 倍</li>
+                            <li><strong>DeepSeek</strong>: 500 亿元（估值 3500 亿元）</li>
+                            <li><strong>Kimi</strong>: 136.22 亿元 D 轮（创纪录）</li>
+                            <li><strong>Anthropic</strong>: 500 亿美元（9000 亿美元估值）</li>
+                            <li><strong>OpenAI</strong>: 企业合资 40 亿美元</li>
+                        </ul>
+                        <div class="item-source">来源: <a href="https://caifuhao.eastmoney.com/news/20260509162821871924470" target="_blank">东方财富</a> · <a href="https://www.eeo.com.cn/2026/0508/868968.shtml" target="_blank">经济观察报</a></div>
+                    </div>
+                </div>
+
+                <!-- 10 -->
+                <div class="news-item ai-item" onclick="toggleItem(this)">
+                    <div class="news-item-header">
+                        <div class="item-number">10</div>
+                        <div class="item-meta">
+                            <div class="item-title">大模型进入"价值验证之年"：2026 年 5 月 AI 行业深度观察</div>
+                            <div class="item-date">📅 2026-05 &nbsp;|&nbsp; 📊 行业观察</div>
+                        </div>
+                        <span class="toggle-icon">▼</span>
+                    </div>
+                    <div class="news-item-body">
+                        <ul class="item-highlights">
+                            <li><strong>头部效应加剧</strong>: Anthropic/OpenAI/DeepSeek 三足鼎立，中小模型公司承压</li>
+                            <li><strong>开源逼宫</strong>: 开源模型能力逼近闭源，商业模式面临重构</li>
+                            <li><strong>AI 安全成焦点</strong>: Anthropic 拒绝五角大楼/中国军方，AI 伦理争议升温</li>
+                            <li><strong>程序员失业焦虑</strong>: IT 裁员 5.1 万人，AI 连续成裁员首因</li>
+                            <li><strong>新衡量标准</strong>: 付费用户数、ARR、毛利率取代融资额成为核心指标</li>
+                        </ul>
+                        <div class="item-source">来源: <a href="https://www.163.com/dy/article/KTA5D4D30556MKQ5.html" target="_blank">网易科技</a> · <a href="https://www.cnblogs.com/ai-observe-diary/p/20069370" target="_blank">博客园</a></div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- 航运 AI 动态 -->
+    <div class="section">
+        <div class="section-card">
+            <div class="section-header shipping-header">
+                <span class="section-icon">🚢</span>
+                <span class="section-title">航运 AI 动态</span>
+                <span class="section-count">Top 5</span>
+            </div>
+            <div class="section-body">
+
+                <!-- S1 -->
+                <div class="news-item shipping-item" onclick="toggleItem(this)">
+                    <div class="news-item-header">
+                        <div class="item-number">1</div>
+                        <div class="item-meta">
+                            <div class="item-title">Orca AI 与三星重工 MOU：自主船舶技术嵌入新造船标配</div>
+                            <div class="item-date">📅 2026-04-29 / 05-04 &nbsp;|&nbsp; 🚢 Autonomous</div>
+                        </div>
+                        <span class="toggle-icon">▼</span>
+                    </div>
+                    <div class="news-item-body">
+                        <ul class="item-highlights">
+                            <li><strong>双向嵌入</strong>: Orca AI 导航智能系统 → 嵌入三星自主船舶（SAS）新造船；SHI SVISION 靠泊辅助 → 集成至 Orca AI 平台</li>
+                            <li><strong>Orca AI 规模</strong>: 已部署 1,200 艘船舶，500+ 艘在管线中</li>
+                            <li><strong>核心产品</strong>: SeaPod 瞭望助手（实时目标检测）、FleetView 船队分析平台</li>
+                            <li><strong>战略意义</strong>: 自主能力从"附加选配"升级为"新造船嵌入式基础设施"</li>
+                        </ul>
+                        <div class="item-source">来源: <a href="https://www.orca-ai.io/resource/orca-ai-joins-forces-with-samsung-heavy-industries-to-accelerate-autonomous-vessel-technology/" target="_blank">Orca AI</a> · <a href="https://maritimetechnologyreview.com/2026/05/04/orca-ai-samsung-heavy-forge-autonomous-vessel-future/" target="_blank">Maritime Tech Review</a></div>
+                    </div>
+                </div>
+
+                <!-- S2 -->
+                <div class="news-item shipping-item" onclick="toggleItem(this)">
+                    <div class="news-item-header">
+                        <div class="item-number">2</div>
+                        <div class="item-meta">
+                            <div class="item-title">自主船舶市场 2030 年将达 107.4 亿美元：AI 导航驱动结构性增长</div>
+                            <div class="item-date">📅 2026-05-07 &nbsp;|&nbsp; 📈 Market</div>
+                        </div>
+                        <span class="toggle-icon">▼</span>
+                    </div>
+                    <div class="news-item-body">
+                        <ul class="item-highlights">
+                            <li><strong>2019 年</strong>: 65.7 亿美元</li>
+                            <li><strong>2030 年预测</strong>: 107.4 亿美元（CAGR 4.5%）</li>
+                            <li><strong>三大驱动</strong>: 监管沙盒（主要港口受控测试环境）/ 船厂级 AI 集成 / 运营需求（燃油效率/安全合规/船员优化）</li>
+                            <li><strong>新加坡</strong>: MPA 自主船舶试验 + Orca AI-三星重工合作，双引擎加速</li>
+                        </ul>
+                        <div class="item-source">来源: <a href="https://www.nextmsc.com/news/autonomous-ships-market-growth-driven-by-ai-navigation-trials" target="_blank">Next MSC</a></div>
+                    </div>
+                </div>
+
+                <!-- S3 -->
+                <div class="news-item shipping-item" onclick="toggleItem(this)">
+                    <div class="news-item-header">
+                        <div class="item-number">3</div>
+                        <div class="item-meta">
+                            <div class="item-title">SCFI 集装箱运价指数单周暴涨 9.5%：红海危机叠加港口拥堵加剧运力缺口</div>
+                            <div class="item-date">📅 2026-05-15~17 &nbsp;|&nbsp; 📈 运价</div>
+                        </div>
+                        <span class="toggle-icon">▼</span>
+                    </div>
+                    <div class="news-item-body">
+                        <ul class="item-highlights">
+                            <li><strong>SCFI 综合指数</strong>: 5 月 15 日报 2140.66 点，单周 +9.5%</li>
+                            <li><strong>马士基 PSS</strong>: 5 月 25 日起多个亚洲出口航线加征旺季附加费（小柜暴涨 $1500）</li>
+                            <li><strong>Drewry 全球集装箱指数</strong>: 5 月 7 日报 $2286/FEU，跨太平洋航线 +6%</li>
+                            <li><strong>4 月 SCFI</strong>: 较上月平均上涨 11.4%；Q1 中国出口同比增长 14.7%</li>
+                            <li><strong>港口拥堵</strong>: 英国费利克斯托港严重拥堵，全球 30 大港口拥堵热点持续</li>
+                        </ul>
+                        <div class="item-source">来源: <a href="https://mbd.baidu.com/newspage/data/dtlandingsuper?nid=dt_5068489880594475483" target="_blank">百度股市通</a> · <a href="https://www.mot.gov.cn/shuju/yunjiazhishu/chukoujizhuangxiangyjzs/202605/t20260509_4205146.html" target="_blank">交通运输部</a></div>
+                    </div>
+                </div>
+
+                <!-- S4 -->
+                <div class="news-item shipping-item" onclick="toggleItem(this)">
+                    <div class="news-item-header">
+                        <div class="item-number">4</div>
+                        <div class="item-meta">
+                            <div class="item-title">IMO MSC 2026 年 3 月会议推进 MASS Code 制定：自主船舶监管框架成型</div>
+                            <div class="item-date">📅 2026-03 / 05 &nbsp;|&nbsp; 🏛️ IMO</div>
+                        </div>
+                        <span class="toggle-icon">▼</span>
+                    </div>
+                    <div class="news-item-body">
+                        <ul class="item-highlights">
+                            <li><strong>目标时间表</strong>: 2026 年内完成 MASS Code 制定，2027 年非强制实施</li>
+                            <li><strong>主要议题</strong>: 手动操作和驾驶台警报相关条款监管空白、船员行为条款（消防/货物堆装）</li>
+                            <li><strong>实船验证</strong>: 新加坡 200 米 LNG 汽车运输船自主航行试验提供实操数据支撑</li>
+                            <li><strong>法律评估</strong>: Clifford Chance 评估 MASS Code 即将最终完成并可供非强制性实施</li>
+                        </ul>
+                        <div class="item-source">来源: <a href="https://www.imo.org/en/mediacentre/hottopics/pages/autonomous-shipping.aspx" target="_blank">IMO</a> · <a href="https://ports.marinelink.com/ports/port/chicago/news/imo-maritime-safety-committee-convenes-autonomous-vessel-regulations" target="_blank">Maritime Link</a></div>
+                    </div>
+                </div>
+
+                <!-- S5 -->
+                <div class="news-item shipping-item" onclick="toggleItem(this)">
+                    <div class="news-item-header">
+                        <div class="item-number">5</div>
+                        <div class="item-meta">
+                            <div class="item-title">Alphaliner TOP 100 最新榜单：5-6 月长协签约窗口期决定船司盈利底盘</div>
+                            <div class="item-date">📅 2026-05-19 &nbsp;|&nbsp; 📊 市场</div>
+                        </div>
+                        <span class="toggle-icon">▼</span>
+                    </div>
+                    <div class="news-item-body">
+                        <ul class="item-highlights">
+                            <li><strong>签约窗口期</strong>: 5-6 月约 70% 跨太平洋及亚欧航线长期合同在 Q2-Q3 生效，5 月单月占 22%</li>
+                            <li><strong>市场分歧</strong>: 即期市场运价暴涨 vs 资本市场对长期盈利可持续性的担忧</li>
+                            <li><strong>数字化趋势</strong>: 智能航运 2030 + 数字孪生港口（IoT+AI+数字孪生）加速，新加坡/中国港口数字化升级</li>
+                            <li><strong>Linerlytica</strong>: 全球港口拥堵追踪（截至 5 月 8 日）</li>
+                        </ul>
+                        <div class="item-source">来源: <a href="https://alphaliner.axsmarine.com/PublicTop100/" target="_blank">Alphaliner</a> · <a href="https://www.linerlytica.com/" target="_blank">Linerlytica</a> · <a href="https://sea-intelligence.com/" target="_blank">Sea-Intelligence</a></div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <div class="footer">
+        <p>🤖 Auto-generated by <strong>WorkBuddy AI Assistant</strong></p>
+        <p style="margin-top: 8px;">
+            <a href="https://github.com/rickyqinqi/ai-news-daily" target="_blank">GitHub Repo</a> ·
+            <a href="https://rickyqinqi.github.io/ai-news-daily" target="_blank">GitHub Pages</a>
+        </p>
+        <p style="margin-top: 4px; opacity: 0.6;">数据来源：公开新闻报道和研究报告 · 2026-05-20</p>
+    </div>
+
+    <script>
+        function toggleItem(el) {
+            el.classList.toggle('open');
+        }
+
+        function toggleTheme() {
+            document.body.classList.toggle('dark-mode');
+            const icon = document.getElementById('theme-icon');
+            const label = document.getElementById('theme-label');
+            if (document.body.classList.contains('dark-mode')) {
+                icon.textContent = '☀️';
+                label.textContent = '浅色模式';
+            } else {
+                icon.textContent = '🌙';
+                label.textContent = '深色模式';
+            }
+        }
+    </script>
+</body>
+</html>
