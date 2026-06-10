@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI + Shipping AI Weekly Report | 2026-06-10</title>
+    <style>
+        :root {
+            --bg: #f5f6fa;
+            --card-bg: #ffffff;
+            --text: #2d3436;
+            --text-secondary: #636e72;
+            --text-muted: #b2bec3;
+            --border: #dfe6e9;
+            --accent: #1a73e8;
+            --accent-hover: #1557b0;
+            --ai-bg: #e3f2fd;
+            --ai-border: #90caf9;
+            --shipping-bg: #e8f5e9;
+            --shipping-border: #a5d6a7;
+            --tag-ai: #1565c0;
+            --tag-shipping: #2e7d32;
+            --header-bg: linear-gradient(135deg, #1a237e 0%, #0d47a1 50%, #01579b 100%);
+            --header-text: #ffffff;
+            --shadow: 0 2px 8px rgba(0,0,0,0.08);
+            --shadow-hover: 0 4px 16px rgba(0,0,0,0.12);
+            --divider: #e0e0e0;
+        }
+
+        .dark {
+            --bg: #1a1a2e;
+            --card-bg: #16213e;
+            --text: #e0e0e0;
+            --text-secondary: #b0b0b0;
+            --text-muted: #707070;
+            --border: #2a2a4a;
+            --accent: #64b5f6;
+            --accent-hover: #42a5f5;
+            --ai-bg: #1a237e20;
+            --ai-border: #283593;
+            --shipping-bg: #1b5e2020;
+            --shipping-border: #2e7d32;
+            --tag-ai: #64b5f6;
+            --tag-shipping: #81c784;
+            --header-bg: linear-gradient(135deg, #0d0d2b 0%, #1a1a4e 50%, #0d2137 100%);
+            --header-text: #e0e0e0;
+            --shadow: 0 2px 8px rgba(0,0,0,0.3);
+            --shadow-hover: 0 4px 16px rgba(0,0,0,0.5);
+            --divider: #2a2a4a;
+        }
+
+        * {
+            margin: 0; padding: 0; box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans SC", "Noto Sans", sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+            transition: background 0.3s, color 0.3s;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 16px;
+        }
+
+        /* Header */
+        .header {
+            background: var(--header-bg);
+            color: var(--header-text);
+            padding: 48px 32px 32px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .header .subtitle {
+            font-size: 15px;
+            opacity: 0.85;
+            margin-bottom: 16px;
+        }
+
+        .header .meta {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .header .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(255,255,255,0.15);
+            backdrop-filter: blur(10px);
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        /* Theme Toggle */
+        .theme-toggle-wrapper {
+            display: flex;
+            justify-content: flex-end;
+            padding: 16px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: var(--bg);
+        }
+
+        .theme-toggle {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 8px 16px;
+            cursor: pointer;
+            font-size: 14px;
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s;
+            box-shadow: var(--shadow);
+        }
+
+        .theme-toggle:hover {
+            box-shadow: var(--shadow-hover);
+        }
+
+        /* Stats Bar */
+        .stats-bar {
+            display: flex;
+            gap: 16px;
+            padding: 24px 0;
+            flex-wrap: wrap;
+        }
+
+        .stat-card {
+            flex: 1;
+            min-width: 140px;
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+        }
+
+        .stat-card .stat-num {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--accent);
+        }
+
+        .stat-card .stat-label {
+            font-size: 12px;
+            color: var(--text-secondary);
+            margin-top: 4px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Section */
+        .section {
+            margin-bottom: 32px;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid var(--divider);
+        }
+
+        .section-icon {
+            font-size: 28px;
+        }
+
+        .section-title {
+            font-size: 22px;
+            font-weight: 700;
+        }
+
+        .section-count {
+            font-size: 13px;
+            color: var(--text-secondary);
+            background: var(--border);
+            padding: 4px 12px;
+            border-radius: 12px;
+        }
+
+        /* News Card */
+        .news-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 16px;
+            box-shadow: var(--shadow);
+            transition: box-shadow 0.2s;
+            border-left: 4px solid transparent;
+        }
+
+        .news-card:hover {
+            box-shadow: var(--shadow-hover);
+        }
+
+        .news-card.ai {
+            border-left-color: var(--ai-border);
+        }
+
+        .news-card.shipping {
+            border-left-color: var(--shipping-border);
+        }
+
+        .news-card .card-header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        .news-card .card-num {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--accent);
+            white-space: nowrap;
+            background: var(--ai-bg);
+            padding: 4px 12px;
+            border-radius: 6px;
+        }
+
+        .news-card.shipping .card-num {
+            background: var(--shipping-bg);
+            color: var(--tag-shipping);
+        }
+
+        .news-card .card-tag {
+            font-size: 11px;
+            font-weight: 600;
+            padding: 3px 10px;
+            border-radius: 4px;
+            text-transform: uppercase;
+            white-space: nowrap;
+        }
+
+        .news-card .card-tag.ai-tag {
+            background: var(--ai-bg);
+            color: var(--tag-ai);
+        }
+
+        .news-card .card-tag.shipping-tag {
+            background: var(--shipping-bg);
+            color: var(--tag-shipping);
+        }
+
+        .news-card .card-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 12px;
+            line-height: 1.4;
+        }
+
+        .news-card .card-content {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.8;
+        }
+
+        .news-card .card-content.cn {
+            padding-bottom: 12px;
+            margin-bottom: 12px;
+            border-bottom: 1px dashed var(--border);
+        }
+
+        .news-card .card-content.en {
+            color: var(--text-muted);
+            font-style: italic;
+            font-size: 13px;
+        }
+
+        .news-card .card-content strong {
+            color: var(--text);
+        }
+
+        /* Links */
+        .links-section {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 32px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+        }
+
+        .links-section h3 {
+            font-size: 16px;
+            margin-bottom: 16px;
+            color: var(--text);
+        }
+
+        .link-buttons {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .link-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background: var(--accent);
+            color: #fff;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            transition: background 0.2s;
+        }
+
+        .link-btn:hover {
+            background: var(--accent-hover);
+        }
+
+        .link-btn.secondary {
+            background: var(--border);
+            color: var(--text);
+        }
+
+        .link-btn.secondary:hover {
+            background: var(--text-muted);
+            color: #fff;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 40px 16px;
+            color: var(--text-muted);
+            font-size: 13px;
+            border-top: 1px solid var(--border);
+            margin-top: 32px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header {
+                padding: 32px 16px 24px;
+            }
+            .header h1 {
+                font-size: 24px;
+            }
+            .stats-bar {
+                gap: 8px;
+            }
+            .stat-card {
+                padding: 14px;
+            }
+            .stat-card .stat-num {
+                font-size: 22px;
+            }
+            .news-card {
+                padding: 16px;
+            }
+            .news-card .card-title {
+                font-size: 16px;
+            }
+            .section-title {
+                font-size: 18px;
+            }
+        }
+
+        @media print {
+            .theme-toggle-wrapper {
+                display: none;
+            }
+            .links-section {
+                display: none;
+            }
+            body {
+                background: #fff;
+                color: #000;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <div class="header">
+        <h1>🤖 AI + Shipping AI Weekly Report</h1>
+        <p class="subtitle">AI 综合动态 + 航运 AI 周报 · 第 24 周</p>
+        <div class="meta">
+            <span class="badge">📅 2026-06-10 星期三</span>
+            <span class="badge">📰 AI News × 10</span>
+            <span class="badge">🚢 Shipping AI × 5</span>
+            <span class="badge">🌐 rickyqinqi.github.io/ai-news-daily</span>
+        </div>
+    </div>
+
+    <!-- Theme Toggle -->
+    <div class="container">
+        <div class="theme-toggle-wrapper">
+            <button class="theme-toggle" onclick="toggleTheme()" id="themeBtn">
+                <span id="themeIcon">🌙</span>
+                <span id="themeLabel">Dark Mode / 深色模式</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container">
+
+        <!-- Stats -->
+        <div class="stats-bar">
+            <div class="stat-card">
+                <div class="stat-num">10</div>
+                <div class="stat-label">AI 综合动态</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-num">5</div>
+                <div class="stat-label">航运 AI 动态</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-num">$9,650 亿</div>
+                <div class="stat-label">Anthropic 估值</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-num">2,726</div>
+                <div class="stat-label">SCFI 运价指数</div>
+            </div>
+        </div>
+
+        <!-- Quick Links -->
+        <div class="links-section">
+            <h3>📎 Quick Access / 快速访问</h3>
+            <div class="link-buttons">
+                <a href="https://rickyqinqi.github.io/ai-news-daily/2026-06-10-ai-news.html" class="link-btn" target="_blank">🌐 Web Version / 网页版</a>
+                <a href="https://github.com/rickyqinqi/ai-news-daily/blob/main/2026-06-10-ai-news.md" class="link-btn secondary" target="_blank">📝 Markdown Source</a>
+                <a href="https://rickyqinqi.github.io/ai-news-daily/2026-06-10-ai-news.pdf" class="link-btn secondary" target="_blank">📄 PDF Download</a>
+            </div>
+        </div>
+
+        <!-- ============ AI Section ============ -->
+        <div class="section">
+            <div class="section-header">
+                <span class="section-icon">🤖</span>
+                <span class="section-title">AI General News / AI 综合动态</span>
+                <span class="section-count">10 Items</span>
+            </div>
+
+            <!-- Item 1 -->
+            <div class="news-card ai">
+                <div class="card-header">
+                    <span class="card-num">#1</span>
+                    <span class="card-tag ai-tag">Anthropic</span>
+                </div>
+                <div class="card-title">🔥 Anthropic 估值达 $9,650 亿成为全球最大私有 AI 公司</div>
+                <div class="card-content cn">
+5月28日，<strong>Anthropic 完成 650 亿美元 H 轮融资</strong>，投后估值达 9,650 亿美元，正式超越 OpenAI 成为私人市场估值最高的 AI 公司。这标志着资本市场不再将 Anthropic 视为利基企业工具提供商，而是视为定义 AI 基础设施与平台的巨头之一。融资将为 Anthropic 争夺人才、算力和市场份额提供充足资本。
+                </div>
+                <div class="card-content en">
+On May 28, <strong>Anthropic closed a $65 billion Series H round at a $965 billion post-money valuation</strong>, officially surpassing OpenAI as the most valuable private AI company. The market now views Anthropic not as a niche enterprise tool provider but as a titan defining AI infrastructure and platforms. The funding provides ample capital to compete for talent, compute, and market share.
+                </div>
+            </div>
+
+            <!-- Item 2 -->
+            <div class="news-card ai">
+                <div class="card-header">
+                    <span class="card-num">#2</span>
+                    <span class="card-tag ai-tag">New Model</span>
+                </div>
+                <div class="card-title">🚀 Claude Fable 5 发布：编程能力创 SWE-Pro 80.3% 新纪录</div>
+                <div class="card-content cn">
+6月9日，Anthropic 发布全新旗舰模型 <strong>Claude Fable 5</strong>，标志着 Fable 系列首次亮相。该模型在 SWE-Pro 编程基准上达到 <strong>80.3%</strong>，刷新当前最高纪录，取代 Opus 系列成为 Anthropic 顶级产品线。Fable 系列专注于编码与开发工作流，不强调推理基准分数，显示 Anthropic 正在区分产品线定位。
+                </div>
+                <div class="card-content en">
+Anthropic launched <strong>Claude Fable 5</strong> on June 9, debuting the new Fable product line. The model achieves <strong>80.3% on SWE-Pro</strong> coding benchmark, setting a new record and replacing the Opus series as Anthropic's flagship. Fable focuses on coding and development workflows without emphasizing reasoning benchmarks, signaling differentiated product line positioning.
+                </div>
+            </div>
+
+            <!-- Item 3 -->
+            <div class="news-card ai">
+                <div class="card-header">
+                    <span class="card-num">#3</span>
+                    <span class="card-tag ai-tag">Benchmark</span>
+                </div>
+                <div class="card-title">🧠 Claude Opus 4.8 推理能力领跑：HLE 达 57.9%</div>
+                <div class="card-content cn">
+5月28日同期发布的 <strong>Claude Opus 4.8</strong> 在 Humanity's Last Exam (HLE) 推理基准上达到 <strong>57.9%</strong>，在多步骤推理和知识工作方面展现强大能力。与此同时，Mythos 级下一代模型预计数周内向客户开放，其安全控制完成调试后将投入使用，显示前沿 AI 能力正加速从实验室走向商业化部署。
+                </div>
+                <div class="card-content en">
+Released alongside, <strong>Claude Opus 4.8</strong> scored <strong>57.9% on HLE</strong> reasoning benchmark, demonstrating strong multi-step reasoning and knowledge work capabilities. The next-generation "Mythos" class model is expected to open to customers within weeks after safety control debugging, showing frontier AI accelerating from lab to commercial deployment.
+                </div>
+            </div>
+
+            <!-- Item 4 -->
+            <div class="news-card ai">
+                <div class="card-header">
+                    <span class="card-num">#4</span>
+                    <span class="card-tag ai-tag">Infrastructure</span>
+                </div>
+                <div class="card-title">🛰️ SpaceX 以 Colossus 1 超算切入 AI 基础设施</div>
+                <div class="card-content cn">
+SpaceX 与 Anthropic 签署合作协议，通过其超级计算机 <strong>Colossus 1 提供超过 300 兆瓦计算容量</strong>，Anthropic 每月将支付约 <strong>12.5 亿美元至 2029 年</strong>。SpaceX 由此从 AI 旁观者转变为 AI 基础设施的关键参与者。算力正成为 AI 竞赛的核心瓶颈，拥有超大规模计算基础设施的公司将掌握关键话语权。
+                </div>
+                <div class="card-content en">
+SpaceX signed a deal with Anthropic to provide <strong>over 300 MW of compute capacity through Colossus 1</strong>, with Anthropic paying approximately <strong>$1.25 billion per month through 2029</strong>. SpaceX transforms from an AI bystander into a critical infrastructure player. Compute is becoming the central bottleneck in the AI race, giving hyperscale infrastructure owners decisive leverage.
+                </div>
+            </div>
+
+            <!-- Item 5 -->
+            <div class="news-card ai">
+                <div class="card-header">
+                    <span class="card-num">#5</span>
+                    <span class="card-tag ai-tag">DevTools</span>
+                </div>
+                <div class="card-title">💻 Cursor 估值 $600 亿：开发者工具成战略制高点</div>
+                <div class="card-content cn">
+SpaceX 与 AI 编程环境 Cursor 达成协议，SpaceX 可选择以 <strong>600 亿美元收购 Cursor</strong>，或支付 100 亿美元用于联合开发。这一交易揭示开发者工具和编程工作流已成为 AI 时代的战略控制点。结合大规模算力，将重塑软件开发方式，对中小企业与大型企业的工程效率提升至关重要。
+                </div>
+                <div class="card-content en">
+SpaceX and AI coding environment Cursor agreed to a deal where SpaceX can optionally <strong>acquire Cursor for $60 billion</strong> or pay $10 billion for joint development. This reveals that developer tools and coding workflows have become strategic chokepoints in the AI era. Combined with massive compute, this will reshape how software is built, critical for engineering efficiency across SMBs and enterprises.
+                </div>
+            </div>
+
+            <!-- Item 6 -->
+            <div class="news-card ai">
+                <div class="card-header">
+                    <span class="card-num">#6</span>
+                    <span class="card-tag ai-tag">Google</span>
+                </div>
+                <div class="card-title">🌐 Google 全面进入「Agentic Era」</div>
+                <div class="card-content cn">
+Google 加速推进"代理时代"战略：<strong>Gemini 3.5 Flash 成为 Search AI Mode 默认模型</strong>，发布开源模型家族 <strong>Gemma 4</strong>，推出 Gemini 企业代理平台。AI 功能正深度嵌入 Search、Workspace、开发者工具和云服务。这意味着多数企业将在不进行大规模采购的情况下，通过现有工具自然采用 AI。
+                </div>
+                <div class="card-content en">
+Google accelerates its "Agentic Era" strategy: <strong>Gemini 3.5 Flash becomes the default model for Search AI Mode</strong>, <strong>Gemma 4</strong> open-source family is released, and the Gemini enterprise agent platform launches. AI is being deeply embedded into Search, Workspace, developer tools, and cloud services. This means most enterprises will naturally adopt AI through existing tools without major procurement.
+                </div>
+            </div>
+
+            <!-- Item 7 -->
+            <div class="news-card ai">
+                <div class="card-header">
+                    <span class="card-num">#7</span>
+                    <span class="card-tag ai-tag">Regulation</span>
+                </div>
+                <div class="card-title">⚖️ EU AI Act 将于 2026 年 8 月 2 日强制执行</div>
+                <div class="card-content cn">
+欧盟 AI 法案大部分规则将于 <strong>8 月 2 日生效</strong>，包括 AI 生成内容的透明度义务和高风险系统的合规要求。欧洲委员会正在最终确定 AI 内容标记与标签的行为准则。任何服务欧洲用户、客户或使用高风险 AI 功能的公司都需要重视文档化、风险分类、披露和治理流程，合规成本将成为市场准入门槛。
+                </div>
+                <div class="card-content en">
+Most EU AI Act rules <strong>take effect on August 2</strong>, including transparency obligations for AI-generated content and compliance requirements for high-risk systems. The European Commission is finalizing codes of practice for AI content labeling. Any company serving European users or using high-risk AI must prioritize documentation, risk classification, disclosure, and governance — compliance costs will become market barriers.
+                </div>
+            </div>
+
+            <!-- Item 8 -->
+            <div class="news-card ai">
+                <div class="card-header">
+                    <span class="card-num">#8</span>
+                    <span class="card-tag ai-tag">China</span>
+                </div>
+                <div class="card-title">🇨🇳 中国加速全面 AI 立法</div>
+                <div class="card-content cn">
+国务院在 2026 年立法工作计划中首次提出 <strong>"加速全面立法"AI</strong>，覆盖数据保护、算法监管、算力资源、知识产权、网络安全和供应链管理六大领域。全国人大常委会已连续三年将 AI 立法列为审议项目。新法旨在在鼓励创新的同时最小化不受控 AI 增长的风险，为行业提供统一清晰的法律框架。
+                </div>
+                <div class="card-content en">
+China's State Council introduced <strong>"accelerated comprehensive legislation" for AI</strong> in its 2026 legislative agenda for the first time, covering data protection, algorithm regulation, compute resources, IP, cybersecurity, and supply chain management. The NPC Standing Committee has prioritized AI legislation for three consecutive years. The new law aims to balance innovation encouragement with risk minimization, providing a unified legal framework.
+                </div>
+            </div>
+
+            <!-- Item 9 -->
+            <div class="news-card ai">
+                <div class="card-header">
+                    <span class="card-num">#9</span>
+                    <span class="card-tag ai-tag">AI Agent</span>
+                </div>
+                <div class="card-title">🤖 AI Agent 2026 年全面主流化</div>
+                <div class="card-content cn">
+截至 2026 年中，全球已有 <strong>120+ AI Agent 工具平台</strong>覆盖 11 大类别——框架、无代码构建器、可观测性、编程代理、企业平台等。AI Agent 已从"聊天"范式转向"做事"范式，渗透至客服、营销、研发、供应链等核心业务场景。2026 年被称为"Agent 主流化之年"，智能执行阶段全面到来。
+                </div>
+                <div class="card-content en">
+By mid-2026, <strong>120+ AI Agent tools and platforms</strong> span 11 categories — frameworks, no-code builders, observability, coding agents, enterprise platforms, and more. AI Agents have shifted from "chat" to "do" paradigms, penetrating customer service, marketing, R&D, supply chain, and other core business scenarios. 2026 is being called "the year agents went mainstream" with the intelligent execution phase fully arrived.
+                </div>
+            </div>
+
+            <!-- Item 10 -->
+            <div class="news-card ai">
+                <div class="card-header">
+                    <span class="card-num">#10</span>
+                    <span class="card-tag ai-tag">Impact</span>
+                </div>
+                <div class="card-title">💼 AI 对企业影响全景：能力下沉与劳动力重构</div>
+                <div class="card-content cn">
+头部 AI 厂商竞争加剧使前沿能力加速下移，中小企业更易获取 AI 工具。大型企业面临供应商风险、劳动力重构和法规合规挑战。懂得引导、审核 AI 输出并结合领域专长的员工将受益最多——<strong>判断力和工作流设计能力溢价上升</strong>。AI 将自动化部分工作环节而非整个职业。
+                </div>
+                <div class="card-content en">
+Intensifying competition among AI leaders is accelerating the democratization of frontier capabilities, making AI tools more accessible for SMBs. Large enterprises face vendor risks, workforce restructuring, and regulatory compliance challenges. Workers who can guide, audit, and combine AI with domain expertise will benefit most — <strong>judgment and workflow design skills command premiums</strong>. AI will automate parts of jobs, not entire careers.
+                </div>
+            </div>
+        </div>
+
+        <!-- ============ Shipping AI Section ============ -->
+        <div class="section">
+            <div class="section-header">
+                <span class="section-icon">🚢</span>
+                <span class="section-title">Shipping AI News / 航运 AI 动态</span>
+                <span class="section-count">5 Items</span>
+            </div>
+
+            <!-- Item S1 -->
+            <div class="news-card shipping">
+                <div class="card-header">
+                    <span class="card-num">#1</span>
+                    <span class="card-tag shipping-tag">Port AI</span>
+                </div>
+                <div class="card-title">📋 《航运行业人工智能应用报告(2026)》在天津发布</div>
+                <div class="card-content cn">
+6月2日，新华社中国经济信息社在第四届天津国际航运产业博览会开幕式上正式发布<strong>《航运行业人工智能应用报告(2026)》</strong>。报告系统梳理全球航运 AI 应用实践，重点展示中国港口数字化转型成果——自动化码头向智能协同体系升级，涵盖无人运输系统、<strong>港口大模型</strong>和智能管控系统。天津港以 5G + AI + 云端自动驾驶为典范，为全球航运转型提供可复制的中国方案。
+                </div>
+                <div class="card-content en">
+On June 2, Xinhua CEIS released the <strong>"Shipping Industry AI Application Report 2026"</strong> at the 4th Tianjin International Shipping Industry Expo. The report maps global shipping AI practices, highlighting China's port digitalization — automated terminals upgrading to intelligent collaborative systems with autonomous transport, <strong>port foundation models</strong>, and smart control. Tianjin Port serves as an exemplar with 5G + AI + cloud autonomous driving, offering replicable Chinese solutions for global shipping transformation.
+                </div>
+            </div>
+
+            <!-- Item S2 -->
+            <div class="news-card shipping">
+                <div class="card-header">
+                    <span class="card-num">#2</span>
+                    <span class="card-tag shipping-tag">Market</span>
+                </div>
+                <div class="card-title">🌊 全球海运 AI 市场爆发：2026 年达 $66.7 亿</div>
+                <div class="card-content cn">
+全球海事 AI 市场正经历爆发式增长。2024 年市场规模已达 41-43 亿美元，<strong>2026 年预计达 66.7 亿美元</strong>。Lloyd's Register 估计年复合增长率 23%，Grand View Research 预测 40.6%（至 2030 年）。三大驱动因素：<strong>IMO 收紧碳排放标准</strong>（CII 年度减排）、船舶传感器数据爆炸式增长、地缘政治催生 AI 海域感知需求。2024 年有 420 家组织采用海事 AI，同比增长 52%。
+                </div>
+                <div class="card-content en">
+The global maritime AI market is experiencing explosive growth. The 2024 market reached $4.1-4.3 billion, with <strong>2026 projected at $6.67 billion</strong>. Lloyd's Register estimates 23% CAGR; Grand View Research predicts 40.6% (through 2030). Three key drivers: <strong>IMO tightening carbon standards</strong> (CII annual reduction), explosive vessel sensor data growth, and geopolitical demand for AI maritime domain awareness. 420 organizations adopted maritime AI in 2024, up 52% YoY.
+                </div>
+            </div>
+
+            <!-- Item S3 -->
+            <div class="news-card shipping">
+                <div class="card-header">
+                    <span class="card-num">#3</span>
+                    <span class="card-tag shipping-tag">Freight</span>
+                </div>
+                <div class="card-title">📈 SCFI 运价指数创两年新高：连续五周暴涨</div>
+                <div class="card-content cn">
+截至6月8日，<strong>SCFI 报 2,726.48 点</strong>，连续第五周上涨创近两年新高。Drewry WCI 整体涨 23% 至 $3,433/FEU。跨太平洋：上海→洛杉矶 <strong>$4,565/FEU（周涨 31%）</strong>。亚欧：上海→鹿特丹 $3,579/FEU（周涨 25%）。驱动因素：旺季提前、红海危机持续、美国 7 月关税变化前货量前置、FIFA 世界杯筹备货物。HSBC 预计旺季动能将延续数月。
+                </div>
+                <div class="card-content en">
+As of June 8, <strong>SCFI hit 2,726.48 points</strong>, the fifth consecutive weekly rise to a near two-year high. Drewry WCI surged 23% to $3,433/FEU. Trans-Pacific: Shanghai→LA <strong>$4,565/FEU (+31% WoW)</strong>. Asia-Europe: Shanghai→Rotterdam $3,579/FEU (+25% WoW). Drivers: early peak season, ongoing Red Sea crisis, front-loading ahead of July US tariff changes, and FIFA World Cup preparation cargo. HSBC expects peak season momentum to persist for months.
+                </div>
+            </div>
+
+            <!-- Item S4 -->
+            <div class="news-card shipping">
+                <div class="card-header">
+                    <span class="card-num">#4</span>
+                    <span class="card-tag shipping-tag">Optimization</span>
+                </div>
+                <div class="card-title">🤖 AI 航线优化实现 10-15% 油耗节约</div>
+                <div class="card-content cn">
+燃油成本占商船运营成本 <strong>50-60%</strong>，AI 航线优化持续实现 <strong>10-15% 的燃油节约</strong>。Mitsui OSK Lines 部署 IBM Maximo AI 平台后，计划外维护停机时间减少 25%。深度学习模型基于数十年气象和海洋数据持续重新计算最优航线。Lloyd's Register 使用数字孪生模拟紧急场景和船体设计压力测试。IMO 认可 AI 助力近年海事 CO₂ 排放减少 8%。
+                </div>
+                <div class="card-content en">
+Fuel costs account for <strong>50-60%</strong> of commercial vessel operating costs, and AI route optimization consistently delivers <strong>10-15% fuel savings</strong>. Mitsui OSK Lines reduced unplanned maintenance downtime by 25% after deploying IBM Maximo AI. Deep learning models continuously recalculate optimal routes based on decades of meteorological and ocean data. Lloyd's Register uses digital twins for emergency simulation and hull design stress-testing. IMO recognizes AI's contribution to an 8% reduction in maritime CO₂ emissions.
+                </div>
+            </div>
+
+            <!-- Item S5 -->
+            <div class="news-card shipping">
+                <div class="card-header">
+                    <span class="card-num">#5</span>
+                    <span class="card-tag shipping-tag">Autonomous</span>
+                </div>
+                <div class="card-title">🚢 自主船舶商业化加速：中日韩领先试验</div>
+                <div class="card-content cn">
+自主船舶正从概念走向商业试验。挪威 <strong>Yara Birkeland</strong> 已开始自主航行商业运营。中国"新红专号"展示国内自主导航能力。新加坡-日本 NYK Line 启动真实港口条件下的联合自主船试验。韩国出台监管指南允许 300 总吨以下船舶部分自主运营。<strong>IMO MASS Code 2026</strong> 年推出非强制性框架，2032 年过渡为强制性标准。自主船舶市场预计 2030 年达 107.4 亿美元。
+                </div>
+                <div class="card-content en">
+Autonomous vessels are moving from concept to commercial trials. Norway's <strong>Yara Birkeland</strong> has begun autonomous commercial operations. China's "Xin Hong Zhuan" demonstrated domestic autonomous navigation. Singapore-Japan NYK Line launched joint autonomous vessel trials under real port conditions. South Korea issued guidelines for partial autonomous operation for vessels under 300 GT. <strong>IMO MASS Code 2026</strong> introduces a non-mandatory framework, transitioning to mandatory by 2032. The autonomous vessel market is projected to reach $10.74 billion by 2030.
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <p>🤖 Auto-generated by WorkBuddy AI Assistant on 2026-06-10</p>
+        <p style="margin-top:8px;">
+            <a href="https://github.com/rickyqinqi/ai-news-daily" target="_blank" style="color:var(--accent);">GitHub Repo</a> ·
+            <a href="https://rickyqinqi.github.io/ai-news-daily" target="_blank" style="color:var(--accent);">GitHub Pages</a>
+        </p>
+        <p style="margin-top:12px; font-size:11px; opacity:0.6;">
+            Data sources: Kersai, AI Release Tracker, Splash247, China.org.cn, AIBuzz, aitechtrend, Xinhua CEIS | 数据来源综合公开报道
+        </p>
+    </div>
+
+    <script>
+        function setTheme(isDark) {
+            if (isDark) {
+                document.documentElement.classList.add('dark');
+                document.getElementById('themeIcon').textContent = '☀️';
+                document.getElementById('themeLabel').textContent = 'Light Mode / 浅色模式';
+            } else {
+                document.documentElement.classList.remove('dark');
+                document.getElementById('themeIcon').textContent = '🌙';
+                document.getElementById('themeLabel').textContent = 'Dark Mode / 深色模式';
+            }
+        }
+
+        function toggleTheme() {
+            const isDark = document.documentElement.classList.contains('dark');
+            setTheme(!isDark);
+            localStorage.setItem('theme', !isDark ? 'dark' : 'light');
+        }
+
+        // Detect system preference on first visit
+        (function() {
+            const saved = localStorage.getItem('theme');
+            if (saved === 'dark') {
+                setTheme(true);
+            } else if (saved === 'light') {
+                setTheme(false);
+            } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                setTheme(true);
+            }
+        })();
+    </script>
+</body>
+</html>
