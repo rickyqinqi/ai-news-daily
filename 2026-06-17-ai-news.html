@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI 周报 2026-06-17 | AI Weekly Report</title>
+<style>
+:root {
+  --bg: #ffffff;
+  --bg-secondary: #f8f9fa;
+  --bg-card: #ffffff;
+  --text: #1a1a2e;
+  --text-secondary: #555;
+  --text-muted: #888;
+  --border: #e0e0e0;
+  --accent: #2563eb;
+  --accent-light: #dbeafe;
+  --tag-bg: #f0f0f0;
+  --tag-text: #555;
+  --highlight: #fef3c7;
+  --danger: #dc2626;
+  --success: #059669;
+  --navy: #1e3a5f;
+}
+
+[data-theme="dark"] {
+  --bg: #0f172a;
+  --bg-secondary: #1e293b;
+  --bg-card: #1e293b;
+  --text: #e2e8f0;
+  --text-secondary: #94a3b8;
+  --text-muted: #64748b;
+  --border: #334155;
+  --accent: #3b82f6;
+  --accent-light: #1e3a5f;
+  --tag-bg: #334155;
+  --tag-text: #94a3b8;
+  --highlight: #422006;
+  --danger: #ef4444;
+  --success: #10b981;
+  --navy: #94a3b8;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  background: var(--bg-secondary);
+  color: var(--text);
+  line-height: 1.7;
+  transition: background 0.3s, color 0.3s;
+}
+
+.container { max-width: 900px; margin: 0 auto; padding: 20px; }
+
+.header {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 32px 28px;
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+.header h1 {
+  font-size: 28px;
+  font-weight: 700;
+  background: linear-gradient(135deg, #2563eb, #7c3aed);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 8px;
+}
+
+.header .subtitle { color: var(--text-secondary); font-size: 15px; }
+.header .date { color: var(--text-muted); font-size: 13px; margin-top: 6px; }
+
+.theme-toggle {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 100;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  transition: all 0.3s;
+}
+
+.theme-toggle:hover { border-color: var(--accent); }
+
+.nav-links {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  margin-top: 16px;
+  flex-wrap: wrap;
+}
+
+.nav-links a {
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 13px;
+  text-decoration: none;
+  color: var(--accent);
+  background: var(--accent-light);
+  transition: all 0.2s;
+}
+
+.nav-links a:hover { background: var(--accent); color: #fff; }
+
+.section-title {
+  font-size: 22px;
+  font-weight: 700;
+  margin: 32px 0 16px;
+  padding-bottom: 8px;
+  border-bottom: 3px solid var(--accent);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.section-title .icon { font-size: 24px; }
+
+.news-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 24px;
+  margin-bottom: 16px;
+  transition: border-color 0.2s, transform 0.1s;
+}
+
+.news-card:hover {
+  border-color: var(--accent);
+  transform: translateY(-1px);
+}
+
+.news-card .number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  background: var(--accent);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+  margin-right: 10px;
+  flex-shrink: 0;
+}
+
+.news-card h3 {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 4px;
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.news-card .en-title {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-bottom: 12px;
+  font-style: italic;
+}
+
+.news-card .content { font-size: 14px; color: var(--text-secondary); line-height: 1.8; }
+
+.news-card .content p { margin-bottom: 8px; }
+
+.news-card .source {
+  margin-top: 12px;
+  font-size: 12px;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.news-card .source::before { content: "\1F4CD"; font-size: 12px; }
+
+blockquote {
+  border-left: 4px solid var(--accent);
+  padding: 12px 16px;
+  margin: 12px 0;
+  background: var(--accent-light);
+  border-radius: 0 8px 8px 0;
+  font-size: 14px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 12px 0;
+  font-size: 13px;
+}
+
+th, td {
+  padding: 10px 12px;
+  text-align: left;
+  border: 1px solid var(--border);
+}
+
+th {
+  background: var(--bg-secondary);
+  font-weight: 600;
+  color: var(--navy);
+}
+
+.focus-card {
+  background: var(--highlight);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 24px;
+  margin-bottom: 16px;
+}
+
+.focus-card h3 { font-size: 16px; font-weight: 600; margin-bottom: 8px; }
+.focus-card p { font-size: 14px; color: var(--text-secondary); }
+
+.data-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.metric-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 16px;
+  text-align: center;
+}
+
+.metric-card .label { font-size: 12px; color: var(--text-muted); margin-bottom: 4px; }
+.metric-card .value { font-size: 20px; font-weight: 700; color: var(--accent); }
+.metric-card .change { font-size: 12px; color: var(--success); margin-top: 2px; }
+
+.footer {
+  text-align: center;
+  padding: 24px;
+  color: var(--text-muted);
+  font-size: 13px;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 10px;
+}
+
+.tag {
+  padding: 3px 10px;
+  border-radius: 12px;
+  background: var(--tag-bg);
+  color: var(--tag-text);
+  font-size: 11px;
+}
+
+@media (max-width: 600px) {
+  .container { padding: 12px; }
+  .header { padding: 20px 16px; }
+  .header h1 { font-size: 22px; }
+  .news-card { padding: 16px; }
+  .data-grid { grid-template-columns: repeat(2, 1fr); }
+}
+</style>
+</head>
+<body>
+<button class="theme-toggle" onclick="toggleTheme()" title="Toggle theme" aria-label="Toggle dark/light theme">🌓</button>
+
+<div class="container">
+
+<div class="header">
+  <h1>AI 周报 / AI Weekly Report</h1>
+  <div class="subtitle">2026年6月17日 · 第25周 · June 17, 2026 · Week 25</div>
+  <div class="date">数据采集截止：2026-06-17 09:00 CST</div>
+  <div class="nav-links">
+    <a href="#ai-news">AI 综合动态</a>
+    <a href="#shipping-news">航运 AI 动态</a>
+    <a href="#focus">本周焦点</a>
+    <a href="#data">数据速览</a>
+  </div>
+</div>
+
+<!-- ===== AI General News ===== -->
+<h2 class="section-title" id="ai-news"><span class="icon">🤖</span> 一、AI 综合动态 (10 条) <span style="font-size:14px;color:var(--text-muted);font-weight:400">/ AI General News</span></h2>
+
+<div class="news-card">
+  <h3><span class="number">1</span> G7 峰会：三大 AI CEO 首次同台接受世界领导人质询</h3>
+  <div class="en-title">G7 Summit: Altman, Amodei, and Hassabis Face World Leaders Together for the First Time</div>
+  <div class="content">
+    <p>Sam Altman (OpenAI)、Dario Amodei (Anthropic)、Demis Hassabis (Google DeepMind) 于 6 月 15-17 日齐聚法国依云 G7 峰会，这是三大 AI 公司 CEO 首次同时在 G7 世界领导人面前亮相。</p>
+    <p>法国总统 Macron 亲自邀请 Altman 出席。峰会议程聚焦<strong>前沿 AI 风险、青少年安全、网络与生物威胁</strong>三大议题。值得注意的是，Amodei 出席峰会的同时，Anthropic 正因 Claude Fable 5 模型能力过强而与美国商务部就出口管制争议对峙——CEO 在 G7 讨论 AI 治理，旗舰模型却被联邦指令冻结。</p>
+  </div>
+  <div class="tags"><span class="tag">G7</span><span class="tag">AI Governance</span><span class="tag">OpenAI</span><span class="tag">Anthropic</span><span class="tag">DeepMind</span></div>
+  <div class="source">Bloomberg, AI Weekly</div>
+</div>
+
+<div class="news-card">
+  <h3><span class="number">2</span> ChatGPT 月活突破 10 亿，但 AI 市场并非赢家通吃</h3>
+  <div class="en-title">ChatGPT Hits 1 Billion MAU — The AI Market Is Not Winner-Takes-All</div>
+  <div class="content">
+    <p>ChatGPT 成为史上最快达到 10 亿月活用户的消费应用。但更值得关注的是竞争格局：<strong>Claude 同比增长 640%，Meta AI 增长 973%</strong>。AI 助手市场远未走向单一赢家垄断，而是三极并进。</p>
+    <table>
+      <tr><th>AI 助手</th><th>月活用户</th><th>同比增长</th></tr>
+      <tr><td>ChatGPT</td><td>10 亿 MAU</td><td>史上最快达 10 亿</td></tr>
+      <tr><td>Meta AI</td><td>~6 亿+</td><td>+973% YoY</td></tr>
+      <tr><td>Claude</td><td>未披露</td><td>+640% YoY</td></tr>
+    </table>
+    <p>这一里程碑出现在 OpenAI 即将于 2026 年 9 月以 <strong>8,520 亿美元估值</strong>进行 IPO 的关键节点。</p>
+  </div>
+  <div class="tags"><span class="tag">ChatGPT</span><span class="tag">MAU</span><span class="tag">Claude</span><span class="tag">Meta AI</span></div>
+  <div class="source">AI Weekly, AIToolsRecap</div>
+</div>
+
+<div class="news-card">
+  <h3><span class="number">3</span> Agentjacking：新型攻击劫持 Claude Code、Cursor 和 Codex</h3>
+  <div class="en-title">Agentjacking: New Attack Hijacks AI Coding Agents via Fake Sentry Errors</div>
+  <div class="content">
+    <p>一种名为 <strong>"Agentjacking"</strong> 的新型攻击正在主动利用 Claude Code、Cursor 和 Codex 等 AI 编程代理。攻击者通过注入伪造的 Sentry 错误消息，诱使 AI 代理执行攻击者控制的命令。</p>
+    <p>测试显示 <strong>85%</strong> 的 AI 代理会盲从伪造错误消息中的注入指令，<strong>2,388 个组织</strong>已被识别为暴露。这是继本月针对微软 GitHub 仓库（73 个仓库受影响）的自复制蠕虫攻击后，AI 编程工具安全漏洞的又一重大案例。</p>
+    <blockquote>核心教训：AI 代理获得越多自主权和系统访问权限，攻击面就越大。所有外部数据源（错误日志、issue tracker、PR 评论）都必须视为不可信输入。</blockquote>
+  </div>
+  <div class="tags"><span class="tag">Security</span><span class="tag">Agentjacking</span><span class="tag">Claude Code</span><span class="tag">Codex</span><span class="tag">Cursor</span></div>
+  <div class="source">AI Weekly, AIToolsRecap</div>
+</div>
+
+<div class="news-card">
+  <h3><span class="number">4</span> 贝索斯 Prometheus AI 完成 120 亿美元融资，估值 410 亿</h3>
+  <div class="en-title">Bezos' Prometheus AI Closes $12B Round at $41B Valuation</div>
+  <div class="content">
+    <p>Jeff Bezos 旗下 AI 初创公司 Prometheus 完成 120 亿美元融资，估值达 410 亿美元。该公司专注<strong>"物理任务模型"（Physical Task Models）</strong>，目前尚未发布任何产品。这一融资规模在 AI 领域仅次于少数头部公司，反映出市场对具身智能和物理世界 AI 的高度期待。</p>
+  </div>
+  <div class="tags"><span class="tag">Funding</span><span class="tag">Bezos</span><span class="tag">Prometheus</span><span class="tag">Physical AI</span></div>
+  <div class="source">CNBC, The Decoder</div>
+</div>
+
+<div class="news-card">
+  <h3><span class="number">5</span> Apple WWDC 重磅：Siri 与 Google Gemini 深度整合</h3>
+  <div class="en-title">Apple WWDC Bombshell: Siri Powered by Google Gemini Models</div>
+  <div class="content">
+    <p>苹果在 WWDC 2026 上宣布新版 Siri 和 Apple Intelligence 架构底层将采用 <strong>Google Gemini 模型家族</strong>技术。Siri 将实现跨应用上下文理解、个人数据安全调用和复杂多步骤操作。</p>
+    <p>这一合作意味着数十亿 iPhone 用户将直接通过 Siri 使用 Gemini 驱动的 AI，搜索范式可能发生根本性转变——从"蓝色链接"到"AI 生成的直接答案"。</p>
+  </div>
+  <div class="tags"><span class="tag">Apple</span><span class="tag">WWDC</span><span class="tag">Siri</span><span class="tag">Gemini</span><span class="tag">Google</span></div>
+  <div class="source">Metaverse Planet, Apple WWDC 2026</div>
+</div>
+
+<div class="news-card">
+  <h3><span class="number">6</span> Google DeepMind 启动 1000 万美元多 Agent 安全研究基金</h3>
+  <div class="en-title">Google DeepMind Launches $10M Multi-Agent Safety Research Fund</div>
+  <div class="content">
+    <p>Google DeepMind 联合多家机构宣布启动最高 <strong>1000 万美元</strong>的多 Agent 安全研究基金，面向全球学者征集提案。该基金旨在解决大规模 AI Agent 交互时产生的<strong>不可预测的集体行为</strong>与安全风险——当多个 AI 代理同时在互联网、代码库和金融系统中自主运行时，它们的"涌现行为"可能超出任何单一代理的安全边界。</p>
+  </div>
+  <div class="tags"><span class="tag">DeepMind</span><span class="tag">Multi-Agent</span><span class="tag">Safety</span><span class="tag">Research</span></div>
+  <div class="source">Google DeepMind Blog</div>
+</div>
+
+<div class="news-card">
+  <h3><span class="number">7</span> OpenAI 收购 Ona + 与 Oracle 达成战略合作</h3>
+  <div class="en-title">OpenAI Acquires Ona, Partners with Oracle for Cloud Deployment</div>
+  <div class="content">
+    <p>OpenAI 宣布两项重大扩展：</p>
+    <p>1) 收购安全云执行技术公司 <strong>Ona</strong>，强化 Codex 在企业生产环境中安全部署 Agent 的能力；</p>
+    <p>2) 与 <strong>Oracle</strong> 合作，通过 Oracle Cloud Infrastructure (OCI) 提供 OpenAI 前沿模型和 Codex，企业可直接使用现有 Oracle 云承诺额度支付。</p>
+    <p>这一组合使 OpenAI 同时拥有了独立云执行层和全球第二大企业云的分发渠道。</p>
+  </div>
+  <div class="tags"><span class="tag">OpenAI</span><span class="tag">Oracle</span><span class="tag">Ona</span><span class="tag">Codex</span><span class="tag">Cloud</span></div>
+  <div class="source">OpenAI Blog, Oracle</div>
+</div>
+
+<div class="news-card">
+  <h3><span class="number">8</span> Anthropic 联手 DXC 将 Claude 带入银行、航空等关键行业</h3>
+  <div class="en-title">Anthropic + DXC Alliance Brings Claude into Banking, Aviation, and Critical Systems</div>
+  <div class="content">
+    <p>Anthropic 与全球 IT 服务巨头 DXC 达成多年全球联盟。DXC 将培训<strong>数万名认证工程师</strong>，把 Claude 集成到银行、航空等受监管行业的关键系统中。此举标志着 Claude 从"消费者 AI 助手"向<strong>"企业关键基础设施"</strong>的战略跃迁，也是 Anthropic 为其 9,650 亿美元 IPO（预计 2026 年 10 月）铺路的重要一步。</p>
+  </div>
+  <div class="tags"><span class="tag">Anthropic</span><span class="tag">DXC</span><span class="tag">Claude</span><span class="tag">Enterprise</span><span class="tag">Banking</span></div>
+  <div class="source">Anthropic News</div>
+</div>
+
+<div class="news-card">
+  <h3><span class="number">9</span> Gemini 3.5 Live Translate：70+ 语言实时翻译，零延迟</h3>
+  <div class="en-title">Gemini 3.5 Live Translate: Real-Time 70+ Language Translation with Near-Zero Latency</div>
+  <div class="content">
+    <p>Google 发布 Gemini 3.5 Live Translate，支持超过 70 种语言，自动检测口语语种，<strong>无需等待发言者说完即可实时翻译</strong>，延迟接近零。这被形容为"最接近通用翻译器的技术"。</p>
+    <p>对于跨国航运、国际贸易和多语言团队协作场景，这意味着即时沟通成为可能——语言障碍正在实质性消解。</p>
+  </div>
+  <div class="tags"><span class="tag">Gemini</span><span class="tag">Translation</span><span class="tag">Google</span><span class="tag">Multilingual</span></div>
+  <div class="source">Google Blog, Metaverse Planet</div>
+</div>
+
+<div class="news-card">
+  <h3><span class="number">10</span> 开源模型激战：MiniMax M3 即将开源 / GLM 5.2 内测 / OpenAI 酝酿降价</h3>
+  <div class="en-title">Open-Source AI Arms Race: MiniMax M3 Weights, GLM 5.2 Testing, OpenAI Price Cuts</div>
+  <div class="content">
+    <p><strong>MiniMax</strong> 宣布开源 MSA kernel 库并预计公开 MiniMax-M3 模型权重，延续国产开源模型的快速迭代态势。</p>
+    <p><strong>智谱 GLM 5.2</strong> 已开启小范围内测，继续追赶国际前沿。</p>
+    <p><strong>OpenAI</strong> 据 WSJ 报道正考虑大幅削减模型 token 价格以应对 Anthropic 竞争，预期将引发新一轮 AI 模型价格战。</p>
+  </div>
+  <div class="tags"><span class="tag">Open Source</span><span class="tag">MiniMax</span><span class="tag">GLM</span><span class="tag">OpenAI</span><span class="tag">Price War</span></div>
+  <div class="source">MiniMax GitHub, WSJ, Linux.do</div>
+</div>
+
+<!-- ===== Shipping AI News ===== -->
+<h2 class="section-title" id="shipping-news"><span class="icon">🚢</span> 二、航运 AI 动态 (5 条) <span style="font-size:14px;color:var(--text-muted);font-weight:400">/ Shipping AI News</span></h2>
+
+<div class="news-card">
+  <h3><span class="number">1</span> 韩国船级社 + 微软：AI 代理进入船舶检验分类体系</h3>
+  <div class="en-title">Korean Register + Microsoft: AI Agents Enter Ship Classification Workflows</div>
+  <div class="content">
+    <p>韩国船级社 (KR) 与微软韩国签署合作协议，将 AI 代理全面嵌入船舶分类检验工作流程，并建设以 AI 为中心的船舶数据中心。应用覆盖：<strong>规范检索、图纸审批、规则核查、证书管理、检验报告草拟</strong>。常规文档工作由 AI 处理，异常情况标记给人工验船师终审。</p>
+    <p>KR 主席 Lee Young-seok 表示此举将"加速向数字分类的转型"。值得持续追踪：DNV、ABS、Lloyd's Register、ClassNK 是否会跟进类似 AI 代理部署。</p>
+  </div>
+  <div class="tags"><span class="tag">Korean Register</span><span class="tag">Microsoft</span><span class="tag">Ship Classification</span><span class="tag">AI Agent</span></div>
+  <div class="source">AI at Sea</div>
+</div>
+
+<div class="news-card">
+  <h3><span class="number">2</span> Ocean Smart 获种子轮融资：AI 原生航运运营平台挑战传统系统</h3>
+  <div class="en-title">Ocean Smart Raises Seed Round: AI-Native Shipping Operations Platform</div>
+  <div class="content">
+    <p>韩国初创公司 Ocean Smart 获得种子轮融资，其 AI 原生航运运营平台已从一家亚洲航运公司获得实际营收。平台整合主线和支线船舶数据，实时动态优化航线、运力分配和成本预测。当港口拥堵等突发变量出现时，系统自动调整并重新计算。</p>
+    <p>团队背景扎实：CEO Changhyun Yoo 出身 <strong>Hanjin Shipping</strong>，联合创始人 Gregory White 来自 <strong>Maersk</strong> 和海运平台 INTTRA。团队将平台定位为航运业的<strong>"GDS（全球分销系统）"</strong>。</p>
+  </div>
+  <div class="tags"><span class="tag">Ocean Smart</span><span class="tag">Seed Round</span><span class="tag">Route Optimization</span><span class="tag">Startup</span></div>
+  <div class="source">AI at Sea</div>
+</div>
+
+<div class="news-card">
+  <h3><span class="number">3</span> FIT-HORIZONS：19 家欧洲机构联合打造 AI 船舶改造设计平台</h3>
+  <div class="en-title">FIT-HORIZONS: 19 European Institutions Build AI-Powered Ship Retrofit Design Platform</div>
+  <div class="content">
+    <p>由 19 家欧洲海事公司、研究机构和大学组成的联合体启动 FIT-HORIZONS 项目，构建 AI 支持的船舶改造设计平台。核心痛点：多数船东需要的是对<strong>现有船队进行低碳/零碳改造</strong>，而非订购新造船。</p>
+    <p>AI 平台解决的是多变量组合优化问题——节能装置、风力辅助、替代燃料适配、推进系统改造、船体改造等措施之间可能存在相互干扰，AI 擅长在切割钢材之前对不同改造组合进行建模和排序。CII 压力、FuelEU Maritime、EU ETS 等法规正推动这一需求加速。</p>
+  </div>
+  <div class="tags"><span class="tag">FIT-HORIZONS</span><span class="tag">Retrofit</span><span class="tag">Decarbonization</span><span class="tag">EU</span></div>
+  <div class="source">AI at Sea</div>
+</div>
+
+<div class="news-card">
+  <h3><span class="number">4</span> Further Ventures：雅典海事 AI 治理智库亮相 Posidonia 2026</h3>
+  <div class="en-title">Further Ventures: Athens Maritime AI Governance Think Tank Debuts at Posidonia 2026</div>
+  <div class="content">
+    <p>在 Posidonia 2026 展会上，海事 AI 领导力智库 Further Ventures 正式亮相。核心追问：
+      <strong>"当 AI 推荐了错误航线、错误维修延期或错误通关决定——责任在供应商、运营商还是点击'接受'的人？"</strong></p>
+    <p>智库警告行业可能在 AI 炒作中"因追逐风口而损失大量资金"，建议部署前书面明确：谁对 AI 辅助决策负责？决策如何审计？人工签字环节在哪里？</p>
+  </div>
+  <div class="tags"><span class="tag">Posidonia 2026</span><span class="tag">AI Governance</span><span class="tag">Accountability</span><span class="tag">Maritime</span></div>
+  <div class="source">AI at Sea, Posidonia 2026</div>
+</div>
+
+<div class="news-card">
+  <h3><span class="number">5</span> SCFI 运价指数高位运行 2,726 点：早期旺季叠加红海危机</h3>
+  <div class="en-title">SCFI Holds at 2,726: Early Peak Season Drives Container Rates Surge</div>
+  <div class="content">
+    <p>上海出口集装箱运价指数 (SCFI) 报 <strong>2,726.48 点</strong>，创约两年新高，连续五周上涨。同期 Drewry 世界集装箱指数 (WCI) 上涨 23%。</p>
+    <p>三大驱动力：<strong>早期旺季</strong>（货主提前备货）→ <strong>红海绕航</strong>（有效运力减少）→ <strong>承运人定价权</strong>（船公司掌握强劲议价能力）。</p>
+    <p>在运价高波动环境下，AI 航线优化可实现 10-15% 油耗节约，对船公司盈利的直接贡献日益显著。</p>
+  </div>
+  <div class="tags"><span class="tag">SCFI</span><span class="tag">Container Rates</span><span class="tag">Red Sea</span><span class="tag">Peak Season</span></div>
+  <div class="source">IndexBox, Splash247, TradingEconomics</div>
+</div>
+
+<!-- ===== Focus ===== -->
+<h2 class="section-title" id="focus"><span class="icon">🔥</span> 三、本周焦点 <span style="font-size:14px;color:var(--text-muted);font-weight:400">/ Focus of the Week</span></h2>
+
+<div class="focus-card">
+  <h3>🤖 AI 安全与治理进入 G7 最高议程</h3>
+  <p>本周 AI 领域的核心主题是<strong>安全与治理的全面升级</strong>：三大 AI CEO 首次同台接受 G7 领导人质询；Agentjacking 揭示 AI 代理安全漏洞的系统性风险；Google DeepMind 斥资千万美元研究多 Agent 安全问题。AI 治理正从行业自律走向政府主导的全球框架。</p>
+</div>
+
+<div class="focus-card">
+  <h3>🚢 航运 AI 从"试点"走向"嵌入"</h3>
+  <p>航运 AI 本周呈现出从独立试点项目向行业基础设施嵌入的关键转变——韩国船级社将 AI 代理纳入分类检验体系、Ocean Smart 将 AI 原生思维重构传统运营系统、FIT-HORIZONS 将脱碳改造转化为 AI 组合优化问题。航运业的 AI 化正在从"可选项"变为"必答题"。</p>
+</div>
+
+<!-- ===== Data ===== -->
+<h2 class="section-title" id="data"><span class="icon">📊</span> 四、数据速览 <span style="font-size:14px;color:var(--text-muted);font-weight:400">/ Data at a Glance</span></h2>
+
+<div class="data-grid">
+  <div class="metric-card">
+    <div class="label">ChatGPT MAU</div>
+    <div class="value">10 亿</div>
+    <div class="change">史上最快</div>
+  </div>
+  <div class="metric-card">
+    <div class="label">SCFI 综合指数</div>
+    <div class="value">2,726.48</div>
+    <div class="change">五周连涨</div>
+  </div>
+  <div class="metric-card">
+    <div class="label">Agentjacking 利用率</div>
+    <div class="value" style="color:var(--danger)">85%</div>
+    <div class="change">2,388 组织暴露</div>
+  </div>
+  <div class="metric-card">
+    <div class="label">Claude YoY 增长</div>
+    <div class="value">+640%</div>
+    <div class="change">—</div>
+  </div>
+  <div class="metric-card">
+    <div class="label">Meta AI YoY 增长</div>
+    <div class="value">+973%</div>
+    <div class="change">—</div>
+  </div>
+  <div class="metric-card">
+    <div class="label">Prometheus AI 估值</div>
+    <div class="value">$410亿</div>
+    <div class="change">融资 $120亿</div>
+  </div>
+  <div class="metric-card">
+    <div class="label">航运 AI 市场 (2024)</div>
+    <div class="value">$41.3亿</div>
+    <div class="change">CAGR 23%</div>
+  </div>
+  <div class="metric-card">
+    <div class="label">AI 节油效果</div>
+    <div class="value" style="color:var(--success)">10-15%</div>
+    <div class="change">航线优化</div>
+  </div>
+</div>
+
+<div class="footer">
+  <p>下期推送：2026年6月24日 · Next Issue: June 24, 2026</p>
+  <p style="margin-top:4px">Generated by WorkBuddy AI · <a href="https://rickyqinqi.github.io/ai-news-daily" style="color:var(--accent)">GitHub Pages</a></p>
+</div>
+
+</div>
+
+<script>
+function toggleTheme() {
+  const html = document.documentElement;
+  const current = html.getAttribute('data-theme');
+  const next = current === 'dark' ? 'light' : 'dark';
+  html.setAttribute('data-theme', next);
+  localStorage.setItem('theme', next);
+}
+(function() {
+  const saved = localStorage.getItem('theme');
+  if (saved) {
+    document.documentElement.setAttribute('data-theme', saved);
+  } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    document.documentElement.setAttribute('data-theme', 'dark');
+  }
+})();
+</script>
+
+</body>
+</html>
