@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI 日报 | AI Daily News — 2026-07-01</title>
+    <style>
+        :root {
+            --bg: #ffffff;
+            --bg-secondary: #f8f9fa;
+            --bg-card: #f0f2f5;
+            --text: #1a1a2e;
+            --text-secondary: #555;
+            --text-muted: #888;
+            --border: #e0e0e0;
+            --accent: #1a73e8;
+            --accent-hover: #1557b0;
+            --gradient-start: #1a73e8;
+            --gradient-end: #0d47a1;
+            --tag-bg: #e8f0fe;
+            --tag-text: #1a73e8;
+            --shadow: 0 2px 8px rgba(0,0,0,0.08);
+            --header-text: #fff;
+        }
+        [data-theme="dark"] {
+            --bg: #1a1a2e;
+            --bg-secondary: #16213e;
+            --bg-card: #0f3460;
+            --text: #e0e0e0;
+            --text-secondary: #b0b0b0;
+            --text-muted: #888;
+            --border: #2a2a4a;
+            --accent: #4da6ff;
+            --accent-hover: #80bfff;
+            --gradient-start: #0d47a1;
+            --gradient-end: #1a1a2e;
+            --tag-bg: #1a3a5c;
+            --tag-text: #4da6ff;
+            --shadow: 0 2px 12px rgba(0,0,0,0.3);
+            --header-text: #fff;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans SC", "Helvetica Neue", Arial, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+            transition: background 0.3s, color 0.3s;
+        }
+        .theme-toggle {
+            position: fixed;
+            top: 16px;
+            right: 16px;
+            z-index: 1000;
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            border: 2px solid var(--border);
+            background: var(--bg);
+            cursor: pointer;
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--shadow);
+            transition: all 0.3s;
+        }
+        .theme-toggle:hover {
+            transform: scale(1.1);
+            border-color: var(--accent);
+        }
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        .header {
+            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+            color: var(--header-text);
+            padding: 48px 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.05) 0%, transparent 70%);
+            animation: pulse 8s ease-in-out infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        .header h1 {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            position: relative;
+        }
+        .header .subtitle {
+            font-size: 15px;
+            opacity: 0.85;
+            margin-bottom: 16px;
+            position: relative;
+        }
+        .header .date-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            padding: 6px 20px;
+            border-radius: 20px;
+            font-size: 14px;
+            position: relative;
+            backdrop-filter: blur(4px);
+        }
+        .quick-links {
+            background: var(--bg-secondary);
+            padding: 20px 40px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .quick-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 10px 20px;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            text-decoration: none;
+            color: var(--text);
+            font-size: 14px;
+            transition: all 0.2s;
+        }
+        .quick-link:hover {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: #fff;
+            transform: translateY(-1px);
+            box-shadow: var(--shadow);
+        }
+        .quick-link.primary {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: #fff;
+        }
+        .section {
+            padding: 40px 0;
+        }
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 24px;
+            padding-bottom: 12px;
+            border-bottom: 3px solid var(--accent);
+        }
+        .section-header .icon {
+            font-size: 28px;
+        }
+        .section-header h2 {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--text);
+        }
+        .news-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 20px;
+            transition: all 0.2s;
+            box-shadow: var(--shadow);
+        }
+        .news-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+        }
+        .news-card .num {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 28px;
+            height: 28px;
+            border-radius: 8px;
+            background: var(--accent);
+            color: #fff;
+            font-weight: 700;
+            font-size: 14px;
+            margin-right: 10px;
+            flex-shrink: 0;
+        }
+        .news-card h3 {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+        }
+        .news-card .summary {
+            color: var(--text-secondary);
+            font-size: 15px;
+            margin-bottom: 10px;
+            line-height: 1.8;
+        }
+        .news-card .meta {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            align-items: center;
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+        .news-card .meta .tag {
+            background: var(--tag-bg);
+            color: var(--tag-text);
+            padding: 2px 10px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 500;
+        }
+        .news-card .highlight {
+            background: linear-gradient(135deg, #fff3cd, #ffeeba);
+            padding: 12px 16px;
+            border-radius: 8px;
+            margin-top: 12px;
+            font-size: 14px;
+            color: #856404;
+            border: 1px solid #ffc107;
+        }
+        [data-theme="dark"] .news-card .highlight {
+            background: linear-gradient(135deg, #3d3200, #4a3e00);
+            color: #ffd54f;
+            border-color: #8d6e00;
+        }
+        .bilingual-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        @media (max-width: 768px) {
+            .bilingual-layout { grid-template-columns: 1fr; }
+            .header { padding: 32px 20px; }
+            .header h1 { font-size: 26px; }
+            .quick-links { padding: 16px 20px; flex-direction: column; }
+            .quick-link { justify-content: center; }
+            .section { padding: 24px 0; }
+        }
+        .keywords-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+        .keywords-table th {
+            background: var(--accent);
+            color: #fff;
+            padding: 14px 20px;
+            text-align: left;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        .keywords-table td {
+            padding: 12px 20px;
+            border-bottom: 1px solid var(--border);
+            font-size: 14px;
+            color: var(--text);
+        }
+        .keywords-table tr:last-child td { border-bottom: none; }
+        .keywords-table tr:nth-child(even) td { background: var(--bg-secondary); }
+        .footer {
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border);
+            padding: 24px;
+            text-align: center;
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+        .footer a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+        .footer a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <button class="theme-toggle" onclick="toggleTheme()" aria-label="切换主题" id="themeBtn">🌙</button>
+
+    <div class="header">
+        <h1>📰 AI 日报 | AI Daily News</h1>
+        <p class="subtitle">AI + Shipping AI Weekly Highlights | 每周 AI + 航运 AI 动态精选</p>
+        <span class="date-badge">📅 2026-07-01</span>
+    </div>
+
+    <div class="quick-links">
+        <a href="https://rickyqinqi.github.io/ai-news-daily/2026-07-01-ai-news.html" class="quick-link primary">🌐 网页版 Web</a>
+        <a href="https://github.com/rickyqinqi/ai-news-daily/blob/main/2026-07-01-ai-news.md" class="quick-link">📝 Markdown</a>
+        <a href="https://rickyqinqi.github.io/ai-news-daily/2026-07-01-ai-news.pdf" class="quick-link">📄 PDF</a>
+    </div>
+
+    <div class="container">
+
+        <!-- AI 综合动态 -->
+        <div class="section">
+            <div class="section-header">
+                <span class="icon">🤖</span>
+                <h2>AI 综合动态 / AI General News</h2>
+            </div>
+
+            <div class="news-card">
+                <h3><span class="num">1</span> OpenAI 发布 GPT-5.6 Sol/Terra/Luna 三款新模型</h3>
+                <p class="summary">6 月 26 日，OpenAI 正式推出 GPT-5.6 系列模型：旗舰级 <strong>Sol</strong>、中端 <strong>Terra</strong> 和轻量级 <strong>Luna</strong>。Sol 和 Terra 在多项目基准测试中创下新高，Luna 则在保持低成本的同时接近 GPT-5.5 水平。受美国政府监管限制，目前仅对有限预览合作伙伴开放。这标志着模型分层策略的成熟——受监管约束下仍能保持竞争力。</p>
+                <div class="meta">
+                    <span class="tag">模型发布</span>
+                    <span>VentureBeat</span>
+                    <span>2026-06-26</span>
+                </div>
+            </div>
+
+            <div class="news-card">
+                <h3><span class="num">2</span> OpenAI 首款自研 AI 芯片 Jalapeño 发布</h3>
+                <p class="summary">6 月 25 日，OpenAI 与博通（Broadcom）联合发布首款自研 AI 推理芯片 <strong>Jalapeño</strong>（哈拉贝诺辣椒）。该芯片从设计到流片仅用 <strong>9 个月</strong>，专攻推理场景，预计 2026 年底部署，推理成本直降 50%。这标志着 OpenAI 从纯模型公司向全栈 AI 基础设施提供商转型的关键一步，旨在降低对英伟达 GPU 的依赖。</p>
+                <div class="meta">
+                    <span class="tag">芯片</span>
+                    <span>ESMChina / 新浪科技</span>
+                    <span>2026-06-25</span>
+                </div>
+            </div>
+
+            <div class="news-card">
+                <h3><span class="num">3</span> OpenAI IPO 推迟至 2027 年</h3>
+                <p class="summary">据纽约时报报道，OpenAI 内部倾向于将 IPO 推迟至 2027 年。投行顾问警告当前科技板块股价波动剧烈，且来自中国 AI 公司的竞争加剧（智谱 GLM-5.2 网络安全能力已媲美 Mythos）。OpenAI 目前估值接近 1 万亿美元，而 Anthropic 仍计划今年上市。受此消息影响，AI 板块股票出现下跌。</p>
+                <div class="meta">
+                    <span class="tag">投融资</span>
+                    <span>NYT / 腾讯新闻</span>
+                    <span>2026-06-26</span>
+                </div>
+            </div>
+
+            <div class="news-card">
+                <h3><span class="num">4</span> OpenAI 预告 Codex 硬件设备</h3>
+                <p class="summary">OpenAI 预告将于 7 月 15 日发布与 Codex AI 编程工具相关的硬件设备。视频展示了一个方形设备，带有多个按钮，暗示为编程工具快捷键加速器，暗示 AI 编程工具从软件层面向物理交互层面延伸。</p>
+                <div class="meta">
+                    <span class="tag">硬件</span>
+                    <span>The Verge</span>
+                    <span>2026-06-29</span>
+                </div>
+            </div>
+
+            <div class="news-card">
+                <h3><span class="num">5</span> Anthropic Mythos 5 恢复服务</h3>
+                <p class="summary">经过与特朗普政府长达两周的谈判，Anthropic 的 <strong>Mythos 5</strong> 终于恢复服务——目前仅对选定组织开放，面向公众的 Fable 5 仍然受限。这凸显了前沿 AI 模型在国家安全框架下的"双重市场"格局——面向政府和企业的专有版本 vs 面向公众的受限版本。</p>
+                <div class="meta">
+                    <span class="tag">前沿模型</span>
+                    <span>The Verge</span>
+                    <span>2026-06-26</span>
+                </div>
+            </div>
+
+            <div class="news-card">
+                <h3><span class="num">6</span> 谷歌 48 小时连失两大核心科学家</h3>
+                <p class="summary">6 月 18-20 日，Google DeepMind 在短短 48 小时内连续流失两位核心人物：<strong>Transformer/MoE 架构奠基人 Noam Shazeer 加入 OpenAI</strong>，<strong>AlphaFold 之父、诺奖得主 John Jumper 转投 Anthropic</strong>。谷歌 AI 人才持续被 OpenAI 和 Anthropic 挖角，三足鼎立格局中的"人才战"愈演愈烈，OpenAI 与 Anthropic 在研究力对决中加速拉开与谷歌的差距。</p>
+                <div class="meta">
+                    <span class="tag">人才流动</span>
+                    <span>36氪 / 量子位</span>
+                    <span>2026-06-20</span>
+                </div>
+            </div>
+
+            <div class="news-card">
+                <h3><span class="num">7</span> DeepSeek 开源 DSpark 框架：LLM 推理速度提升 85%</h3>
+                <p class="summary">DeepSeek 与北京大学联合开源 <strong>DSpark</strong> 投机解码框架及 MIT 许可的 <strong>DeepSpec</strong> 工具包。在 DeepSeek 生产环境中，V4-Flash 每用户生成速度提升 60-85%，V4-Pro 提升 57-78%，且无需重新训练即可部署。底层 DeepSeek-V4（百万 token 上下文 MoE 家族）仅使用约 27% 推理 FLOPs 和 10% KV 缓存（相比 V3.2），开源社区推理效率取得重大突破。</p>
+                <div class="meta">
+                    <span class="tag">开源</span>
+                    <span>VentureBeat</span>
+                    <span>2026-06-29</span>
+                </div>
+            </div>
+
+            <div class="news-card">
+                <h3><span class="num">8</span> Claude Code 使工程师效率提升 3 倍</h3>
+                <p class="summary">Anthropic 报告称 Claude Code 将其工程团队产能提升约 3 倍。公司开始招募更多产品经理而非工程师——瓶颈已从编码转向决策。同时，Claude Code 回忆工具 <strong>Recall</strong> 开源，提供持久化记忆，无需每次会话重新解释项目背景，完全离线且 Token 高效。AI 编程助手正在从根本上改变软件工程团队的结构。</p>
+                <div class="meta">
+                    <span class="tag">开发工具</span>
+                    <span>VentureBeat</span>
+                    <span>2026-06-27</span>
+                </div>
+            </div>
+
+            <div class="news-card">
+                <h3><span class="num">9</span> 全球 AI 监管进入新阶段：科罗拉多州 AI 法案生效 + EU AI Act 8 月执法</h3>
+                <p class="summary">6 月 30 日，美国科罗拉多州《AI 消费者保护法》正式生效，成为美国首个综合性州级 AI 法律，要求高风险 AI 系统履行透明度和风险管理义务。与此同时，美国国会推进 269 页的《伟大美国 AI 法案》，拟在三年内取代所有州级 AI 法律。<strong>EU AI Act 高风险条款将于 8 月 2 日全面生效</strong>，罚款高达 3500 万欧元或全球营收 7%。全球 AI 监管正从抽象原则转向可执行规则。</p>
+                <div class="meta">
+                    <span class="tag">政策监管</span>
+                    <span>AI Flash Report / Andrew.ooo</span>
+                    <span>2026-06-30</span>
+                </div>
+            </div>
+
+            <div class="news-card">
+                <h3><span class="num">10</span> 6 月 AI 研究亮点回顾</h3>
+                <p class="summary">
+                    • <strong>AI 推翻 80 年数学猜想</strong>：OpenAI 通用推理模型生成推翻 Erdős 单位距离猜想的核心思路，经菲尔兹奖得主 Tim Gowers 验证<br>
+                    • <strong>GLM-5.2 成为最强开源编码模型</strong>：智谱 Z.ai 发布 GLM-5.2（MIT 许可，744B MoE，1M 上下文），SWE-bench Pro 得分 62.1，网络安全能力媲美 Mythos<br>
+                    • <strong>MRAgent 记忆框架</strong>：Token 消耗仅 LangMem 的 1/27（118K vs 3.26M），运行时间减半<br>
+                    • <strong>TurboQuant</strong>（Google/DeepMind）：KV 缓存压缩约 6 倍，无质量损失<br>
+                    • <strong>神经符号 AI 能耗降低约 100 倍</strong>：Tufts 大学方案，任务成功率 95% vs 34%<br>
+                    • <strong>Tidal 将不再对 AI 生成音乐支付版税</strong>：7 月 15 日起实施"标注+去货币化"策略<br>
+                    • <strong>Shopify 构建模型无关的 AI 堆栈</strong>：确保无论哪些模型最终胜出，系统都能正常运行
+                </p>
+                <div class="meta">
+                    <span class="tag">研究突破</span>
+                    <span>BuildThisNow / VentureBeat / The Verge</span>
+                    <span>2026-06</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 航运 AI 动态 -->
+        <div class="section">
+            <div class="section-header">
+                <span class="icon">🚢</span>
+                <h2>航运 AI 动态 / Shipping AI News</h2>
+            </div>
+
+            <div class="news-card">
+                <h3><span class="num">1</span> 霍尔木兹海峡危机：全面封锁与和平协议（6.11-6.19）</h3>
+                <p class="summary">
+                    <strong>6 月 11 日</strong>，伊朗武装部队正式宣布霍尔木兹海峡对所有船只关闭，包括油轮和商船，并对美国船只发起打击。WTI 原油涨 3.79% 至 93.44 美元/桶。战争险费率飙升至船价的 15-20%。<br>
+                    <strong>6 月 15 日</strong>，伊美达成和平协议——"伊斯兰堡备忘录"，<strong>6 月 19 日在瑞士签署</strong>，美国海上封锁结束。<br>
+                    但海峡恢复正常通行预计仍需 4-6 个月（扫雷作业），战争险费率需连续 2-3 个月稳定后才会回落。
+                </p>
+                <div class="highlight">
+                    📌 <strong>影响</strong>：SCFI 连续 9 周上涨，集装箱运价创新高；绕行好望角成常态化，单航次 +10-14 天；波斯湾货物建议保持印度西海岸中转备用方案。
+                </div>
+                <div class="meta" style="margin-top:10px;">
+                    <span class="tag">地缘政治</span>
+                    <span>伊朗塔斯尼姆通讯社 / 新华社 / Lloyd's List</span>
+                    <span>2026-06-15</span>
+                </div>
+            </div>
+
+            <div class="news-card">
+                <h3><span class="num">2</span> SCFI 连涨九周创新高：3239.64 点</h3>
+                <p class="summary">截至 6 月 26 日，上海出口集装箱综合运价指数（SCFI）报 <strong>3239.64 点</strong>，环比上涨 3.8%，连续第 9 周上涨，从 4 月低点 1875 点累计涨幅接近 73%。主力航线：<strong>美西 5683 美元/FEU</strong>（本轮最强赛道）、<strong>欧洲 3158 美元/TEU</strong>、<strong>地中海运价突破 8000 美元/FEU</strong>。受旺季提前 + 红海绕行 + 霍尔木兹危机三重推动，CCFI 同步上涨 7.0% 至 1710.47 点。</p>
+                <div class="meta">
+                    <span class="tag">运价指数</span>
+                    <span>上海航运交易所 / 雪球 / 东方财富</span>
+                    <span>2026-06-30</span>
+                </div>
+            </div>
+
+            <div class="news-card">
+                <h3><span class="num">3</span> 江南造船发布核动力集装箱船概念</h3>
+                <p class="summary">6 月 2 日，江南造船在希腊 Posidonia 海事展发布全新<strong>熔盐堆（MSR）集装箱运输综合体概念方案</strong>。该方案以第四代先进核能技术为核心，构建全链路零排放远洋集装箱物流新生态。欧盟已正式将核电纳入绿色能源范畴，为核动力商船的商业化提供了政策基础。这标志着中国造船业在零碳远洋运输领域迈出颠覆性一步。</p>
+                <div class="meta">
+                    <span class="tag">绿色航运</span>
+                    <span>搜狐 / 今日头条</span>
+                    <span>2026-06-03</span>
+                </div>
+            </div>
+
+            <div class="news-card">
+                <h3><span class="num">4</span> 全球集装箱船订单簿创 39% 历史新高</h3>
+                <p class="summary">根据 Linerlytica 和 Alphaliner 数据，截至 2026 年 6 月，全球集装箱船手持订单与现有船队比率达到 <strong>39%</strong>，创 2010 年以来最高，共 1630 艘在建。<strong>MSC 以 733 万 TEU（21.5% 市场份额）稳居第一</strong>，CMA CGM 拥有最大订单簿（159 艘）。LNG、甲醇就绪和双燃料船舶成为新船主流，反映行业长期信心和脱碳转型加速。</p>
+                <div class="meta">
+                    <span class="tag">船队数据</span>
+                    <span>IndexBox / Container News / Linerlytica</span>
+                    <span>2026-06-29</span>
+                </div>
+            </div>
+
+            <div class="news-card">
+                <h3><span class="num">5</span> Seatrade Maritime：航运 AI 部署路径成为行业焦点</h3>
+                <p class="summary">6 月 29 日，Seatrade Maritime 发布专题《在航运中部署 AI 的路径》，探讨海事 AI 从试点到规模化的关键路径。同期关注热点包括：<strong>El Niño 将影响全球航运</strong>（Sofar Ocean 情报平台警告秋季厄尔尼诺增强将重塑航线）、<strong>霍尔木兹海峡混乱致运费飙升</strong>、<strong>数字桥楼系统为航海人员带来新挑战</strong>、<strong>Posidonia 2026 创纪录参展</strong>。此外，AI 专业知识转移平台正试图解决航运人才危机，而新加坡持续探索集装箱码头间自主支线船运营。</p>
+                <div class="meta">
+                    <span class="tag">海事技术</span>
+                    <span>Seatrade Maritime</span>
+                    <span>2026-06-29 / 07-01</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 关键词 -->
+        <div class="section">
+            <div class="section-header">
+                <span class="icon">🔑</span>
+                <h2>本周关键词 / Keywords This Week</h2>
+            </div>
+            <table class="keywords-table">
+                <thead>
+                    <tr><th>中文</th><th>English</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>GPT-5.6 系列模型</td><td>GPT-5.6 Model Family</td></tr>
+                    <tr><td>AI 推理芯片</td><td>AI Inference Chip</td></tr>
+                    <tr><td>IPO 推迟</td><td>IPO Delay</td></tr>
+                    <tr><td>AI 人才争夺战</td><td>AI Talent War</td></tr>
+                    <tr><td>推理加速框架</td><td>Inference Acceleration Framework</td></tr>
+                    <tr><td>AI 编程效率革命</td><td>AI Coding Productivity Revolution</td></tr>
+                    <tr><td>AI 监管执法</td><td>AI Regulation Enforcement</td></tr>
+                    <tr><td>霍尔木兹海峡危机</td><td>Strait of Hormuz Crisis</td></tr>
+                    <tr><td>运价指数连涨</td><td>Freight Rate Index Rally</td></tr>
+                    <tr><td>核动力集装箱船</td><td>Nuclear-Powered Containership</td></tr>
+                    <tr><td>订单簿历史新高</td><td>Record Orderbook-to-Fleet Ratio</td></tr>
+                    <tr><td>自主船舶</td><td>Autonomous Vessels</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>🤖 本报告由 WorkBuddy AI 自动生成，数据截至 2026-07-01</p>
+        <p style="margin-top:8px;">This report is auto-generated by WorkBuddy AI. Data as of 2026-07-01.</p>
+        <p style="margin-top:8px;">
+            <a href="https://github.com/rickyqinqi/ai-news-daily" target="_blank">GitHub Repo</a> ·
+            <a href="https://rickyqinqi.github.io/ai-news-daily/2026-07-01-ai-news.html" target="_blank">Web Version</a> ·
+            <a href="https://rickyqinqi.github.io/ai-news-daily/2026-07-01-ai-news.pdf" target="_blank">PDF</a>
+        </p>
+    </div>
+
+    <script>
+        function toggleTheme() {
+            const html = document.documentElement;
+            const btn = document.getElementById('themeBtn');
+            const current = html.getAttribute('data-theme');
+            if (current === 'dark') {
+                html.removeAttribute('data-theme');
+                btn.textContent = '🌙';
+                localStorage.setItem('theme', 'light');
+            } else {
+                html.setAttribute('data-theme', 'dark');
+                btn.textContent = '☀️';
+                localStorage.setItem('theme', 'dark');
+            }
+        }
+        // Load saved theme
+        if (localStorage.getItem('theme') === 'dark') {
+            document.documentElement.setAttribute('data-theme', 'dark');
+            document.getElementById('themeBtn').textContent = '☀️';
+        }
+    </script>
+</body>
+</html>
