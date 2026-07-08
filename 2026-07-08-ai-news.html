@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI 日报 | AI Daily News — 2026-07-08</title>
+    <style>
+        :root {
+            --bg: #ffffff;
+            --bg-secondary: #f8f9fa;
+            --bg-card: #f0f2f5;
+            --text: #1a1a2e;
+            --text-secondary: #555;
+            --text-muted: #888;
+            --border: #e0e0e0;
+            --accent: #1a73e8;
+            --accent-hover: #1557b0;
+            --gradient-start: #1a73e8;
+            --gradient-end: #0d47a1;
+            --tag-bg: #e8f0fe;
+            --tag-text: #1a73e8;
+            --shadow: 0 2px 8px rgba(0,0,0,0.08);
+            --header-text: #fff;
+        }
+        [data-theme="dark"] {
+            --bg: #1a1a2e;
+            --bg-secondary: #16213e;
+            --bg-card: #0f3460;
+            --text: #e0e0e0;
+            --text-secondary: #b0b0b0;
+            --text-muted: #888;
+            --border: #2a2a4a;
+            --accent: #4da6ff;
+            --accent-hover: #80bfff;
+            --gradient-start: #0d47a1;
+            --gradient-end: #1a1a2e;
+            --tag-bg: #1a3a5c;
+            --tag-text: #4da6ff;
+            --shadow: 0 2px 12px rgba(0,0,0,0.3);
+            --header-text: #fff;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans SC", "Helvetica Neue", Arial, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+            transition: background 0.3s, color 0.3s;
+        }
+        .theme-toggle {
+            position: fixed;
+            top: 16px;
+            right: 16px;
+            z-index: 1000;
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            border: 2px solid var(--border);
+            background: var(--bg);
+            cursor: pointer;
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--shadow);
+            transition: all 0.3s;
+        }
+        .theme-toggle:hover {
+            transform: scale(1.1);
+            border-color: var(--accent);
+        }
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        .header {
+            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+            color: var(--header-text);
+            padding: 48px 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.05) 0%, transparent 70%);
+            animation: pulse 8s ease-in-out infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        .header h1 {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            position: relative;
+        }
+        .header .subtitle {
+            font-size: 15px;
+            opacity: 0.85;
+            margin-bottom: 16px;
+            position: relative;
+        }
+        .header .date-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            padding: 6px 20px;
+            border-radius: 20px;
+            font-size: 14px;
+            position: relative;
+            backdrop-filter: blur(4px);
+        }
+        .quick-links {
+            background: var(--bg-secondary);
+            padding: 20px 40px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .quick-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 10px 20px;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            text-decoration: none;
+            color: var(--text);
+            font-size: 14px;
+            transition: all 0.2s;
+        }
+        .quick-link:hover {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: #fff;
+            transform: translateY(-1px);
+            box-shadow: var(--shadow);
+        }
+        .quick-link.primary {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: #fff;
+        }
+        .section { padding: 40px 0; }
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 24px;
+            padding-bottom: 12px;
+            border-bottom: 3px solid var(--accent);
+        }
+        .section-header .icon { font-size: 28px; }
+        .section-header h2 {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--text);
+        }
+        .news-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 20px;
+            transition: all 0.2s;
+            box-shadow: var(--shadow);
+        }
+        .news-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+        }
+        .news-card .num {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 28px;
+            height: 28px;
+            border-radius: 8px;
+            background: var(--accent);
+            color: #fff;
+            font-weight: 700;
+            font-size: 14px;
+            margin-right: 10px;
+            flex-shrink: 0;
+        }
+        .news-card h3 {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+        }
+        .news-card .summary {
+            color: var(--text-secondary);
+            font-size: 15px;
+            margin-bottom: 10px;
+            line-height: 1.8;
+        }
+        .news-card .meta {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            align-items: center;
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+        .news-card .meta .tag {
+            background: var(--tag-bg);
+            color: var(--tag-text);
+            padding: 2px 10px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 500;
+        }
+        .news-card .highlight {
+            background: linear-gradient(135deg, #fff3cd, #ffeeba);
+            padding: 12px 16px;
+            border-radius: 8px;
+            margin-top: 12px;
+            font-size: 14px;
+            color: #856404;
+            border: 1px solid #ffc107;
+        }
+        [data-theme="dark"] .news-card .highlight {
+            background: linear-gradient(135deg, #3d3200, #4a3e00);
+            color: #ffd54f;
+            border-color: #8d6e00;
+        }
+        .bilingual-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        @media (max-width: 768px) {
+            .bilingual-layout { grid-template-columns: 1fr; }
+            .header { padding: 32px 20px; }
+            .header h1 { font-size: 26px; }
+            .quick-links { padding: 16px 20px; flex-direction: column; }
+            .quick-link { justify-content: center; }
+            .section { padding: 24px 0; }
+        }
+        .keywords-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+        .keywords-table th {
+            background: var(--accent);
+            color: #fff;
+            padding: 14px 20px;
+            text-align: left;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        .keywords-table td {
+            padding: 12px 20px;
+            border-bottom: 1px solid var(--border);
+            font-size: 14px;
+            color: var(--text);
+        }
+        .keywords-table tr:last-child td { border-bottom: none; }
+        .keywords-table tr:nth-child(even) td { background: var(--bg-secondary); }
+        .footer {
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border);
+            padding: 24px;
+            text-align: center;
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+        .footer a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+        .footer a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <button class="theme-toggle" onclick="toggleTheme()" aria-label="切换主题" id="themeBtn">🌙</button>
+
+    <div class="header">
+        <h1>📰 AI 日报 | AI Daily News</h1>
+        <p class="subtitle">AI + Shipping AI Weekly Highlights | 每周 AI + 航运 AI 动态精选</p>
+        <span class="date-badge">📅 2026-07-08</span>
+    </div>
+
+    <div class="quick-links">
+        <a href="https://rickyqinqi.github.io/ai-news-daily/2026-07-08-ai-news.html" class="quick-link primary">🌐 网页版 Web</a>
+        <a href="https://github.com/rickyqinqi/ai-news-daily/blob/main/2026-07-08-ai-news.md" class="quick-link">📝 Markdown</a>
+        <a href="https://rickyqinqi.github.io/ai-news-daily/2026-07-08-ai-news.pdf" class="quick-link">📄 PDF</a>
+    </div>
+
+    <div class="container">
+
+        <!-- AI 综合动态 -->
+        <div class="section">
+            <div class="section-header">
+                <span class="icon">🤖</span>
+                <h2>AI 综合动态 / AI General News</h2>
+            </div>
+
+            <div class="news-card">
+                <h3><span class="num">1</span> Anthropic 发布 Claude Science：科研自动化工具</h3>
+                <p class="summary">7 月 1 日，Anthropic 正式发布 <strong>Claude Science</strong>，一款面向生物学、化学等科研领域的自动化研究工具。该产品整合超过 <strong>60 个科学数据库</strong>，支持以自然语言提问、自动执行多步骤流程并生成可追溯的跨数据源答案。同时，Anthropic 宣布启动内部临床前药物发现项目，聚焦“非传统”靶点。受此消息影响，Schrodinger、Recursion 等药物发现公司股价一度下跌。</p>
+                <div class="meta">
+                    <span class="tag">科研自动化</span>
+                    <span>智通财经 / 腾讯新闻</span>
+                    <span>2026-07-01</span>
+                </div>
+            </div>
+
+            <div class="news-card">
+                <h3><span class="num">2</span> Anthropic 发布 Claude Sonnet 5：性能逼近 Opus 4.8，价格仅 60%</h3>
+                <p class="summary">7 月 1 日，Anthropic 推出新一代主力模型 <strong>Claude Sonnet 5</strong>。在 agentic coding、多学科推理和计算机使用能力上显著接近 Opus 4.8，但标准价格仅为后者的 <strong>60%</strong>。发布初期（8 月 31 日前）每百万输入 token 2 美元、输出 10 美元。该模型支持 <strong>1M token 上下文</strong>，默认成为 Claude Free/Pro 用户的主力模型，并已在 AWS、Google Cloud、Azure 和 Cursor 等平台上线。</p>
+                <div class="meta">
+                    <span class="tag">模型发布</span>
+                    <span>腾讯新闻 / Cursor</span>
+                    <span>2026-07-01</span>
+                </div>
+            </div>
+
+            <div class="news-card">
+                <h3><span class="num">3</span> Anthropic 与三星洽谈自研 AI 芯片</h3>
+                <p class="summary">7 月 6 日，据外媒报道，Anthropic 正与三星电子洽谈，计划由三星代工其自研 AI 芯片。项目处于早期阶段，Anthropic 已从 OpenAI 挖来其自研芯片团队早期核心成员 <strong>Clive Chan</strong>。技术路线上，Anthropic 评估采用三星 <strong>2 纳米工艺</strong>及先进封装。此前三星曾参与 Anthropic 5 月 650 亿美元融资。若合作落地，将有助于 Anthropic 降低对第三方算力依赖。</p>
+                <div class="meta">
+                    <span class="tag">AI 芯片</span>
+                    <span>TechWeb / 腾讯新闻</span>
+                    <span>2026-07-06</span>
+                </div>
+            </div>
+
+            <div class="news-card">
+                <h3><span class="num">4</span> Anthropic 发现 Claude 神经网络的“全局工作空间”J-space</h3>
+                <p class="summary">7 月 7 日，Anthropic 发布研究《语言模型中的全局工作空间》，在 Claude 神经网络中发现一块名为 <strong>J-space</strong> 的特殊区域。J-space 在训练过程中自然涌现，Claude 能报告其内容、主动控制并用于多步推理，与神经科学的“全局工作空间理论”高度吻合。通过名为 J-lens 的工具，研究人员可以读取 Claude 的隐藏思维，并能在实验中通过编辑 J-space 改变其回答。该研究对 AI 安全监控具有重要启发。</p>
+                <div class="meta">
+                    <span class="tag">AI 安全</span>
+                    <span>Anthropic / 腾讯新闻</span>
+                    <span>2026-07-07</span>
+                </div>
+            </div>
+
+            <div class="news-card">
+                <h3><span class="num">5</span> Anthropic Claude 正式上线 Azure，搭载 NVIDIA GB300</h3>
+                <p class="summary">6 月 30 日，Anthropic 宣布其核心大模型系列 <strong>Claude 已在 Microsoft Azure 平台面向企业客户全面上线</strong>。此次部署采用 NVIDIA 最新 Blackwell Ultra <strong>GB300</strong> GPU 平台，标志着企业级 AI Agent 应用进入新阶段。Claude 此前已在 AWS Bedrock 和 Google Cloud 上线，此次 Azure 覆盖进一步完善了其多云企业渠道布局。</p>
+                <div class="meta">
+                    <span class="tag">企业云</span>
+                    <span>Sohu / Anthropic</span>
+                    <span>2026-06-30</span>
+                </div>
+            </div>
+
+            <div class="news-card">
+                <h3><span class="num">6</span> xAI Grok 4.5 进入 SpaceX 与特斯拉内部私测，马斯克承诺“月更”</h3>
+                <p class="summary">6 月 28 日，马斯克宣布 xAI 最新模型 <strong>Grok 4.5</strong> 已在 SpaceX 和特斯拉内部启动私测。该模型基于 <strong>1.5 万亿参数</strong>的 V9 基础模型，并补充训练了热门编程工具 Cursor 的数据。早期评测显示，Grok 4.5 性能已接近甚至可能超越 Anthropic 的 Claude Opus。同时，马斯克承诺 xAI 将在今年剩余时间内<strong>每月发布一个“完全从零开始训练”的新模型</strong>。</p>
+                <div class="meta">
+                    <span class="tag">xAI</span>
+                    <span>界面新闻 / 搜狐</span>
+                    <span>2026-06-28</span>
+                </div>
+            </div>
+
+            <div class="news-card">
+                <h3><span class="num">7</span> Meta 宣布关闭 Llama API 公共预览版</h3>
+                <p class="summary">7 月 6 日，Meta 宣布正式下线 <strong>Llama API 公共预览版</strong>。该服务自推出以来一直处于公共预览阶段，关闭后所有 API 请求将返回停用提示并附带迁移指引。Meta 强调 Llama 模型本身不受影响，用户仍可通过官方渠道下载模型进行本地部署或离线使用。Meta 建议开发者迁移至支持 Llama 的第三方提供商，并表示未来将为开发者提供新的 Meta AI 模型开发途径。</p>
+                <div class="meta">
+                    <span class="tag">开源生态</span>
+                    <span>IT之家 / 腾讯新闻</span>
+                    <span>2026-07-05</span>
+                </div>
+            </div>
+
+            <div class="news-card">
+                <h3><span class="num">8</span> Meta 以 Muse Spark 取代 Llama 4，全面升级智能眼镜 AI 核心</h3>
+                <p class="summary">7 月 2 日，Meta 宣布将以自研模型 <strong>Muse Spark</strong> 取代 Llama 4，作为 Ray-Ban 与 Oakley 智能眼镜的 AI 核心。Muse Spark 具备响应速度更快、多模态视觉理解更强、端侧任务执行能力更优等特点。同时，Meta 于 6 月 23 日发布自有品牌 <strong>Meta Glasses</strong>，起售价 <strong>299 美元</strong>，首次原生搭载 Muse Spark，支持 20 种语言即时翻译。TrendForce 预估 AR 眼镜出货量将于 2030 年达到 3211 万台。</p>
+                <div class="meta">
+                    <span class="tag">AI 硬件</span>
+                    <span>拓墣产业研究院 / 新浪财经</span>
+                    <span>2026-07-02</span>
+                </div>
+            </div>
+
+            <div class="news-card">
+                <h3><span class="num">9</span> OpenAI 首款硬件 Codex Micro 亮相：可编程宏键盘，7 月 15 日发售</h3>
+                <p class="summary">7 月 1 日，OpenAI 在 AI Engineer World Fair 上公布首款硬件产品 <strong>Codex Micro</strong>。这是与客制化外设品牌 Work Louder 联名的可编程宏键盘，配备 <strong>13 个机械按键</strong>、摇杆、触摸传感器和旋钮，支持 6 层独立映射，深度绑定 Codex 编程工具。产品将于 7 月 15 日正式发售，预计定价约 <strong>200 美元</strong>。Codex Micro 只是 OpenAI 硬件版图的“前菜”，更大项目包括与 Jony Ive 合作的消费级 AI 设备 Gumdrop。</p>
+                <div class="meta">
+                    <span class="tag">AI 硬件</span>
+                    <span>TechWeb / 新浪科技</span>
+                    <span>2026-07-01</span>
+                </div>
+            </div>
+
+            <div class="news-card">
+                <h3><span class="num">10</span> Google Gemini 3.5 Flash 原生集成 Computer Use 能力</h3>
+                <p class="summary">6 月 24 日，Google DeepMind 宣布 <strong>Computer Use 能力已原生集成到 Gemini 3.5 Flash</strong>。开发者可通过单一模型构建能在浏览器、移动设备和桌面环境中看、推理并执行操作的 Agent。此前 Computer Use 仅作为独立的 Gemini 2.5 模型提供。3.5 Flash 还引入企业安全保护机制：对敏感或不可逆操作要求用户明确确认，检测到间接提示注入时自动停止任务。Google 称这是迄今在 agentic computer use 任务上表现最佳的模型。</p>
+                <div class="meta">
+                    <span class="tag">AI Agent</span>
+                    <span>Google DeepMind / The Keyword</span>
+                    <span>2026-06-24</span>
+                </div>
+            </div>
+
+            <div class="news-card">
+                <h3><span class="num">11</span> 苹果推送 iOS 27 Beta 3：Siri AI 全面升级</h3>
+                <p class="summary">7 月 7 日，苹果向开发者推送 <strong>iOS 27 Beta 3</strong>。iOS 27 是苹果迄今 AI 色彩最浓的系统更新，核心升级是 <strong>Siri AI</strong>：基于下一代 Apple Intelligence 和 Apple Foundation Models 重建，支持更自然的对话、个人上下文理解、屏幕内容感知和更深层的系统级应用控制。首个 iOS 27 公测版将于本月内发布，正式版秋季推送。Siri AI 和最强端侧 AI 模型需要 iPhone 17 Pro 和 iPhone Air 等更新的 Apple Intelligence 兼容硬件。</p>
+                <div class="meta">
+                    <span class="tag">端侧 AI</span>
+                    <span>CNMO / 腾讯新闻</span>
+                    <span>2026-07-07</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 航运 AI 动态 -->
+        <div class="section">
+            <div class="section-header">
+                <span class="icon">🚢</span>
+                <h2>航运 AI 动态 / Shipping AI News</h2>
+            </div>
+
+            <div class="news-card">
+                <h3><span class="num">1</span> SCFI 突破 3300 点：跨太平洋运价持续强劲</h3>
+                <p class="summary">7 月 6 日，Linerlytica 发布 Week 27 市场脉搏报告。上海出口集装箱综合运价指数（SCFI）已突破 <strong>3300 点</strong>，尽管部分 7 月 1 日的涨价计划被回调，但跨太平洋航线运价仍保持强劲。随着霍尔木兹海峡危机缓和，被困船队已降至 <strong>21 艘</strong>，为 2 月以来最低。集装箱船可用运力持续紧张，推动租船费和二手船价格上涨。马士基与赫伯罗特宣布 Gemini 合作伙伴的 AE15/SE3 服务即刻恢复苏伊士航线。</p>
+                <div class="meta">
+                    <span class="tag">运价指数</span>
+                    <span>Linerlytica</span>
+                    <span>2026-07-06</span>
+                </div>
+            </div>
+
+            <div class="news-card">
+                <h3><span class="num">2</span> 全球海事 AI 市场展望：2032 年预计达 647 亿美元</h3>
+                <p class="summary">7 月 2 日，ResearchAndMarkets 发布《Maritime AI - Global Strategic Business Report》。报告显示，2025 年全球海事 AI 市场规模约为 <strong>59 亿美元</strong>，预计到 2032 年将增长至 <strong>647 亿美元</strong>，年复合增长率（CAGR）达 <strong>40.8%</strong>。驱动因素包括燃油效率压力、船舶交通密度增加、港口等待时间波动、排放监管收紧、半自主船舶扩张、港口数字化以及海事安全监控需求。其中硬件组件市场预计 2032 年达到 276 亿美元。</p>
+                <div class="meta">
+                    <span class="tag">市场报告</span>
+                    <span>ResearchAndMarkets / GlobeNewswire</span>
+                    <span>2026-07-02</span>
+                </div>
+            </div>
+
+            <div class="news-card">
+                <h3><span class="num">3</span> NAPA 与三星重工签署 MoU：AI 驱动船型设计与自主航行平台</h3>
+                <p class="summary">7 月 5 日，海事 AI 周报披露，NAPA 与三星重工（SHI）签署谅解备忘录，将真实运营数据与航次优化工具结合，用于节能船舶设计与运营。合作以三星重工的 <strong>SAVER Wing</strong> 刚性翼帆为起点，将 <strong>NAPA Voyage Optimization</strong> 嵌入三星 <strong>Samsung Autonomous Ship (SAS)</strong> 自主航行平台，并通过运营仿真构建设备数字孪生。NAPA 声称其客户参与了全球超过 <strong>90%</strong> 的新造船。该合作标志着 AI 正从船舶驾驶台向设计阶段和上游供应链渗透。</p>
+                <div class="meta">
+                    <span class="tag">自主船舶</span>
+                    <span>AI at Sea</span>
+                    <span>2026-07-05</span>
+                </div>
+            </div>
+
+            <div class="news-card">
+                <h3><span class="num">4</span> 招商港口推出 AI 智能物流套件：泊位、起重机与卡车预约优化</h3>
+                <p class="summary">7 月 5 日，海事 AI 周报报道，中国招商港口（CMP）推出 AI 支持的 <strong>智能物流套件</strong>。功能包括：泊位与起重机规划（随船舶早到/晚到动态重新计算最优序列）、堆场分配、卡车预约预订（拖车司机可预约闸口时段，司机在码头时间可从 <strong>90 分钟降至 30 分钟</strong>）。该套件是中国国家主导的智慧港口 2030 计划的一部分，目标覆盖约 <strong>60 个自动化码头</strong>。AI 泊位规划被视为准时到港（JIT arrival）的重要杠杆。</p>
+                <div class="meta">
+                    <span class="tag">智慧港口</span>
+                    <span>AI at Sea</span>
+                    <span>2026-07-05</span>
+                </div>
+            </div>
+
+            <div class="news-card">
+                <h3><span class="num">5</span> AI 数据中心与船厂争夺发动机：陆上 AI 爆发影响造船交付</h3>
+                <p class="summary">7 月 5 日，海事 AI 周报援引 Maritime Strategies International 报告指出，AI 数据中心对 <strong>1-4 MW</strong> 范围备用发电机组的旺盛需求，正与船厂争夺发动机供应。这导致部分船厂产出受影响、交付延迟、辅助柴油机和发电机组交货期延长、价格上涨。该报告认为，陆上 AI 爆发已成为新造船交付时间表和资本支出的二阶变量。船管人员和船东在新造船和改造规划中需纳入发动机/发电机组交货期风险。</p>
+                <div class="meta">
+                    <span class="tag">供应链</span>
+                    <span>AI at Sea / Maritime Strategies International</span>
+                    <span>2026-07-05</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 关键词 -->
+        <div class="section">
+            <div class="section-header">
+                <span class="icon">🔑</span>
+                <h2>本周关键词 / Keywords This Week</h2>
+            </div>
+            <table class="keywords-table">
+                <thead>
+                    <tr><th>中文</th><th>English</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>科研自动化</td><td>Scientific Automation</td></tr>
+                    <tr><td>Agentic 主力模型</td><td>Agentic Workhorse Model</td></tr>
+                    <tr><td>AI 自研芯片</td><td>Custom AI Chip</td></tr>
+                    <tr><td>全局工作空间</td><td>Global Workspace</td></tr>
+                    <tr><td>月更模型</td><td>Monthly Model Releases</td></tr>
+                    <tr><td>Llama API 关闭</td><td>Llama API Shutdown</td></tr>
+                    <tr><td>智能眼镜 AI 模型</td><td>Smart Glasses AI Model</td></tr>
+                    <tr><td>AI 硬件宏键盘</td><td>AI Hardware Macro Keyboard</td></tr>
+                    <tr><td>Computer Use</td><td>Computer Use</td></tr>
+                    <tr><td>Siri AI 升级</td><td>Siri AI Upgrade</td></tr>
+                    <tr><td>SCFI 突破 3300</td><td>SCFI Above 3300</td></tr>
+                    <tr><td>海事 AI 市场</td><td>Maritime AI Market</td></tr>
+                    <tr><td>设计阶段 AI 优化</td><td>AI-Driven Ship Design</td></tr>
+                    <tr><td>智慧港口套件</td><td>Smart Port Logistics Suite</td></tr>
+                    <tr><td>发动机供应链</td><td>Engine Supply Chain</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>🤖 本报告由 WorkBuddy AI 自动生成，数据截至 2026-07-08</p>
+        <p style="margin-top:8px;">This report is auto-generated by WorkBuddy AI. Data as of 2026-07-08.</p>
+        <p style="margin-top:8px;">
+            <a href="https://github.com/rickyqinqi/ai-news-daily" target="_blank">GitHub Repo</a> ·
+            <a href="https://rickyqinqi.github.io/ai-news-daily/2026-07-08-ai-news.html" target="_blank">Web Version</a> ·
+            <a href="https://rickyqinqi.github.io/ai-news-daily/2026-07-08-ai-news.pdf" target="_blank">PDF</a>
+        </p>
+    </div>
+
+    <script>
+        function toggleTheme() {
+            const html = document.documentElement;
+            const btn = document.getElementById('themeBtn');
+            const current = html.getAttribute('data-theme');
+            if (current === 'dark') {
+                html.removeAttribute('data-theme');
+                btn.textContent = '🌙';
+                localStorage.setItem('theme', 'light');
+            } else {
+                html.setAttribute('data-theme', 'dark');
+                btn.textContent = '☀️';
+                localStorage.setItem('theme', 'dark');
+            }
+        }
+        // Load saved theme
+        if (localStorage.getItem('theme') === 'dark') {
+            document.documentElement.setAttribute('data-theme', 'dark');
+            document.getElementById('themeBtn').textContent = '☀️';
+        }
+    </script>
+</body>
+</html>
